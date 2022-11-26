@@ -7,7 +7,6 @@ public class LinkedList<E> {
     private int nodes = 0;
 
 
-    //public LinkedList() {}
 
     public void add(E data) {
         //creating a node head if not present yet
