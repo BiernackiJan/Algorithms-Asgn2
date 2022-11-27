@@ -40,3 +40,11 @@
 .scroll-pane > .corner {
     -fx-background-color: black;
 }
+
+.text-area {
+    text-area-background: #02030A;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+}
