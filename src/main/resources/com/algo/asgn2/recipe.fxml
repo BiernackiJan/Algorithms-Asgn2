@@ -169,14 +169,16 @@
             <Pane fx:id="pnlIngredients" disable="true" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false" />
             <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField layoutX="84.0" layoutY="122.0" prefHeight="27.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField layoutX="84.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
                   <Label layoutX="234.0" layoutY="14.0" prefHeight="74.0" prefWidth="325.0" text="Add Baked Goods" textFill="WHITE" underline="true">
                      <font>
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="422.0" layoutY="122.0" prefHeight="27.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextArea layoutX="84.0" layoutY="187.0" prefHeight="100.0" prefWidth="256.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField layoutX="422.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextArea layoutX="84.0" layoutY="188.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                  <TextField layoutX="422.0" layoutY="203.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <Button fx:id="btnAddBaked" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-3.0" layoutY="329.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="796.0" stylesheets="@style.css" text="Add Baked Item" />
                </children></Pane>
             <Pane fx:id="pnlRecipes" disable="true" prefHeight="200.0" prefWidth="200.0" visible="false" />
             <Pane fx:id="pnlPackages" prefHeight="554.0" prefWidth="793.0" visible="false">

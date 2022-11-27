@@ -22,10 +22,10 @@ public class Controller implements Initializable{
     private Button btnOverview;
 
     @FXML
-    private Button btnOrders;
+    private Button btnIngredients;
 
     @FXML
-    private Button btnCustomers;
+    private Button btnBakedGoods;
 
     @FXML
     private Button btnMenus;
@@ -40,10 +40,10 @@ public class Controller implements Initializable{
     private Button btnSignout;
 
     @FXML
-    private Pane pnlCustomer;
+    private Pane pnlIngredients;
 
     @FXML
-    private Pane pnlOrders;
+    private Pane pnlBakedGoods;
 
     @FXML
     private Pane pnlOverview;
@@ -77,39 +77,40 @@ public class Controller implements Initializable{
     }
 
 
+    @FXML
     public void handleClicks(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == btnCustomers) {
-            pnlCustomer.setStyle("-fx-background-color : #02030A");
-            pnlCustomer.toFront();
+        if (actionEvent.getSource() == btnIngredients) {
+            pnlIngredients.setStyle("-fx-background-color : #02030A");
+            pnlIngredients.toFront();
             pnlOverview.setVisible(false);
-            pnlOrders.setVisible(false);
-            pnlMenus.setVisible(false);
-            pnlCustomer.setVisible(true);
+            pnlBakedGoods.setVisible(false);
+            //pnlMenus.setVisible(false);
+            //pnlIngredients.setVisible(true);
         }
         if (actionEvent.getSource() == btnMenus) {
             pnlMenus.setStyle("-fx-background-color : #02030A");
             pnlMenus.toFront();
-            pnlCustomer.setVisible(false);
+            //pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
-            pnlOrders.setVisible(false);
-            pnlMenus.setVisible(true);
+            pnlBakedGoods.setVisible(false);
+            //pnlMenus.setVisible(true);
         }
         if (actionEvent.getSource() == btnOverview) {
             pnlOverview.setStyle("-fx-background-color : #02030A");
             pnlOverview.toFront();
-            pnlOrders.setVisible(false);
-            pnlMenus.setVisible(false);
-            pnlCustomer.setVisible(false);
+            pnlBakedGoods.setVisible(false);
+            //pnlMenus.setVisible(false);
+            //pnlIngredients.setVisible(false);
             pnlOverview.setVisible(true);
         }
-        if(actionEvent.getSource()==btnOrders)
+        if(actionEvent.getSource()== btnBakedGoods)
         {
-            pnlOrders.setStyle("-fx-background-color : #02030A");
-            pnlOrders.toFront();
-            pnlMenus.setVisible(false);
-            pnlCustomer.setVisible(false);
+            pnlBakedGoods.setStyle("-fx-background-color : #02030A");
+            pnlBakedGoods.toFront();
+            //pnlMenus.setVisible(false);
+            //pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
-            pnlOrders.setVisible(true);
+            pnlBakedGoods.setVisible(true);
         }
     }
 }
