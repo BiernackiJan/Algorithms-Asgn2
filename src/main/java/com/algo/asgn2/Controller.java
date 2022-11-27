@@ -79,21 +79,37 @@ public class Controller implements Initializable{
 
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnCustomers) {
-            pnlCustomer.setStyle("-fx-background-color : #1620A1");
+            pnlCustomer.setStyle("-fx-background-color : #02030A");
             pnlCustomer.toFront();
+            pnlOverview.setVisible(false);
+            pnlOrders.setVisible(false);
+            pnlMenus.setVisible(false);
+            pnlCustomer.setVisible(true);
         }
         if (actionEvent.getSource() == btnMenus) {
-            pnlMenus.setStyle("-fx-background-color : #53639F");
+            pnlMenus.setStyle("-fx-background-color : #02030A");
             pnlMenus.toFront();
+            pnlCustomer.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlOrders.setVisible(false);
+            pnlMenus.setVisible(true);
         }
         if (actionEvent.getSource() == btnOverview) {
             pnlOverview.setStyle("-fx-background-color : #02030A");
             pnlOverview.toFront();
+            pnlOrders.setVisible(false);
+            pnlMenus.setVisible(false);
+            pnlCustomer.setVisible(false);
+            pnlOverview.setVisible(true);
         }
         if(actionEvent.getSource()==btnOrders)
         {
-            pnlOrders.setStyle("-fx-background-color : #464F67");
+            pnlOrders.setStyle("-fx-background-color : #02030A");
             pnlOrders.toFront();
+            pnlMenus.setVisible(false);
+            pnlCustomer.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlOrders.setVisible(true);
         }
     }
 }

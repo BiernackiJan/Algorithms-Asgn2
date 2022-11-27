@@ -18,16 +18,16 @@ public class RecipeApplication extends Application {
         stage.setScene(new Scene(root));
         stage.initStyle(StageStyle.UNDECORATED);
 
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-
-            stage.setX(event.getScreenX() - x);
-            stage.setY(event.getScreenY() - y);
-
-        });
+//        root.setOnMousePressed(event -> {
+//            x = event.getSceneX();
+//            y = event.getSceneY();
+//        });
+//        root.setOnMouseDragged(event -> {
+//
+//            stage.setX(event.getScreenX() - x);
+//            stage.setY(event.getScreenY() - y);
+//
+//        });
         stage.show();
     }
 
