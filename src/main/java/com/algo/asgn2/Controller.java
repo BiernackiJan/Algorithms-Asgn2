@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller{
+public class Controller implements Initializable{
 
     @FXML
     private VBox pnItems = null;
@@ -51,30 +51,30 @@ public class Controller{
     @FXML
     private Pane pnlMenus;
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//        Node[] nodes = new Node[10];
-//        for (int i = 0; i < nodes.length; i++) {
-//            try {
-//
-//                final int j = i;
-//                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
-//
-//                //give the items some effect
-//
-//                nodes[i].setOnMouseEntered(event -> {
-//                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
-//                });
-//                nodes[i].setOnMouseExited(event -> {
-//                    nodes[j].setStyle("-fx-background-color : #02030A");
-//                });
-//                pnItems.getChildren().add(nodes[i]);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Node[] nodes = new Node[10];
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+
+                final int j = i;
+                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
+
+                //give the items some effect
+
+                nodes[i].setOnMouseEntered(event -> {
+                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
+                });
+                nodes[i].setOnMouseExited(event -> {
+                    nodes[j].setStyle("-fx-background-color : #02030A");
+                });
+                pnItems.getChildren().add(nodes[i]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 
     public void handleClicks(ActionEvent actionEvent) {
