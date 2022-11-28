@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -28,7 +30,7 @@ public class Controller {
     @FXML
     private Button btnBakedGoods;
     @FXML
-    private Button btnMenus;
+    private Button btnRecipes;
     @FXML
     private Button btnPackages;
     @FXML
@@ -53,6 +55,23 @@ public class Controller {
     //Baked Goods
     @FXML
     private Pane pnlBakedGoods;
+    @FXML
+    private TextField goodsName;
+    @FXML
+    private TextField originCt;
+    @FXML
+    private TextArea goodsDesc;
+    @FXML
+    private TextField imageUrl;
+    @FXML
+    private Label youHaveAdded;
+    @FXML
+    private ImageView goodsImage;
+    @FXML
+    private ListView<String> listAddedGood;
+
+
+
 
 
 
@@ -67,6 +86,11 @@ public class Controller {
 
 
 
+
+    @FXML
+    public void addGood(ActionEvent actionEvent){
+        youHaveAdded.setVisible(true);
+    }
 
 
 //    @Override
@@ -95,6 +119,8 @@ public class Controller {
 //    }
 
 
+
+
     @FXML
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnIngredients) {
@@ -105,7 +131,7 @@ public class Controller {
             pnlRecipes.setVisible(false);
             pnlIngredients.setVisible(true);
         }
-        if (actionEvent.getSource() == btnMenus) {
+        if (actionEvent.getSource() == btnRecipes) {
             pnlRecipes.setStyle("-fx-background-color : #02030A");
             pnlRecipes.toFront();
             pnlIngredients.setVisible(false);
@@ -125,9 +151,10 @@ public class Controller {
         {
             pnlBakedGoods.setStyle("-fx-background-color : #02030A");
             pnlBakedGoods.toFront();
-            //pnlMenus.setVisible(false);
-            //pnlIngredients.setVisible(false);
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
+            youHaveAdded.setVisible(false);
             pnlBakedGoods.setVisible(true);
         }
     }
