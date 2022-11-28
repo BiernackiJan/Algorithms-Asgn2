@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algo.asgn2.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algo.asgn2.Controller">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -134,7 +134,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -168,17 +168,17 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="goodsName" layoutX="84.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField fx:id="goodsName" layoutX="84.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <Label layoutX="234.0" layoutY="14.0" prefHeight="74.0" prefWidth="325.0" text="Add Baked Goods" textFill="WHITE" underline="true">
                      <font>
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="originCt" layoutX="422.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField fx:id="originCt" layoutX="422.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <TextArea fx:id="goodsDesc" layoutX="84.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                  <TextField fx:id="imageUrl" layoutX="422.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField fx:id="imageUrl" layoutX="422.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-2.0" layoutY="308.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="795.0" stylesheets="@style.css" text="Add Baked Item" />
                   <ImageView fx:id="goodsImage" fitHeight="137.0" fitWidth="183.0" layoutX="124.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="youHaveAdded" alignment="CENTER" layoutX="323.0" layoutY="364.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff" visible="false">
@@ -196,10 +196,10 @@
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="goodsName1" layoutX="104.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <TextField fx:id="goodsName11" layoutX="466.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField fx:id="goodsName1" layoutX="104.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextField fx:id="goodsName11" layoutX="466.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <TextArea fx:id="goodsDesc1" layoutX="104.0" layoutY="188.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                  <TextField fx:id="goodsName111" layoutX="466.0" layoutY="188.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField fx:id="goodsName111" layoutX="466.0" layoutY="188.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="797.0" stylesheets="@style.css" text="Add Ingredients Item" />
                </children>
             </Pane>
@@ -210,13 +210,16 @@
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <ListView layoutX="45.0" layoutY="205.0" prefHeight="200.0" prefWidth="359.0" stylesheets="@style.css" />
+                  <ListView fx:id="ingredientsList" layoutX="45.0" layoutY="205.0" onMouseClicked="#chooseIngredient" prefHeight="200.0" prefWidth="359.0" stylesheets="@style.css" />
                   <Label layoutX="79.0" layoutY="96.0" prefHeight="74.0" prefWidth="150.0" text="Recipe for" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="27.0" />
                      </font>
                   </Label>
                   <ComboBox layoutX="229.0" layoutY="117.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #10167F;" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientsGrams" layoutX="484.0" layoutY="188.0" prefHeight="35.0" prefWidth="172.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addGood" prefHeight="35.0" prefWidth="116.0" stylesheets="@style.css" text="Add Ingredient" />
+                  <ListView fx:id="addedIngredients" layoutX="415.0" layoutY="288.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
                </children></Pane>
             <Pane fx:id="pnlPackages" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>

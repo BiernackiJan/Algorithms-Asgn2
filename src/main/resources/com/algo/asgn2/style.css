@@ -43,10 +43,15 @@
 
 .text-area {
     text-area-background: #02030A;
+    -fx-text-fill: white;
 }
 
 .text-area .content {
     -fx-background-color: text-area-background ;
+}
+
+.text-field {
+    -fx-text-fill: white;
 }
 
 .list-view {

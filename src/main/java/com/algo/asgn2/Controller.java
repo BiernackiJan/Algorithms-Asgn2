@@ -52,6 +52,7 @@ public class Controller {
     private Pane pnlIngredients;
 
 
+
     //Baked Goods
     @FXML
     private Pane pnlBakedGoods;
@@ -72,9 +73,6 @@ public class Controller {
 
 
 
-
-
-
     //Recipes
     @FXML
     private Pane pnlRecipes;
@@ -82,11 +80,7 @@ public class Controller {
 
 
 
-
-
-
-
-
+    //Baked Goods
     @FXML
     public void addGood(ActionEvent actionEvent){
         youHaveAdded.setVisible(true);
@@ -118,9 +112,11 @@ public class Controller {
 //
 //    }
 
+    @FXML
+    public void chooseIngredient(MouseEvent event){}
 
 
-
+    //Side Panel
     @FXML
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnIngredients) {
