@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -202,7 +203,21 @@
                   <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="797.0" stylesheets="@style.css" text="Add Ingredients Item" />
                </children>
             </Pane>
-            <Pane fx:id="pnlRecipes" disable="true" prefHeight="200.0" prefWidth="200.0" visible="false" />
+            <Pane fx:id="pnlRecipes" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label layoutX="258.0" layoutY="14.0" prefHeight="74.0" prefWidth="277.0" text="Create a Recipe" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="37.0" />
+                     </font>
+                  </Label>
+                  <ListView layoutX="45.0" layoutY="205.0" prefHeight="200.0" prefWidth="359.0" stylesheets="@style.css" />
+                  <Label layoutX="79.0" layoutY="96.0" prefHeight="74.0" prefWidth="150.0" text="Recipe for" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="27.0" />
+                     </font>
+                  </Label>
+                  <ComboBox layoutX="229.0" layoutY="117.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #10167F;" stylesheets="@style.css" />
+               </children></Pane>
             <Pane fx:id="pnlPackages" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>
                   <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />

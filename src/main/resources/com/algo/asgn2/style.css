@@ -50,5 +50,6 @@
 }
 
 .list-view {
+    -fx-background-color: #02030A;
     -fx-text-fill: #FFFFFF;
 }
