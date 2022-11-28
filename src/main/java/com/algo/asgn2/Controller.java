@@ -139,7 +139,7 @@ public class Controller {
     @FXML
     private Pane pnlRecipes;
     @FXML
-    private ChoiceBox<BakedGoods> chooseGood; //choose which baked good to make a recipe for
+    private ComboBox<BakedGoods> chooseGood; //choose which baked good to make a recipe for
     @FXML
     private ListView<Ingredient> ingredientsList;//to list all ingredients and allow to pick one to add
     @FXML
