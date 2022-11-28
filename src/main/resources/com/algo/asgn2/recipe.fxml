@@ -133,7 +133,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -178,7 +178,7 @@
                   <TextField fx:id="originCt" layoutX="422.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
                   <TextArea fx:id="goodsDesc" layoutX="84.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
                   <TextField fx:id="imageUrl" layoutX="422.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-7.0" layoutY="308.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="800.0" stylesheets="@style.css" text="Add Baked Item" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-2.0" layoutY="308.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="795.0" stylesheets="@style.css" text="Add Baked Item" />
                   <ImageView fx:id="goodsImage" fitHeight="137.0" fitWidth="183.0" layoutX="124.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="youHaveAdded" alignment="CENTER" layoutX="323.0" layoutY="364.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff" visible="false">
                      <font>
@@ -186,6 +186,20 @@
                      </font>
                   </Label>
                   <ListView fx:id="listAddedGood" layoutX="345.0" layoutY="424.0" prefHeight="74.0" prefWidth="359.0" style="-fx-background-color: #02030A;" />
+               </children>
+            </Pane>
+            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" layoutX="234.0" layoutY="26.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="goodsName1" layoutX="104.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextField fx:id="goodsName11" layoutX="466.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <TextArea fx:id="goodsDesc1" layoutX="104.0" layoutY="188.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                  <TextField fx:id="goodsName111" layoutX="466.0" layoutY="188.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="797.0" stylesheets="@style.css" text="Add Ingredients Item" />
                </children>
             </Pane>
             <Pane fx:id="pnlRecipes" disable="true" prefHeight="200.0" prefWidth="200.0" visible="false" />
@@ -284,15 +298,6 @@
                         <Image url="@images/icons8_Search_52px.png" />
                      </image>
                   </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER" layoutX="273.0" layoutY="30.0" prefHeight="50.0" prefWidth="248.0" text="Ingredient To Add" textFill="WHITE" underline="true">
-                     <font>
-                        <Font name="System Bold" size="26.0" />
-                     </font>
-                  </Label>
                </children>
             </Pane>
          </children>
