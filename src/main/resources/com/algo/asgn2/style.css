@@ -48,3 +48,7 @@
 .text-area .content {
     -fx-background-color: text-area-background ;
 }
+
+.list-view {
+    -fx-text-fill: #FFFFFF;
+}
