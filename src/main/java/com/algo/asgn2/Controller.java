@@ -25,6 +25,10 @@ public class Controller {
 //    @FXML
 //    private VBox pnItems = null;
 
+    public void initialize(){
+        chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
+    }
+
 
     //Side Panel
     @FXML
@@ -181,6 +185,11 @@ public class Controller {
     private Pane pnlEdit;
 
 
+
+
+
+
+
     //Left Side of plane to choose item to edit
     @FXML
     private ComboBox<String> chooseTypeToEdit;
@@ -196,34 +205,75 @@ public class Controller {
     private Button btnStartDelete;
 
 
+    @FXML
+    private void chooseItemToList(MouseEvent event){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0){
+            editChosenGood.setVisible(false);
+            editChosenRecipe.setVisible(false);
+            editChosenIngredient.setVisible(true);
+        }
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){
+            editChosenIngredient.setVisible(false);
+            editChosenRecipe.setVisible(false);
+            editChosenGood.setVisible(true);
+        }
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){
+            editChosenGood.setVisible(false);
+            editChosenIngredient.setVisible(false);
+            editChosenRecipe.setVisible(true);
+        }
+
+    }//Used to show the list of all Ingredients, Baked Goods or Recipes
 
 
 
 
 
-    //Right side of the pick item field tht displays fields to edit depending on the item chosen and button pressed
+
+    //Right side of the pick item field that displays fields to edit depending on the item chosen and button pressed
     @FXML
     private Group updateIngredientsField;//group of elements to show up when the edit button is pressed and the element from Ingredients is chosen
     @FXML
     private Group updateGoodsField;//group to display with input text fields to edit a BakedGood when it is chosen from the list view and edit button pressed
+    @FXML
+    private Group confirmDelete;//group to ask if you are sure that oyu want to delete this item
+    @FXML
+    private Group ingFromRecipe;//group that contains the listView of Ingredients in a chosen recipe to edit and has the Edit and Delete button for Ingredients for a recipe
+
+
+
+    //Idea for Edit/Deletion of recipe that I have came up with and created in the GUI:
+    //When recipe is chosen from the choice box to edit, the recipes will list in the listView, once a recipe is selected and then the Edit
+    //button is pressed, a list of all Ingredients imputed into the Recipe is displayed in the top right of the screen. You can then, select
+    //an Ingredient and choose to edit it or delete it. if you choose to edit it 4 text fields will pop up below the buttons and an Update
+    //button will be at the bottom to confirm the edit. If you choose to delete an ingredient a confirmation question will pop-up under the
+    //buttons with the item that you wish to delete displaying in a listView bellow and a confirm button will be present at the bottom.
+
+
     public void editItems(ActionEvent event){
         if(event.getSource()==btnStartEdit){
-            if(chooseTypeToEdit.getSelectionModel().getSelectedItem().equals("Ingredients")) {
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {
                 updateGoodsField.setVisible(false);
+                ingFromRecipe.setVisible(false);
                 updateIngredientsField.setVisible(true);
             }
-            if (chooseTypeToEdit.getSelectionModel().getSelectedItem().contains("Baked Goods")){
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){
                 updateIngredientsField.setVisible(false);
+                ingFromRecipe.setVisible(false);
                 updateGoodsField.setVisible(true);
+            }
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                ingFromRecipe.setVisible(true);//GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN TO WORK OFF OF
             }
         }
         if(event.getSource()==btnStartDelete){
             updateIngredientsField.setVisible(false);
-            updateGoodsField.setVisible(true);
+            updateGoodsField.setVisible(false);
+            confirmDelete.setVisible(true);
         }
     }
-
-
 
 
 
@@ -231,6 +281,27 @@ public class Controller {
     public void confirmDelete(ActionEvent event){}
 
     public void confirmEdit(ActionEvent event){}
+
+
+
+
+
+    //Recipe Item Edit/Delete
+
+    @FXML
+    private Group editChosenRecipeIngredient;//Group containing fields to edit a chosen Ingredient from Recipe and button to confirm update
+    @FXML
+    private Button btnEditSelectedIngredient;//after choosing an Ingredient from a recipe you can edit it
+    @FXML
+    private Button btnDelSelectedIngredient;//after choosing an Ingredient from a recipe you can delete it
+
+
+    @FXML
+    public void recipeItemControl(ActionEvent action){
+    }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
+
+
+
 
     //Idea:
     //For the list to edit or update/delete something choose from a choice box what Item type you want to edit from.
@@ -272,9 +343,7 @@ public class Controller {
 //    }
 
 
-    public void initialize(){
-        chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
-    }
+
 
 
 
