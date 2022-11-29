@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algo.asgn2.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.algo.asgn2.Controller">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -134,7 +134,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -170,12 +170,12 @@
             </Pane>
             <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
-                  <TextField fx:id="goodsName" layoutX="84.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Label layoutX="234.0" layoutY="14.0" prefHeight="74.0" prefWidth="325.0" text="Add Baked Goods" textFill="WHITE" underline="true">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="14.0" prefHeight="74.0" prefWidth="325.0" text="Add Baked Goods" textFill="WHITE" underline="true">
                      <font>
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
+                  <TextField fx:id="goodsName" layoutX="84.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <TextField fx:id="originCt" layoutX="422.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <TextArea fx:id="goodsDesc" layoutX="84.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
                   <TextField fx:id="imageUrl" layoutX="422.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
@@ -191,19 +191,19 @@
             </Pane>
             <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
-                  <Label alignment="CENTER" layoutX="234.0" layoutY="26.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="26.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ingredientName" layoutX="104.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <TextField fx:id="ingredientKcal" layoutX="466.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <TextArea fx:id="ingredientDesc" layoutX="104.0" layoutY="188.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                  <TextField fx:id="perMeasurement" layoutX="466.0" layoutY="188.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientName" layoutX="85.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientKcal" layoutX="421.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextArea fx:id="ingredientDesc" layoutX="85.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                  <TextField fx:id="perMeasurement" layoutX="421.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addIngredient" prefHeight="42.0" prefWidth="797.0" stylesheets="@style.css" text="Add Ingredients Item" />
                </children>
             </Pane>
-            <Pane fx:id="pnlRecipes" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlRecipes" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="258.0" layoutY="14.0" prefHeight="74.0" prefWidth="277.0" text="Create a Recipe" textFill="WHITE" underline="true">
                      <font>
