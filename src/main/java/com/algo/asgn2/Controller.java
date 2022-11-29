@@ -255,15 +255,24 @@ public class Controller {
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {
                 updateGoodsField.setVisible(false);
                 ingFromRecipe.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                confirmDelete.setVisible(false);
                 updateIngredientsField.setVisible(true);
             }
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){
                 updateIngredientsField.setVisible(false);
                 ingFromRecipe.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                confirmDelete.setVisible(false);
                 updateGoodsField.setVisible(true);
             }
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){
                 updateIngredientsField.setVisible(false);
+                confirmDelete.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
                 updateGoodsField.setVisible(false);
                 ingFromRecipe.setVisible(true);//GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN TO WORK OFF OF
             }
@@ -271,6 +280,9 @@ public class Controller {
         if(event.getSource()==btnStartDelete){
             updateIngredientsField.setVisible(false);
             updateGoodsField.setVisible(false);
+            editChosenRecipeIngredient.setVisible(false);
+            selectedIngDelete.setVisible(false);
+            ingFromRecipe.setVisible(false);
             confirmDelete.setVisible(true);
         }
     }
@@ -278,26 +290,54 @@ public class Controller {
 
 
 
-    public void confirmDelete(ActionEvent event){}
+    public void confirmDelete(ActionEvent event){}//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
 
-    public void confirmEdit(ActionEvent event){}
+    public void confirmEdit(ActionEvent event){}//when this is pressed all the fields that were edited should be changed and applied to the object
 
 
 
 
 
     //Recipe Item Edit/Delete
-
     @FXML
     private Group editChosenRecipeIngredient;//Group containing fields to edit a chosen Ingredient from Recipe and button to confirm update
+    @FXML
+    private Group selectedIngDelete;//Group containing a confirmation message to delete the selected item with a confirm button
     @FXML
     private Button btnEditSelectedIngredient;//after choosing an Ingredient from a recipe you can edit it
     @FXML
     private Button btnDelSelectedIngredient;//after choosing an Ingredient from a recipe you can delete it
 
 
+
+
+    //updateIngredientField
+
     @FXML
-    public void recipeItemControl(ActionEvent action){
+    private TextField ingrNameUpdate;
+    @FXML
+    private TextField ingKcalUpdate;
+    @FXML
+    private TextField ingMlUpdate;
+    @FXML
+    private TextArea ingDescUpdate;
+
+
+
+
+
+
+
+    @FXML
+    public void recipeItemControl(ActionEvent action){ //MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
+        if(action.getSource()==btnEditSelectedIngredient){
+            selectedIngDelete.setVisible(false);
+            editChosenRecipeIngredient.setVisible(true);
+        } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
+        if(action.getSource()==btnDelSelectedIngredient){
+            editChosenRecipeIngredient.setVisible(false);
+            selectedIngDelete.setVisible(true);
+        }//Selecting an Ingredient from the list of Ingredients in a Recipe and pressing the delete button should pop up a question if you confirm
     }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
 
 
@@ -312,6 +352,7 @@ public class Controller {
     //For the edit I want to be able to edit the values already imputed and after pressing the update button to change those values imputed btn
 
 
+    public void none(){}
 
 
 
