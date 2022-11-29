@@ -30,6 +30,10 @@ public class Controller {
     }
 
 
+
+
+
+
     //Side Panel
     @FXML
     private Button btnOverview;
@@ -101,6 +105,14 @@ public class Controller {
 
 
 
+
+
+
+
+
+
+
+
     //Home
     @FXML
     private Pane pnlOverview;//Nothing needed here for now Maybe a save and load button + reset facility if needed
@@ -125,17 +137,28 @@ public class Controller {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
     //Baked Goods
     @FXML
     private Pane pnlBakedGoods;
     @FXML
-    private TextField goodsName;
+    private TextField goodsName;//enter the BakedGoods name
     @FXML
-    private TextField originCt;
+    private TextField originCt;//enter the BakedGoods origin country
     @FXML
-    private TextArea goodsDesc;
+    private TextArea goodsDesc;//enter the BakedGoods description
     @FXML
-    private TextField imageUrl;
+    private TextField imageUrl;//enter the BakedGoods image url
     @FXML
     private Label youHaveAdded;//You Have Added:   "Label"
     @FXML
@@ -150,6 +173,12 @@ public class Controller {
     //Text fields: goodsName, originCt , ImageUrl , goodsDesc
     //at the bottom under the button is a image view to show the image from good added called goodsImage
     //there is also a list view to show the good that was just added called listAddedGood
+
+
+
+
+
+
 
 
 
@@ -180,12 +209,16 @@ public class Controller {
 
 
 
+
+
+
+
+
+
+
     //Edit/Delete/Update
     @FXML
     private Pane pnlEdit;
-
-
-
 
 
 
@@ -217,7 +250,7 @@ public class Controller {
             editChosenRecipe.setVisible(false);
             editChosenGood.setVisible(true);
         }
-        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){ //TODO: MAKE THIS ONLY SHOW THE EDIT ELEMENTS IF A RECIPE IS CHOSEN FROM THE LIST
             editChosenGood.setVisible(false);
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(true);
@@ -274,7 +307,7 @@ public class Controller {
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
                 updateGoodsField.setVisible(false);
-                ingFromRecipe.setVisible(true);//GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN TO WORK OFF OF
+                ingFromRecipe.setVisible(true);//TODO: GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN FROM THE LIST OF RECIPES TO WORK OFF OF
             }
         }
         if(event.getSource()==btnStartDelete){
@@ -329,7 +362,7 @@ public class Controller {
 
 
     @FXML
-    public void recipeItemControl(ActionEvent action){ //MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
+    public void recipeItemControl(ActionEvent action){ //TODO: MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
         if(action.getSource()==btnEditSelectedIngredient){
             selectedIngDelete.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
