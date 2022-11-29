@@ -63,3 +63,7 @@
     -fx-background-color: text-area-background;
     -fx-text-fill: #FFFFFF;
 }
+
+.combo-box .content{
+    -fx-background-color: text-area-backgroud;
+}

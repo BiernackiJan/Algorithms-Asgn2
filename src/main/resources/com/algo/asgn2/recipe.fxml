@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -94,7 +95,7 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Edit/Delete">
+            <Button fx:id="btnEdit" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Edit/Delete">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -137,7 +138,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -224,31 +225,62 @@
                   <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Add Ingredient" />
                   <ListView fx:id="addedIngredients" layoutX="415.0" layoutY="288.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
                </children></Pane>
-            <Pane fx:id="pnlRecipes1" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlEdit" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="222.0" layoutY="22.0" prefHeight="74.0" prefWidth="365.0" text="Edit/Delete" textFill="WHITE" underline="true">
                      <font>
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="editChosenIngredient" layoutX="14.0" layoutY="206.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                  <ListView fx:id="editChosenGood" layoutX="14.0" layoutY="206.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                  <ListView fx:id="editChosenRecipe" layoutX="14.0" layoutY="206.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                  <Label alignment="CENTER" layoutX="89.0" layoutY="125.0" prefHeight="35.0" prefWidth="214.0" text="Choose what to update" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="chooseTypeToEdit" layoutX="100.0" layoutY="160.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #10167F;" stylesheets="@style.css" />
-                  <TextField fx:id="ingredientGrams1" layoutX="501.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="365.0" layoutY="206.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Edit" />
-                  <ListView fx:id="chosenItemComponents" layoutX="501.0" layoutY="108.0" prefHeight="109.0" prefWidth="248.0" stylesheets="@style.css" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="365.0" layoutY="253.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Delete" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Confirm" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Update" />
-                  <TextField fx:id="ingredientGrams11" layoutX="646.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <TextArea fx:id="goodsDesc1" layoutX="516.0" layoutY="340.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                  <TextField fx:id="ingredientGrams111" layoutX="565.0" layoutY="288.0" prefHeight="35.0" prefWidth="150.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Group layoutX="14.0" layoutY="125.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="75.0" prefHeight="35.0" prefWidth="214.0" text="Choose what to update" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #1620A1;" stylesheets="@style.css" />
+                        <ListView fx:id="editChosenIngredient" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView fx:id="editChosenGood" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView fx:id="editChosenRecipe" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <Button fx:id="btnStartEdit" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="351.0" layoutY="81.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
+                        <Button fx:id="btnStartDelete" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="351.0" layoutY="128.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
+                     </children>
+                  </Group>
+                  <Group fx:id="confirmDelete" layoutX="506.0" layoutY="271.0" visible="false">
+                     <children>
+                        <ListView fx:id="chosenRecipeComponents" layoutY="88.0" prefHeight="114.0" prefWidth="267.0" stylesheets="@style.css" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" prefHeight="53.0" prefWidth="214.0" text="Are you sure you want" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="delConfirm" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="84.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Confirm" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="126.0" text="to delete" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Group>
+                  <Group fx:id="updateIngredientsField" layoutX="501.0" layoutY="236.0" visible="false">
+                     <children>
+                        <TextField fx:id="ingrNameUpdate" prefHeight="35.0" prefWidth="133.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextField fx:id="ingKcalUpdate" layoutX="145.0" prefHeight="35.0" prefWidth="133.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextField fx:id="ingMlUpdate" layoutX="64.0" layoutY="52.0" prefHeight="35.0" prefWidth="150.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextArea fx:id="ingDescUpdate" layoutX="15.0" layoutY="104.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                        <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="86.0" layoutY="246.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
+                     </children>
+                  </Group>
+                  <Group fx:id="updateGoodsField" visible="false">
+                     <children>
+                        <TextField fx:id="ingrNameUpdate1" layoutX="500.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextField fx:id="ingKcalUpdate1" layoutX="646.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Origin Country" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextField fx:id="ingMlUpdate1" layoutX="565.0" layoutY="288.0" prefHeight="35.0" prefWidth="150.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextArea fx:id="ingDescUpdate1" layoutX="516.0" layoutY="340.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                        <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
+                     </children>
+                  </Group>
                </children>
             </Pane>
             <Pane fx:id="pnlPackages" prefHeight="554.0" prefWidth="793.0" visible="false">

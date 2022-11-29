@@ -2,10 +2,12 @@ package com.algo.asgn2;
 
 import Models.BakedGoods;
 import Models.Ingredient;
+import Models.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -34,7 +36,7 @@ public class Controller {
     @FXML
     private Button btnRecipes;
     @FXML
-    private Button btnPackages;
+    private Button btnEdit;
     @FXML
     private Button btnSettings;
     @FXML
@@ -49,6 +51,7 @@ public class Controller {
             pnlOverview.setVisible(false);
             pnlBakedGoods.setVisible(false);
             pnlRecipes.setVisible(false);
+            pnlEdit.setVisible(false);
             pnlIngredients.setVisible(true);
         }
         if (actionEvent.getSource() == btnRecipes) {
@@ -57,6 +60,7 @@ public class Controller {
             pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
             pnlBakedGoods.setVisible(false);
+            pnlEdit.setVisible(false);
             pnlRecipes.setVisible(true);
         }
         if (actionEvent.getSource() == btnOverview) {
@@ -65,18 +69,29 @@ public class Controller {
             pnlBakedGoods.setVisible(false);
             pnlRecipes.setVisible(false);
             pnlIngredients.setVisible(false);
+            pnlEdit.setVisible(false);
             pnlOverview.setVisible(true);
         }
-        if(actionEvent.getSource()== btnBakedGoods)
-        {
+        if(actionEvent.getSource()== btnBakedGoods) {
             pnlBakedGoods.setStyle("-fx-background-color : #02030A");
             pnlBakedGoods.toFront();
             pnlRecipes.setVisible(false);
             pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
+            pnlEdit.setVisible(false);
             youHaveAdded.setVisible(false);
             pnlBakedGoods.setVisible(true);
         }
+        if(actionEvent.getSource()== btnEdit){
+            pnlEdit.setStyle("-fx-background-color : #02030A");
+            pnlEdit.toFront();
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlBakedGoods.setVisible(false);
+            pnlEdit.setVisible(true);
+        }
+
     }
 
 
@@ -135,6 +150,10 @@ public class Controller {
 
 
 
+
+
+
+
     //Recipes
     @FXML
     private Pane pnlRecipes;
@@ -156,7 +175,62 @@ public class Controller {
 
 
 
+
     //Edit/Delete/Update
+    @FXML
+    private Pane pnlEdit;
+
+
+    //Left Side of plane to choose item to edit
+    @FXML
+    private ComboBox<String> chooseTypeToEdit;
+    @FXML
+    private ListView<Ingredient> editChosenIngredient;
+    @FXML
+    private ListView<BakedGoods> editChosenGood;
+    @FXML
+    private ListView<Recipe> editChosenRecipe;
+    @FXML
+    private Button btnStartEdit;
+    @FXML
+    private Button btnStartDelete;
+
+
+
+
+
+
+
+    //Right side of the pick item field tht displays fields to edit depending on the item chosen and button pressed
+    @FXML
+    private Group updateIngredientsField;//group of elements to show up when the edit button is pressed and the element from Ingredients is chosen
+    @FXML
+    private Group updateGoodsField;//group to display with input text fields to edit a BakedGood when it is chosen from the list view and edit button pressed
+    public void editItems(ActionEvent event){
+        if(event.getSource()==btnStartEdit){
+            if(chooseTypeToEdit.getSelectionModel().getSelectedItem().equals("Ingredients")) {
+                updateGoodsField.setVisible(false);
+                updateIngredientsField.setVisible(true);
+            }
+            if (chooseTypeToEdit.getSelectionModel().getSelectedItem().contains("Baked Goods")){
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(true);
+            }
+        }
+        if(event.getSource()==btnStartDelete){
+            updateIngredientsField.setVisible(false);
+            updateGoodsField.setVisible(true);
+        }
+    }
+
+
+
+
+
+
+    public void confirmDelete(ActionEvent event){}
+
+    public void confirmEdit(ActionEvent event){}
 
     //Idea:
     //For the list to edit or update/delete something choose from a choice box what Item type you want to edit from.
@@ -198,6 +272,9 @@ public class Controller {
 //    }
 
 
+    public void initialize(){
+        chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
+    }
 
 
 
