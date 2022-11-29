@@ -94,12 +94,15 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
-            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Packages">
+            <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Edit/Delete">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/icons8_Box_32px.png" />
+                        <Image url="@images/toppng.com-edit-delete-icon-delete-icon-980x980.png" />
                      </image>
+                     <effect>
+                        <ColorAdjust brightness="0.61" />
+                     </effect>
                   </ImageView>
                </graphic>
                <padding>
@@ -134,7 +137,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -221,6 +224,33 @@
                   <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Add Ingredient" />
                   <ListView fx:id="addedIngredients" layoutX="415.0" layoutY="288.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
                </children></Pane>
+            <Pane fx:id="pnlRecipes1" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="222.0" layoutY="22.0" prefHeight="74.0" prefWidth="365.0" text="Edit/Delete" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="37.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="editChosenIngredient" layoutX="14.0" layoutY="206.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                  <ListView fx:id="editChosenGood" layoutX="14.0" layoutY="206.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                  <ListView fx:id="editChosenRecipe" layoutX="14.0" layoutY="206.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                  <Label alignment="CENTER" layoutX="89.0" layoutY="125.0" prefHeight="35.0" prefWidth="214.0" text="Choose what to update" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="chooseTypeToEdit" layoutX="100.0" layoutY="160.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #10167F;" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientGrams1" layoutX="501.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="365.0" layoutY="206.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Edit" />
+                  <ListView fx:id="chosenItemComponents" layoutX="501.0" layoutY="108.0" prefHeight="109.0" prefWidth="248.0" stylesheets="@style.css" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="365.0" layoutY="253.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Delete" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Confirm" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #10007F;" stylesheets="@style.css" text="Update" />
+                  <TextField fx:id="ingredientGrams11" layoutX="646.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextArea fx:id="goodsDesc1" layoutX="516.0" layoutY="340.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientGrams111" layoutX="565.0" layoutY="288.0" prefHeight="35.0" prefWidth="150.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+               </children>
+            </Pane>
             <Pane fx:id="pnlPackages" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>
                   <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />

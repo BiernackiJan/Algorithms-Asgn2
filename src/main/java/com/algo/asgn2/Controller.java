@@ -155,6 +155,23 @@ public class Controller {
 
 
 
+
+    //Edit/Delete/Update
+
+    //Idea:
+    //For the list to edit or update/delete something choose from a choice box what Item type you want to edit from.
+    //For each item type there is a listView set up that is set to non-visible when an Item in the list view will be chosen that Object can then be edited
+    //When the edit button is pressed after choosing an item from a list, a menu pops up in regard to what was chosen from the list when the button was pressed
+    //For baked goods the correct textFields would pop up. The same goes for the Ingredients
+    //For the delete button I want to have a message pop up on the right asking if you are sure you want to delete this item and list the item and press okay to delete it
+    //For the edit I want to be able to edit the values already imputed and after pressing the update button to change those values imputed btn
+
+
+
+
+
+
+
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources) {
 //        Node[] nodes = new Node[10];

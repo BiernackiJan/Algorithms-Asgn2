@@ -58,3 +58,8 @@
     -fx-background-color: #02030A;
     -fx-text-fill: #FFFFFF;
 }
+
+.tree-view .content {
+    -fx-background-color: text-area-background;
+    -fx-text-fill: #FFFFFF;
+}
