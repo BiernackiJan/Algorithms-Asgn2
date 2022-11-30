@@ -3,6 +3,7 @@ package com.algo.asgn2;
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
+import Resources.LinkedList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
@@ -24,6 +26,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller {
+    public static LinkedList<BakedGoods> list = new LinkedList<>();
+    public static LinkedList<Ingredient> items = new LinkedList<>();
+
 
 //    @FXML
 //    private VBox pnItems = null;
@@ -180,9 +185,25 @@ public class Controller {
     private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
 
     @FXML
+    private ListView<Ingredient> ingredientList;
+
+    @FXML
     private void addIngredient(ActionEvent event){
         ingWasAdded.setVisible(true);
         listAddedIng.setVisible(true);
+
+        String iN = ingredientName.getText();
+        int iK = Integer.parseInt(ingredientKcal.getText());
+        String iD = ingredientDesc.getText();
+        String iM = perMeasurememt.getText();
+
+        items.add(new Ingredient(iN,iD, iK,iM));
+        System.out.println(items.listAll());
+
+        listAllIng.getItems().add(new Ingredient(iN,iD, iK,iM));
+
+        ingredientList.getItems().clear();
+        ingredientList.getItems().add(new Ingredient(iN,iD, iK,iM));
     } //button to add an ingredient to the system
 
 
@@ -218,6 +239,18 @@ public class Controller {
     @FXML
     public void addGood(ActionEvent actionEvent){
         youHaveAdded.setVisible(true);
+
+        String bN = goodsName.getText();
+        String bC = originCt.getText();
+        String bD = goodsDesc.getText();
+        String bU = imageUrl.getText();
+
+        list.add(new BakedGoods(bN, bD, bC, bU));
+        listAddedGood.getItems().add(new BakedGoods(bN, bD, bC, bU));
+
+        //https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w= Sample Apple image
+        Image image = new Image(bU);
+        goodsImage.setImage(image);
     } //displays the youHaveAdded label bellow the add button
 
     //Text fields: goodsName, originCt , ImageUrl , goodsDesc
