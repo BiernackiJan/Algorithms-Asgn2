@@ -3,6 +3,7 @@ package com.algo.asgn2;
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +56,16 @@ public class Controller {
 
     @FXML
     public void handleClicks(ActionEvent actionEvent) {//side panel with buttons each button corresponds to displaying a panel
+        if (actionEvent.getSource() == btnOverview) {
+            pnlOverview.setStyle("-fx-background-color : #02030A");
+            pnlOverview.toFront();
+            pnlBakedGoods.setVisible(false);
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
+            pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
+            pnlOverview.setVisible(true);
+        }
         if (actionEvent.getSource() == btnIngredients) {
             pnlIngredients.setStyle("-fx-background-color : #02030A");
             pnlIngredients.toFront();
@@ -63,6 +74,8 @@ public class Controller {
             pnlRecipes.setVisible(false);
             pnlEdit.setVisible(false);
             pnlSearch.setVisible(false);
+            ingWasAdded.setVisible(false);
+            listAddedIng.setVisible(false);
             pnlIngredients.setVisible(true);
         }
         if (actionEvent.getSource() == btnRecipes) {
@@ -74,16 +87,6 @@ public class Controller {
             pnlEdit.setVisible(false);
             pnlSearch.setVisible(false);
             pnlRecipes.setVisible(true);
-        }
-        if (actionEvent.getSource() == btnOverview) {
-            pnlOverview.setStyle("-fx-background-color : #02030A");
-            pnlOverview.toFront();
-            pnlBakedGoods.setVisible(false);
-            pnlRecipes.setVisible(false);
-            pnlIngredients.setVisible(false);
-            pnlEdit.setVisible(false);
-            pnlSearch.setVisible(false);
-            pnlOverview.setVisible(true);
         }
         if(actionEvent.getSource()== btnBakedGoods) {
             pnlBakedGoods.setStyle("-fx-background-color : #02030A");
@@ -117,6 +120,10 @@ public class Controller {
             pnlSearch.setVisible(true);
         }
 
+        if(actionEvent.getSource()== btnSignout){
+            Platform.exit();
+        }
+
     }
 
 
@@ -147,10 +154,18 @@ public class Controller {
     private TextArea ingredientDesc;
     @FXML
     private TextField perMeasurememt; //kcal per how much
-
+    @FXML
+    private ListView<Ingredient> listAddedIng;
+    @FXML
+    private ListView<Ingredient> listAllIng;
+    @FXML
+    private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
 
     @FXML
-    private void addIngredient(ActionEvent event){} //button to add an ingredient to the system
+    private void addIngredient(ActionEvent event){
+        ingWasAdded.setVisible(true);
+        listAddedIng.setVisible(true);
+    } //button to add an ingredient to the system
 
 
 
@@ -179,9 +194,9 @@ public class Controller {
     @FXML
     private Label youHaveAdded;//You Have Added:   "Label"
     @FXML
-    private ImageView goodsImage;//ImageView to show the image of the added BakedGood
+    private ImageView goodsImage;//ImageView to show the image of the added BakedGood left sied bellow button
     @FXML
-    private ListView<String> listAddedGood; //show the added BakedGood bellow the button
+    private ListView<BakedGoods> listAddedGood; //show the added BakedGood bellow the button
     @FXML
     public void addGood(ActionEvent actionEvent){
         youHaveAdded.setVisible(true);
