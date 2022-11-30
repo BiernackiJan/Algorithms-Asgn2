@@ -56,6 +56,7 @@
 
 .list-view {
     -fx-background-color: #02030A;
+    -fx-border-color: #1620A1;
     -fx-text-fill: #FFFFFF;
 }
 
@@ -64,12 +65,14 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.combo-box .content{
+.combo-box {
     -fx-background-color: text-area-backgroud;
+    -fx-text-fill: #FFFFFF;
 }
 
-.list-view{
-    -fx-border-color: #1620A1;
+.list-view .list-cell{
+    -fx-background-color: #02030A ;
+    -fx-text-fill: #FFFFFF;
 }
 
 .scroll-pane {
