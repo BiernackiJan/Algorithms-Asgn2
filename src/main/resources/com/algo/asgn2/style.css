@@ -65,8 +65,7 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.combo-box {
-    -fx-background-color: text-area-backgroud;
+.combo-box .list-cell {
     -fx-text-fill: #FFFFFF;
 }
 
