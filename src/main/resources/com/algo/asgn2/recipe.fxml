@@ -150,7 +150,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -184,7 +184,33 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="25.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="ingredientName" layoutX="85.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientKcal" layoutX="421.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <TextArea fx:id="ingredientDesc" layoutX="85.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
+                  <TextField fx:id="perMeasurement" layoutX="421.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addIngredient" prefHeight="42.0" prefWidth="797.0" stylesheets="@style.css" text="Add Ingredients Item" />
+                  <ListView fx:id="listAddedIng" layoutX="14.0" layoutY="410.0" prefHeight="114.0" prefWidth="359.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" visible="false" />
+                  <Label fx:id="ingWasAdded" alignment="CENTER" contentDisplay="CENTER" layoutX="108.0" layoutY="366.0" prefHeight="31.0" prefWidth="172.0" text="You have added:" textFill="#e93636" visible="false">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="listAllIng" layoutX="395.0" layoutY="397.0" prefHeight="151.0" prefWidth="376.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" />
+                  <Label fx:id="ingWasAdded1" alignment="CENTER" contentDisplay="CENTER" layoutX="497.0" layoutY="366.0" prefHeight="31.0" prefWidth="172.0" text="All Ingredients" textFill="#e93636">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="14.0" prefHeight="74.0" prefWidth="325.0" text="Add Baked Goods" textFill="WHITE" underline="true">
                      <font>
@@ -194,10 +220,10 @@
                   <TextField fx:id="goodsName" layoutX="84.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <TextField fx:id="originCt" layoutX="422.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Country of Origin" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <TextArea fx:id="goodsDesc" layoutX="84.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                  <TextField fx:id="imageUrl" layoutX="422.0" layoutY="215.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-2.0" layoutY="308.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="795.0" stylesheets="@style.css" text="Add Baked Item" />
+                  <TextField fx:id="imageUrl" layoutX="422.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-2.0" layoutY="308.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="795.0" stylesheets="@style.css" text="Add Baked Item" />
                   <ImageView fx:id="goodsImage" fitHeight="137.0" fitWidth="183.0" layoutX="124.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="youHaveAdded" alignment="CENTER" layoutX="323.0" layoutY="364.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff" visible="false">
+                  <Label id="btnBrighter" fx:id="youHaveAdded" alignment="CENTER" layoutX="323.0" layoutY="364.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff" visible="false">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -218,9 +244,9 @@
                         <Font name="System Bold" size="27.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="chooseGood" layoutX="229.0" layoutY="117.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #10167F;" stylesheets="@style.css" />
+                  <ComboBox id="btnBrighter" fx:id="chooseGood" layoutX="229.0" layoutY="117.0" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
                   <TextField fx:id="ingredientGrams" layoutX="484.0" layoutY="188.0" prefHeight="35.0" prefWidth="172.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" stylesheets="@style.css" text="Add Ingredient" />
+                  <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" stylesheets="@style.css" text="Add Ingredient" />
                   <ListView fx:id="addedIngredients" layoutX="415.0" layoutY="288.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
                </children></Pane>
             <Pane fx:id="pnlEdit" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -237,12 +263,12 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" onMouseExited="#chooseItemToList" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #1620A1;" stylesheets="@style.css" />
+                        <ComboBox id="btnBrighter" fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" onMouseClicked="#chooseItemToList" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
                         <ListView fx:id="editChosenIngredient" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
                         <ListView fx:id="editChosenGood" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
                         <ListView fx:id="editChosenRecipe" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                        <Button fx:id="btnStartEdit" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="351.0" layoutY="81.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
-                        <Button fx:id="btnStartDelete" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="351.0" layoutY="128.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
+                        <Button id="btnBrighter" fx:id="btnStartEdit" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="366.0" layoutY="81.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
+                        <Button id="btnBrighter" fx:id="btnStartDelete" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="366.0" layoutY="128.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
                      </children>
                   </Group>
                   <Group fx:id="updateIngredientsField" layoutX="501.0" layoutY="236.0" visible="false">
@@ -251,7 +277,7 @@
                         <TextField fx:id="ingKcalUpdate" layoutX="145.0" prefHeight="35.0" prefWidth="133.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <TextField fx:id="ingMlUpdate" layoutX="64.0" layoutY="52.0" prefHeight="35.0" prefWidth="150.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <TextArea fx:id="ingDescUpdate" layoutX="15.0" layoutY="104.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                        <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="86.0" layoutY="246.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
+                        <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="86.0" layoutY="246.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
                      </children>
                   </Group>
                   <Group fx:id="updateGoodsField" visible="false">
@@ -260,7 +286,7 @@
                         <TextField fx:id="ingKcalUpdate1" layoutX="646.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Origin Country" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <TextField fx:id="ingMlUpdate1" layoutX="565.0" layoutY="288.0" prefHeight="35.0" prefWidth="150.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <TextArea fx:id="ingDescUpdate1" layoutX="516.0" layoutY="340.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                        <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
+                        <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
                      </children>
                   </Group>
                   <Group fx:id="confirmDelete" layoutX="506.0" layoutY="271.0" visible="false">
@@ -271,7 +297,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="delConfirm" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="84.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Confirm" />
+                        <Button id="btnBrighter" fx:id="delConfirm" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="84.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Confirm" />
                         <Label alignment="CENTER" layoutX="71.0" layoutY="36.0" prefHeight="27.0" prefWidth="126.0" text="to delete" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -282,17 +308,15 @@
                   <Group fx:id="ingFromRecipe" layoutX="506.0" layoutY="125.0" visible="false">
                      <children>
                         <ListView fx:id="chosenRecipeComponents1" prefHeight="114.0" prefWidth="267.0" stylesheets="@style.css" />
-                        <Button fx:id="btnEditSelectedIngredient" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="31.0" layoutY="115.0" mnemonicParsing="false" onAction="#recipeItemControl" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
-                        <Button fx:id="btnDelSelectedIngredient" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="136.0" layoutY="115.0" mnemonicParsing="false" onAction="#recipeItemControl" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
+                        <Button id="btnBrighter" fx:id="btnEditSelectedIngredient" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="31.0" layoutY="115.0" mnemonicParsing="false" onAction="#recipeItemControl" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
+                        <Button id="btnBrighter" fx:id="btnDelSelectedIngredient" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="136.0" layoutY="115.0" mnemonicParsing="false" onAction="#recipeItemControl" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
                      </children>
                   </Group>
-                  <Group fx:id="editChosenRecipeIngredient" layoutX="501.0" layoutY="261.0" visible="false">
+                  <Group fx:id="editChosenRecipeIngredient" layoutX="501.0" layoutY="208.0" visible="false">
                      <children>
-                        <TextField fx:id="chosenIngrNameUpdate" layoutY="39.0" prefHeight="35.0" prefWidth="133.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                        <TextField fx:id="chosenIngKcalUpdate" layoutX="145.0" layoutY="39.0" prefHeight="35.0" prefWidth="133.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                        <TextField fx:id="chosenIngMlUpdate" layoutX="64.0" layoutY="91.0" prefHeight="35.0" prefWidth="150.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                        <TextArea fx:id="chosenIngDescUpdate" layoutX="15.0" layoutY="143.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                        <Button fx:id="updateChosenIng" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="89.0" layoutY="258.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
+                        <TextField fx:id="chosenIngMlUpdate" layoutX="64.0" layoutY="91.0" prefHeight="35.0" prefWidth="150.0" promptText="Grams/Milliliters" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <Button id="btnBrighter" fx:id="updateChosenIng" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="89.0" layoutY="142.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
+                        <Label layoutX="183.0" layoutY="100.0" text="g/ml" textFill="WHITE" />
                      </children>
                   </Group>
                   <Group fx:id="selectedIngDelete" layoutX="504.0" layoutY="281.0" visible="false">
@@ -303,7 +327,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="delConfirm1" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="84.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Confirm" />
+                        <Button id="btnBrighter" fx:id="delConfirm1" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="84.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Confirm" />
                         <Label alignment="CENTER" layoutX="71.0" layoutY="36.0" prefHeight="27.0" prefWidth="126.0" text="to delete" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -320,16 +344,7 @@
                         <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
-                  <ScrollPane layoutX="14.0" layoutY="172.0" prefHeight="389.0" prefWidth="445.0" style="-fx-background-color: #02030A; -fx-border-color: #1620A1;" stylesheets="@style.css">
-                     <content>
-                        <VBox fx:id="pnItems" prefHeight="387.0" prefWidth="427.0" spacing="5.0" style="-fx-background-color: #02030A;">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-                  <Group fx:id="searchField1" layoutX="125.0" layoutY="121.0">
+                  <Group fx:id="searchField1" layoutX="110.0" layoutY="98.0">
                      <children>
                         <TextField fx:id="searchOption1" prefHeight="31.0" prefWidth="271.0" promptText="Search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <TextField fx:id="searchOption2" layoutX="134.0" prefHeight="31.0" prefWidth="142.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7;" stylesheets="@style.css" />
@@ -348,6 +363,9 @@
                         </ImageView>
                      </children>
                   </Group>
+                  <ListView layoutX="25.0" layoutY="171.0" prefHeight="379.0" prefWidth="445.0" stylesheets="@style.css" />
+                  <Button id="btnBrighter" fx:id="alphabetical" layoutX="152.0" layoutY="137.0" mnemonicParsing="false" onAction="#sortButton" prefHeight="25.0" prefWidth="86.0" stylesheets="@style.css" text="Alphabetical" />
+                  <Button id="btnBrighter" fx:id="byKcal" layoutX="268.0" layoutY="137.0" mnemonicParsing="false" onAction="#sortButton" prefHeight="25.0" prefWidth="86.0" stylesheets="@style.css" text="By Kcal" />
                </children>
             </Pane>
             <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
@@ -359,25 +377,13 @@
                   </Label>
                   <ScrollPane layoutX="14.0" layoutY="103.0" prefHeight="458.0" prefWidth="445.0" style="-fx-background-color: #02030A; -fx-border-color: #1620A1;" stylesheets="@style.css">
                      <content>
-                        <VBox fx:id="pnItems2" prefHeight="453.0" prefWidth="442.0" spacing="5.0" style="-fx-background-color: #02030A;">
+                        <VBox fx:id="pnItems" prefHeight="453.0" prefWidth="442.0" spacing="5.0" style="-fx-background-color: #02030A;" visible="false">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <Group fx:id="searchField11" layoutX="125.0" layoutY="121.0">
-                     <children>
-                        <ImageView id="searchIcon" fx:id="searchIcon11" fitHeight="23.0" fitWidth="25.0" layoutX="248.0" layoutY="4.0" onMouseExited="#searchIconHover" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@images/icons8_Search_52px.png" />
-                           </image>
-                           <effect>
-                              <ColorAdjust brightness="0.72" />
-                           </effect>
-                        </ImageView>
-                     </children>
-                  </Group>
                </children>
             </Pane>
             <Pane fx:id="pnlPackages1" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
@@ -475,33 +481,6 @@
                         <Image url="@images/icons8_Search_52px.png" />
                      </image>
                   </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="25.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
-                     <font>
-                        <Font name="System Bold" size="36.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="ingredientName" layoutX="85.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Ingredient Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <TextField fx:id="ingredientKcal" layoutX="421.0" layoutY="122.0" prefHeight="35.0" prefWidth="248.0" promptText="Kcal" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <TextArea fx:id="ingredientDesc" layoutX="85.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
-                  <TextField fx:id="perMeasurememt" layoutX="421.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Per g/ml" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-4.0" layoutY="309.0" mnemonicParsing="false" onAction="#addIngredient" prefHeight="42.0" prefWidth="797.0" stylesheets="@style.css" text="Add Ingredients Item" />
-                  <ListView fx:id="listAddedIng" layoutX="14.0" layoutY="410.0" prefHeight="114.0" prefWidth="359.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" visible="false" />
-                  <Label fx:id="ingWasAdded" alignment="CENTER" contentDisplay="CENTER" layoutX="108.0" layoutY="366.0" prefHeight="31.0" prefWidth="172.0" text="You have added:" textFill="#e93636" visible="false">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <ListView fx:id="listAllIng" layoutX="395.0" layoutY="397.0" prefHeight="151.0" prefWidth="376.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" />
-                  <Label fx:id="ingWasAdded1" alignment="CENTER" contentDisplay="CENTER" layoutX="497.0" layoutY="366.0" prefHeight="31.0" prefWidth="172.0" text="All Ingredients" textFill="#e93636">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <ListView fx:id="ingredientList" layoutX="6.0" layoutY="397.0" prefHeight="151.0" prefWidth="376.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" />
                </children>
             </Pane>
          </children>
