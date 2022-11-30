@@ -122,6 +122,18 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
+            <Button fx:id="btnDrillDown" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Drill-Down">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Slider__32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
             <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Exit">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
@@ -138,7 +150,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -234,7 +246,7 @@
                   </Label>
                   <ComboBox fx:id="chooseGood" layoutX="229.0" layoutY="117.0" prefHeight="28.0" prefWidth="192.0" style="-fx-background-color: #10167F;" stylesheets="@style.css" />
                   <TextField fx:id="ingredientGrams" layoutX="484.0" layoutY="188.0" prefHeight="35.0" prefWidth="172.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0"  stylesheets="@style.css" text="Add Ingredient" />
+                  <Button contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" stylesheets="@style.css" text="Add Ingredient" />
                   <ListView fx:id="addedIngredients" layoutX="415.0" layoutY="288.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
                </children></Pane>
             <Pane fx:id="pnlEdit" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -353,6 +365,36 @@
                            </image>
                         </ImageView>
                         <ImageView id="searchIcon" fx:id="searchIcon1" fitHeight="23.0" fitWidth="25.0" layoutX="248.0" layoutY="4.0" onMouseExited="#searchIconHover" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@images/icons8_Search_52px.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="0.72" />
+                           </effect>
+                        </ImageView>
+                     </children>
+                  </Group>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="28.0" prefHeight="42.0" prefWidth="301.0" text="Interactive Drill-Down" textFill="#e7e5e5">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane layoutX="14.0" layoutY="103.0" prefHeight="458.0" prefWidth="445.0" style="-fx-background-color: #02030A; -fx-border-color: #1620A1;" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItems2" prefHeight="453.0" prefWidth="442.0" spacing="5.0" style="-fx-background-color: #02030A;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <Group fx:id="searchField11" layoutX="125.0" layoutY="121.0">
+                     <children>
+                        <ImageView id="searchIcon" fx:id="searchIcon11" fitHeight="23.0" fitWidth="25.0" layoutX="248.0" layoutY="4.0" onMouseExited="#searchIconHover" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@images/icons8_Search_52px.png" />
                            </image>

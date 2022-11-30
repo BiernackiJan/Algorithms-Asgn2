@@ -51,6 +51,8 @@ public class Controller {
     @FXML
     private Button btnSearch;
     @FXML
+    private Button btnDrillDown;
+    @FXML
     private Button btnSignout;
 
 
@@ -64,6 +66,7 @@ public class Controller {
             pnlIngredients.setVisible(false);
             pnlEdit.setVisible(false);
             pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(false);
             pnlOverview.setVisible(true);
         }
         if (actionEvent.getSource() == btnIngredients) {
@@ -76,6 +79,7 @@ public class Controller {
             pnlSearch.setVisible(false);
             ingWasAdded.setVisible(false);
             listAddedIng.setVisible(false);
+            pnlDrillDown.setVisible(false);
             pnlIngredients.setVisible(true);
         }
         if (actionEvent.getSource() == btnRecipes) {
@@ -86,6 +90,7 @@ public class Controller {
             pnlBakedGoods.setVisible(false);
             pnlEdit.setVisible(false);
             pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(false);
             pnlRecipes.setVisible(true);
         }
         if(actionEvent.getSource()== btnBakedGoods) {
@@ -97,6 +102,7 @@ public class Controller {
             pnlEdit.setVisible(false);
             youHaveAdded.setVisible(false);
             pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(false);
             pnlBakedGoods.setVisible(true);
         }
         if(actionEvent.getSource()== btnEdit){
@@ -107,6 +113,7 @@ public class Controller {
             pnlOverview.setVisible(false);
             pnlBakedGoods.setVisible(false);
             pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(false);
             pnlEdit.setVisible(true);
         }
         if(actionEvent.getSource()== btnSearch){
@@ -117,9 +124,20 @@ public class Controller {
             pnlOverview.setVisible(false);
             pnlBakedGoods.setVisible(false);
             pnlEdit.setVisible(false);
+            pnlDrillDown.setVisible(false);
             pnlSearch.setVisible(true);
         }
-
+        if(actionEvent.getSource()==btnDrillDown){
+            pnlDrillDown.setStyle("-fx-background-color : #02030A");
+            pnlDrillDown.toFront();
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlBakedGoods.setVisible(false);
+            pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(true);
+        }
         if(actionEvent.getSource()== btnSignout){
             Platform.exit();
         }
@@ -446,6 +464,17 @@ public class Controller {
 
 
 
+
+
+
+
+
+
+
+
+    //Drill Down
+    @FXML
+    private Pane pnlDrillDown;
 
 
 //    @Override
