@@ -3,6 +3,7 @@ package com.algo.asgn2;
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -46,13 +49,23 @@ public class Controller {
     @FXML
     private Button btnEdit;
     @FXML
-    private Button btnSettings;
+    private Button btnSearch;
     @FXML
     private Button btnSignout;
 
 
     @FXML
-    public void handleClicks(ActionEvent actionEvent) {
+    public void handleClicks(ActionEvent actionEvent) {//side panel with buttons each button corresponds to displaying a panel
+        if (actionEvent.getSource() == btnOverview) {
+            pnlOverview.setStyle("-fx-background-color : #02030A");
+            pnlOverview.toFront();
+            pnlBakedGoods.setVisible(false);
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
+            pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
+            pnlOverview.setVisible(true);
+        }
         if (actionEvent.getSource() == btnIngredients) {
             pnlIngredients.setStyle("-fx-background-color : #02030A");
             pnlIngredients.toFront();
@@ -60,6 +73,9 @@ public class Controller {
             pnlBakedGoods.setVisible(false);
             pnlRecipes.setVisible(false);
             pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
+            ingWasAdded.setVisible(false);
+            listAddedIng.setVisible(false);
             pnlIngredients.setVisible(true);
         }
         if (actionEvent.getSource() == btnRecipes) {
@@ -69,16 +85,8 @@ public class Controller {
             pnlOverview.setVisible(false);
             pnlBakedGoods.setVisible(false);
             pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
             pnlRecipes.setVisible(true);
-        }
-        if (actionEvent.getSource() == btnOverview) {
-            pnlOverview.setStyle("-fx-background-color : #02030A");
-            pnlOverview.toFront();
-            pnlBakedGoods.setVisible(false);
-            pnlRecipes.setVisible(false);
-            pnlIngredients.setVisible(false);
-            pnlEdit.setVisible(false);
-            pnlOverview.setVisible(true);
         }
         if(actionEvent.getSource()== btnBakedGoods) {
             pnlBakedGoods.setStyle("-fx-background-color : #02030A");
@@ -88,6 +96,7 @@ public class Controller {
             pnlOverview.setVisible(false);
             pnlEdit.setVisible(false);
             youHaveAdded.setVisible(false);
+            pnlSearch.setVisible(false);
             pnlBakedGoods.setVisible(true);
         }
         if(actionEvent.getSource()== btnEdit){
@@ -97,7 +106,22 @@ public class Controller {
             pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
             pnlBakedGoods.setVisible(false);
+            pnlSearch.setVisible(false);
             pnlEdit.setVisible(true);
+        }
+        if(actionEvent.getSource()== btnSearch){
+            pnlSearch.setStyle("-fx-background-color : #02030A");
+            pnlSearch.toFront();
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlBakedGoods.setVisible(false);
+            pnlEdit.setVisible(false);
+            pnlSearch.setVisible(true);
+        }
+
+        if(actionEvent.getSource()== btnSignout){
+            Platform.exit();
         }
 
     }
@@ -121,19 +145,27 @@ public class Controller {
 
     //Ingredients
     @FXML
-    private Pane pnlIngredients; //ingredients pane
+    private Pane pnlIngredients; //ingredients plane
     @FXML
     private TextField ingredientName;
     @FXML
-    private TextField ingredientKcal; //kcal
+    private TextField ingredientKcal; //kcal in ingredient
     @FXML
     private TextArea ingredientDesc;
     @FXML
     private TextField perMeasurememt; //kcal per how much
-
+    @FXML
+    private ListView<Ingredient> listAddedIng;
+    @FXML
+    private ListView<Ingredient> listAllIng;
+    @FXML
+    private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
 
     @FXML
-    private void addIngredient(ActionEvent event){} //button to add an ingredient to the system
+    private void addIngredient(ActionEvent event){
+        ingWasAdded.setVisible(true);
+        listAddedIng.setVisible(true);
+    } //button to add an ingredient to the system
 
 
 
@@ -162,9 +194,9 @@ public class Controller {
     @FXML
     private Label youHaveAdded;//You Have Added:   "Label"
     @FXML
-    private ImageView goodsImage;//ImageView to show the image of the added BakedGood
+    private ImageView goodsImage;//ImageView to show the image of the added BakedGood left sied bellow button
     @FXML
-    private ListView<String> listAddedGood; //show the added BakedGood bellow the button
+    private ListView<BakedGoods> listAddedGood; //show the added BakedGood bellow the button
     @FXML
     public void addGood(ActionEvent actionEvent){
         youHaveAdded.setVisible(true);
@@ -225,32 +257,36 @@ public class Controller {
 
     //Left Side of plane to choose item to edit
     @FXML
-    private ComboBox<String> chooseTypeToEdit;
+    private ComboBox<String> chooseTypeToEdit;//choose if you want to edit an Ingredient, Baked Good or Recipe
+
+    //3 ListViews one for each object type TODO: Make sure correct ListView show up when the type to edit is chosen in the ComboBox
     @FXML
     private ListView<Ingredient> editChosenIngredient;
     @FXML
     private ListView<BakedGoods> editChosenGood;
     @FXML
     private ListView<Recipe> editChosenRecipe;
+
+
     @FXML
-    private Button btnStartEdit;
+    private Button btnStartEdit; //TODO: Make this button work and show the edit fields when an Item is selected in the ListView
     @FXML
-    private Button btnStartDelete;
+    private Button btnStartDelete;//TODO: Make the button show the question message when an item is selected from ListView and button is pressed
 
 
     @FXML
     private void chooseItemToList(MouseEvent event){
-        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0){//Show the ListView when Ingredients are chosen in the ComboBox
             editChosenGood.setVisible(false);
             editChosenRecipe.setVisible(false);
             editChosenIngredient.setVisible(true);
         }
-        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){//Show the ListView when Baked Goods are chosen in the ComboBox
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(false);
             editChosenGood.setVisible(true);
         }
-        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){ //TODO: MAKE THIS ONLY SHOW THE EDIT ELEMENTS IF A RECIPE IS CHOSEN FROM THE LIST
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){//Show ListView when Recipe is chosen in the ComboBox
             editChosenGood.setVisible(false);
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(true);
@@ -270,8 +306,6 @@ public class Controller {
     private Group updateGoodsField;//group to display with input text fields to edit a BakedGood when it is chosen from the list view and edit button pressed
     @FXML
     private Group confirmDelete;//group to ask if you are sure that oyu want to delete this item
-    @FXML
-    private Group ingFromRecipe;//group that contains the listView of Ingredients in a chosen recipe to edit and has the Edit and Delete button for Ingredients for a recipe
 
 
 
@@ -285,33 +319,33 @@ public class Controller {
 
     public void editItems(ActionEvent event){
         if(event.getSource()==btnStartEdit){
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {
-                updateGoodsField.setVisible(false);
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
+                updateGoodsField.setVisible(false); //TODO: Only make fields appear when an Ingredient is chosen from the ListView
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
                 confirmDelete.setVisible(false);
                 updateIngredientsField.setVisible(true);
             }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){
-                updateIngredientsField.setVisible(false);
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
+                updateIngredientsField.setVisible(false);//TODO: Only make fields appear when a Baked Good is chosen from the ListView
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
                 confirmDelete.setVisible(false);
                 updateGoodsField.setVisible(true);
             }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){
-                updateIngredientsField.setVisible(false);
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
+                updateIngredientsField.setVisible(false);//TODO: GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN FROM THE LIST OF RECIPES TO WORK OFF OF
                 confirmDelete.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
                 updateGoodsField.setVisible(false);
-                ingFromRecipe.setVisible(true);//TODO: GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN FROM THE LIST OF RECIPES TO WORK OFF OF
+                ingFromRecipe.setVisible(true);
             }
         }
-        if(event.getSource()==btnStartDelete){
-            updateIngredientsField.setVisible(false);
+        if(event.getSource()==btnStartDelete){//Delete message shows up when the button is pressed
+            updateIngredientsField.setVisible(false);//TODO: Make the message only show up when an item is chosen from a ListView
             updateGoodsField.setVisible(false);
             editChosenRecipeIngredient.setVisible(false);
             selectedIngDelete.setVisible(false);
@@ -333,6 +367,8 @@ public class Controller {
 
     //Recipe Item Edit/Delete
     @FXML
+    private Group ingFromRecipe;//group that contains the listView of Ingredients in a chosen recipe to edit and has the Edit and Delete button for Ingredients for a recipe
+    @FXML
     private Group editChosenRecipeIngredient;//Group containing fields to edit a chosen Ingredient from Recipe and button to confirm update
     @FXML
     private Group selectedIngDelete;//Group containing a confirmation message to delete the selected item with a confirm button
@@ -345,15 +381,14 @@ public class Controller {
 
 
     //updateIngredientField
-
     @FXML
-    private TextField ingrNameUpdate;
+    private TextField ingrNameUpdate;//Update an ingredient name chosen from a Recipe
     @FXML
-    private TextField ingKcalUpdate;
+    private TextField ingKcalUpdate;//Update an ingredient kcal chosen from Recipe
     @FXML
-    private TextField ingMlUpdate;
+    private TextField ingMlUpdate;//Update an ingredient image url chosen from Recipe
     @FXML
-    private TextArea ingDescUpdate;
+    private TextArea ingDescUpdate;//Update an ingredient Description chosen form Recipe
 
 
 
@@ -363,7 +398,7 @@ public class Controller {
 
     @FXML
     public void recipeItemControl(ActionEvent action){ //TODO: MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
-        if(action.getSource()==btnEditSelectedIngredient){
+        if(action.getSource()==btnEditSelectedIngredient){//Edit button to edit a selected Ingredient from the chosen Recipe
             selectedIngDelete.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
         } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
@@ -372,7 +407,6 @@ public class Controller {
             selectedIngDelete.setVisible(true);
         }//Selecting an Ingredient from the list of Ingredients in a Recipe and pressing the delete button should pop up a question if you confirm
     }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
-
 
 
 
@@ -385,7 +419,30 @@ public class Controller {
     //For the edit I want to be able to edit the values already imputed and after pressing the update button to change those values imputed btn
 
 
-    public void none(){}
+
+
+
+
+
+
+    //Search
+    @FXML
+    private ImageView searchIcon;
+    @FXML
+    private ImageView searchIcon1;
+    @FXML
+    private Pane pnlSearch;
+
+    public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
+        System.out.println("Searching");
+        searchIcon.setVisible(false);
+        searchIcon1.setVisible(true);
+    }
+
+    public void searchIconHover(MouseEvent event){//Effect of image brightening when releasing the mouse
+        searchIcon1.setVisible(false);
+        searchIcon.setVisible(true);
+    }
 
 
 
