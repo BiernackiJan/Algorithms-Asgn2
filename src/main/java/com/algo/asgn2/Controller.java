@@ -445,11 +445,17 @@ public class Controller {
 
     //Search
     @FXML
+    private Pane pnlSearch;
+    @FXML
     private ImageView searchIcon;
     @FXML
     private ImageView searchIcon1;
     @FXML
-    private Pane pnlSearch;
+    private Button byKcal;//button to sort searched items by Kcal
+    @FXML
+    private Button alphabetical;//button to sort searched items by alphabet
+
+
 
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
         System.out.println("Searching");
@@ -461,6 +467,16 @@ public class Controller {
         searchIcon1.setVisible(false);
         searchIcon.setVisible(true);
     }
+
+    public void sortButton(ActionEvent event){
+        if(event.getSource()==alphabetical){
+            System.out.println("Sorting Alphabetical");
+        }
+        if(event.getSource()==byKcal){
+            System.out.println("Sorting by Kcal");
+        }
+    }
+
 
 
 
