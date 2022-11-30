@@ -90,3 +90,7 @@
 #btnBrighter:pressed{
     -fx-background-color : #1620D1;
 }
+
+#goodsImage{
+    -fx-border-color: blue;
+}

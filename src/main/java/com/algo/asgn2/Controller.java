@@ -233,12 +233,16 @@ public class Controller {
     @FXML
     private Label youHaveAdded;//You Have Added:   "Label"
     @FXML
+    private Group bakedImage;
+    @FXML
     private ImageView goodsImage;//ImageView to show the image of the added BakedGood left sied bellow button
     @FXML
     private ListView<BakedGoods> listAddedGood; //show the added BakedGood bellow the button
     @FXML
     public void addGood(ActionEvent actionEvent){
+        listAddedGood.getItems().clear();
         youHaveAdded.setVisible(true);
+        goodsImage.setVisible(true);
 
         String bN = goodsName.getText();
         String bC = originCt.getText();
