@@ -176,7 +176,7 @@ public class Controller {
     @FXML
     private TextArea ingredientDesc;
     @FXML
-    private TextField perMeasurememt; //kcal per how much
+    private TextField perMeasurement; //kcal per how much
     @FXML
     private ListView<Ingredient> listAddedIng;
     @FXML
@@ -195,15 +195,15 @@ public class Controller {
         String iN = ingredientName.getText();
         int iK = Integer.parseInt(ingredientKcal.getText());
         String iD = ingredientDesc.getText();
-        String iM = perMeasurememt.getText();
+        String iM = perMeasurement.getText();
 
         items.add(new Ingredient(iN,iD, iK,iM));
         System.out.println(items.listAll());
 
         listAllIng.getItems().add(new Ingredient(iN,iD, iK,iM));
 
-        ingredientList.getItems().clear();
-        ingredientList.getItems().add(new Ingredient(iN,iD, iK,iM));
+        listAddedIng.getItems().clear();
+        listAddedIng.getItems().add(new Ingredient(iN,iD, iK,iM));
     } //button to add an ingredient to the system
 
 
