@@ -322,7 +322,7 @@
                         <Font name="System Bold" size="26.0" />
                      </font>
                   </Label>
-                  <Group fx:id="searchField1" layoutX="65.0" layoutY="107.0">
+                  <Group fx:id="searchField1" layoutX="125.0" layoutY="121.0">
                      <children>
                         <TextField fx:id="searchOption1" prefHeight="31.0" prefWidth="271.0" promptText="Search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
                         <TextField fx:id="searchOption2" layoutX="134.0" prefHeight="31.0" prefWidth="142.0" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7;" />
@@ -341,6 +341,15 @@
                         </ImageView>
                      </children>
                   </Group>
+                  <ScrollPane layoutX="14.0" layoutY="172.0" prefHeight="389.0" prefWidth="498.0" style="-fx-background-color: #02030A;" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItems" prefHeight="387.0" prefWidth="501.0" spacing="5.0" style="-fx-background-color: #02030A;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
             <Pane fx:id="pnlPackages1" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
