@@ -87,17 +87,6 @@ public class Controller {
             pnlDrillDown.setVisible(false);
             pnlIngredients.setVisible(true);
         }
-        if (actionEvent.getSource() == btnRecipes) {
-            pnlRecipes.setStyle("-fx-background-color : #02030A");
-            pnlRecipes.toFront();
-            pnlIngredients.setVisible(false);
-            pnlOverview.setVisible(false);
-            pnlBakedGoods.setVisible(false);
-            pnlEdit.setVisible(false);
-            pnlSearch.setVisible(false);
-            pnlDrillDown.setVisible(false);
-            pnlRecipes.setVisible(true);
-        }
         if(actionEvent.getSource()== btnBakedGoods) {
             pnlBakedGoods.setStyle("-fx-background-color : #02030A");
             pnlBakedGoods.toFront();
@@ -109,6 +98,18 @@ public class Controller {
             pnlSearch.setVisible(false);
             pnlDrillDown.setVisible(false);
             pnlBakedGoods.setVisible(true);
+        }
+        if (actionEvent.getSource() == btnRecipes) {
+            populateChooseGood();
+            pnlRecipes.setStyle("-fx-background-color : #02030A");
+            pnlRecipes.toFront();
+            pnlIngredients.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlBakedGoods.setVisible(false);
+            pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(false);
+            pnlRecipes.setVisible(true);
         }
         if(actionEvent.getSource()== btnEdit){
             pnlEdit.setStyle("-fx-background-color : #02030A");
@@ -283,6 +284,11 @@ public class Controller {
     private ListView<Ingredient> addedIngredients; //listView to show the ingredients already added to the recipe
 
 
+    public void populateChooseGood(){
+        for(int i = 0; i < list.numNodes(); i++){
+            chooseGood.getItems().add((BakedGoods) list.get(i));
+        }
+    }
     @FXML
     public void addToRec(ActionEvent action){} //Button to add an ingredient to a recipe
     @FXML

@@ -50,8 +50,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient: " + '\n' +
-                "  " + ingName + "  Description: " + ingDes +
-                "  Calories " + calories + " Amount needed: " + amount + '\n' ;
+        return  "  " + ingName + ",  " + ingDes +
+                "  Calories: " + calories + " Amount needed: " + amount + '\n' ;
     }
 }

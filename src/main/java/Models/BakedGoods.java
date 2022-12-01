@@ -56,8 +56,7 @@ public class BakedGoods {
 
     @Override
     public String toString() {
-        return "Baked Goods: " + '\n' +
-                "  " + goodsName + "  Description: " + goodsDes +
-                "  Originated in " + originCountry + '\n' ;
+        return  "  " + goodsName + ",  " + goodsDes +
+                "  Originated in: " + originCountry + '\n' ;
     }
 }
