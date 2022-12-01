@@ -30,14 +30,6 @@ public class Controller {
     public static LinkedList<Ingredient> items = new LinkedList<>();
 
 
-//    @FXML
-//    private VBox pnItems = null;
-
-//    public void initialize(){
-//        chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
-//    }
-
-
 
 
 
@@ -59,6 +51,13 @@ public class Controller {
     private Button btnDrillDown;
     @FXML
     private Button btnSignout;
+
+
+
+    @FXML
+    private Button btnDrillDown1;
+    @FXML
+    private Pane pnlDrillDown1;
 
 
     @FXML
@@ -112,6 +111,8 @@ public class Controller {
         }
         if(actionEvent.getSource()== btnEdit){
             pnlEdit.setStyle("-fx-background-color : #02030A");
+            chooseTypeToEdit.getItems().clear();
+            chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
             pnlEdit.toFront();
             pnlRecipes.setVisible(false);
             pnlIngredients.setVisible(false);
@@ -144,7 +145,19 @@ public class Controller {
             pnlDrillDown.setVisible(true);
         }
         if(actionEvent.getSource()== btnSignout){
-            Platform.exit();
+            Platform.exit();;
+        }
+
+        if(actionEvent.getSource()==btnDrillDown1){
+            pnlDrillDown1.toFront();
+            pnlRecipes.setVisible(false);
+            pnlIngredients.setVisible(false);
+            pnlOverview.setVisible(false);
+            pnlBakedGoods.setVisible(false);
+            pnlEdit.setVisible(false);
+            pnlSearch.setVisible(false);
+            pnlDrillDown.setVisible(false);
+            pnlDrillDown1.setVisible(true);
         }
 
     }
@@ -533,10 +546,10 @@ public class Controller {
     @FXML
     private Pane pnlDrillDown;
     @FXML
-    private ScrollPane pnItems;
+    private VBox pnItems = null;
 
 
-    @FXML
+
     public void initialize() {
         Node[] nodes = new Node[10];
         for (int i = 0; i < nodes.length; i++) {
@@ -553,7 +566,7 @@ public class Controller {
                 nodes[i].setOnMouseExited(event -> {
                     nodes[j].setStyle("-fx-background-color : #02030A");
                 });
-                pnItems.setContent(nodes[i]);
+                pnItems.getChildren().add(nodes[i]);
             } catch (IOException e) {
                 e.printStackTrace();
             }

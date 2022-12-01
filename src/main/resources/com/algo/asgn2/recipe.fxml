@@ -146,11 +146,23 @@
                   <Insets left="50.0" />
                </padding>
             </Button>
+            <Button fx:id="btnDrillDown1" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Drill-Down">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/icons8_Slider__32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
          </children>
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -288,7 +300,7 @@
                   <Group fx:id="updateGoodsField" visible="false">
                      <children>
                         <TextField fx:id="ingrNameUpdate1" layoutX="500.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                        <TextField fx:id="ingKcalUpdate1" layoutX="646.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Origin Country" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                        <TextField fx:id="ingKcalUpdate1" layoutX="646.0" layoutY="236.0" prefHeight="35.0" prefWidth="133.0" promptText="Origin Country" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" text="Poland" />
                         <TextField fx:id="ingMlUpdate1" layoutX="565.0" layoutY="288.0" prefHeight="35.0" prefWidth="150.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <TextArea fx:id="ingDescUpdate1" layoutX="516.0" layoutY="340.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
                         <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="587.0" layoutY="482.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
@@ -374,16 +386,25 @@
                   <ListView fx:id="listIngInOtherRecipe" layoutX="500.0" layoutY="171.0" prefHeight="379.0" prefWidth="279.0" stylesheets="@style.css" />
                </children>
             </Pane>
-            <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0">
+            <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="28.0" prefHeight="42.0" prefWidth="301.0" text="Interactive Drill-Down" textFill="#e7e5e5">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Label>
-                  <ScrollPane fx:id="pnItems" layoutX="14.0" layoutY="103.0" prefHeight="458.0" prefWidth="445.0" style="-fx-background-color: #02030A; -fx-border-color: #1620A1;" stylesheets="@style.css">
+                  <ScrollPane layoutX="14.0" layoutY="94.0" prefHeight="458.0" prefWidth="445.0" stylesheets="@style.css" visible="false">
                      <content>
-                        <VBox prefHeight="453.0" prefWidth="442.0" spacing="5.0" style="-fx-background-color: #02030A;" visible="false">
+                        <VBox fx:id="pnItems2" prefHeight="453.0" prefWidth="576.0" spacing="5.0" style="-fx-background-color: #02030A;" visible="false">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane layoutX="14.0" layoutY="94.0" prefHeight="458.0" prefWidth="460.0" stylesheets="@style.css">
+                     <content>
+                        <VBox fx:id="pnItems" prefHeight="461.0" prefWidth="469.0" spacing="5.0" style="-fx-background-color: #02030A;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -392,7 +413,7 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <Pane fx:id="pnlPackages1" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
+            <Pane fx:id="pnlDrillDown1" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>
                   <TextField layoutX="590.0" layoutY="47.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
                   <Label layoutX="57.0" layoutY="25.0" text="Restaurant Orders" textFill="#e7e5e5">
@@ -475,7 +496,7 @@
                   </HBox>
                   <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@style.css">
                      <content>
-                        <VBox fx:id="pnItems1" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #02030A;">
+                        <VBox fx:id="pnItems1" prefHeight="313.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #02030A;">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
