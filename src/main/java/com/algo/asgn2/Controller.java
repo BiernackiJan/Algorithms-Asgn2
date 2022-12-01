@@ -33,9 +33,9 @@ public class Controller {
 //    @FXML
 //    private VBox pnItems = null;
 
-    public void initialize(){
-        chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
-    }
+//    public void initialize(){
+//        chooseTypeToEdit.getItems().addAll("Ingredients","Baked Goods","Recipes");
+//    }
 
 
 
@@ -532,32 +532,34 @@ public class Controller {
     //Drill Down
     @FXML
     private Pane pnlDrillDown;
+    @FXML
+    private ScrollPane pnItems;
 
 
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//        Node[] nodes = new Node[10];
-//        for (int i = 0; i < nodes.length; i++) {
-//            try {
-//
-//                final int j = i;
-//                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
-//
-//                //give the items some effect
-//
-//                nodes[i].setOnMouseEntered(event -> {
-//                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
-//                });
-//                nodes[i].setOnMouseExited(event -> {
-//                    nodes[j].setStyle("-fx-background-color : #02030A");
-//                });
-//                pnItems.getChildren().add(nodes[i]);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
+    @FXML
+    public void initialize() {
+        Node[] nodes = new Node[10];
+        for (int i = 0; i < nodes.length; i++) {
+            try {
+
+                final int j = i;
+                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
+
+                //give the items some effect
+
+                nodes[i].setOnMouseEntered(event -> {
+                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
+                });
+                nodes[i].setOnMouseExited(event -> {
+                    nodes[j].setStyle("-fx-background-color : #02030A");
+                });
+                pnItems.setContent(nodes[i]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
 
 

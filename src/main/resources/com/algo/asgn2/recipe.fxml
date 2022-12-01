@@ -342,7 +342,7 @@
                   </Group>
                </children>
             </Pane>
-            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0">
+            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="28.0" prefHeight="53.0" prefWidth="214.0" text="Search for Items" textFill="#e7e5e5">
                      <font>
@@ -374,16 +374,16 @@
                   <ListView fx:id="listIngInOtherRecipe" layoutX="500.0" layoutY="171.0" prefHeight="379.0" prefWidth="279.0" stylesheets="@style.css" />
                </children>
             </Pane>
-            <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
+            <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="28.0" prefHeight="42.0" prefWidth="301.0" text="Interactive Drill-Down" textFill="#e7e5e5">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
                   </Label>
-                  <ScrollPane layoutX="14.0" layoutY="103.0" prefHeight="458.0" prefWidth="445.0" style="-fx-background-color: #02030A; -fx-border-color: #1620A1;" stylesheets="@style.css">
+                  <ScrollPane fx:id="pnItems" layoutX="14.0" layoutY="103.0" prefHeight="458.0" prefWidth="445.0" style="-fx-background-color: #02030A; -fx-border-color: #1620A1;" stylesheets="@style.css">
                      <content>
-                        <VBox fx:id="pnItems" prefHeight="453.0" prefWidth="442.0" spacing="5.0" style="-fx-background-color: #02030A;" visible="false">
+                        <VBox prefHeight="453.0" prefWidth="442.0" spacing="5.0" style="-fx-background-color: #02030A;" visible="false">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
