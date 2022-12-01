@@ -241,8 +241,7 @@ public class Controller {
     @FXML
     public void addGood(ActionEvent actionEvent){
         listAddedGood.getItems().clear();
-        youHaveAdded.setVisible(true);
-        goodsImage.setVisible(true);
+        bakedImage.setVisible(true);
 
         String bN = goodsName.getText();
         String bC = originCt.getText();
@@ -491,6 +490,10 @@ public class Controller {
     private Button byKcal;//button to sort searched items by Kcal
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
+    @FXML
+    private ListView listSearchItems;
+    @FXML
+    private ListView listIngInOtherRecipe;
 
 
 

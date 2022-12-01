@@ -210,7 +210,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlBakedGoods" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="14.0" prefHeight="74.0" prefWidth="325.0" text="Add Baked Goods" textFill="WHITE" underline="true">
                      <font>
@@ -222,18 +222,18 @@
                   <TextArea fx:id="goodsDesc" layoutX="84.0" layoutY="171.0" prefHeight="100.0" prefWidth="248.0" promptText="Description" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: .5em;" stylesheets="@style.css" />
                   <TextField fx:id="imageUrl" layoutX="422.0" layoutY="204.0" prefHeight="35.0" prefWidth="248.0" promptText="Image Url" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                   <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="-2.0" layoutY="308.0" mnemonicParsing="false" onAction="#addGood" prefHeight="42.0" prefWidth="795.0" stylesheets="@style.css" text="Add Baked Item" />
-                  <Group fx:id="bakedImage" layoutX="134.0" layoutY="385.0">
+                  <Group fx:id="bakedImage" layoutX="134.0" layoutY="364.0" visible="false">
                      <children>
-                        <ListView fx:id="listAddedGood1" prefHeight="151.0" prefWidth="183.0" style="-fx-border-width: .3em;" stylesheets="@style.css" />
-                        <ImageView fx:id="goodsImage" fitHeight="142.0" fitWidth="174.0" layoutX="5.0" layoutY="5.0" />
+                        <ListView fx:id="listAddedGood1" layoutY="21.0" prefHeight="151.0" prefWidth="183.0" style="-fx-border-width: .3em;" stylesheets="@style.css" />
+                        <ImageView fx:id="goodsImage" fitHeight="142.0" fitWidth="174.0" layoutX="5.0" layoutY="26.0" />
+                        <Label id="btnBrighter" fx:id="youHaveAdded" alignment="CENTER" layoutX="342.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ListView fx:id="listAddedGood" layoutX="209.0" layoutY="51.0" prefHeight="92.0" prefWidth="359.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" />
                      </children>
                   </Group>
-                  <Label id="btnBrighter" fx:id="youHaveAdded" alignment="CENTER" layoutX="476.0" layoutY="364.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ListView fx:id="listAddedGood" layoutX="343.0" layoutY="415.0" prefHeight="92.0" prefWidth="359.0" style="-fx-background-color: #02030A;" stylesheets="@style.css" />
                </children>
             </Pane>
             <Pane fx:id="pnlRecipes" prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -342,7 +342,7 @@
                   </Group>
                </children>
             </Pane>
-            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0" visible="false">
+            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="28.0" prefHeight="53.0" prefWidth="214.0" text="Search for Items" textFill="#e7e5e5">
                      <font>
@@ -368,9 +368,10 @@
                         </ImageView>
                      </children>
                   </Group>
-                  <ListView layoutX="25.0" layoutY="171.0" prefHeight="379.0" prefWidth="445.0" stylesheets="@style.css" />
+                  <ListView fx:id="listSearchItems" layoutX="25.0" layoutY="171.0" prefHeight="379.0" prefWidth="445.0" stylesheets="@style.css" />
                   <Button id="btnBrighter" fx:id="alphabetical" layoutX="152.0" layoutY="137.0" mnemonicParsing="false" onAction="#sortButton" prefHeight="25.0" prefWidth="86.0" stylesheets="@style.css" text="Alphabetical" />
                   <Button id="btnBrighter" fx:id="byKcal" layoutX="268.0" layoutY="137.0" mnemonicParsing="false" onAction="#sortButton" prefHeight="25.0" prefWidth="86.0" stylesheets="@style.css" text="By Kcal" />
+                  <ListView fx:id="listIngInOtherRecipe" layoutX="500.0" layoutY="171.0" prefHeight="379.0" prefWidth="279.0" stylesheets="@style.css" />
                </children>
             </Pane>
             <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">
