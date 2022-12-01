@@ -167,6 +167,12 @@ public class Controller {
 
 
 
+
+
+
+
+
+
     //Ingredients
     @FXML
     private Pane pnlIngredients; //ingredients plane
@@ -232,7 +238,7 @@ public class Controller {
     @FXML
     private TextField imageUrl;//enter the BakedGoods image url
     @FXML
-    private Label youHaveAdded;//You Have Added:   "Label"
+    private Group youHaveAdded;//You Have Added:   "Label"
     @FXML
     private ImageView goodsImage;//ImageView to show the image of the added BakedGood left sied bellow button
     @FXML
