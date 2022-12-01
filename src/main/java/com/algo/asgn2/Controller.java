@@ -242,6 +242,7 @@ public class Controller {
     public void addGood(ActionEvent actionEvent){
         listAddedGood.getItems().clear();
         bakedImage.setVisible(true);
+        youHaveAdded.setVisible(true);
 
         String bN = goodsName.getText();
         String bC = originCt.getText();
