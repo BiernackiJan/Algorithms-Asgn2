@@ -3,10 +3,10 @@ package Models;
 public class Ingredient {
     private String ingName;
     private String ingDes;
-    private int calories;
-    private String amount;
+    private float calories;
+    private float amount;
 
-    public Ingredient(String n, String d, int c, String a) {
+    public Ingredient(String n, String d, float c, float a) {
         this.ingName = n;
         this.ingDes = d;
         this.calories = c;
@@ -21,11 +21,11 @@ public class Ingredient {
         return ingDes;
     }
 
-    public int getCalories() {
+    public float getCalories() {
         return calories;
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 
@@ -38,15 +38,20 @@ public class Ingredient {
         this.ingDes = ingDes;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(float calories) {
         this.calories = calories;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
     //Methods--------------------------------------------------
+
+    public void calculateKcal(float per){
+        float kcalPer1g = calories/amount;
+    }
+
 
     @Override
     public String toString() {

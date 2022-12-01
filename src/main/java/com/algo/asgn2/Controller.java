@@ -200,9 +200,9 @@ public class Controller {
         listAddedIng.setVisible(true);
 
         String iN = ingredientName.getText();
-        int iK = Integer.parseInt(ingredientKcal.getText());
         String iD = ingredientDesc.getText();
-        String iM = perMeasurement.getText();
+        int iK = Float.parseFloat(ingredientKcal.getText());
+        int iM = Float.parseFloat(perMeasurement.getText());
 
         items.add(new Ingredient(iN,iD, iK,iM));
         System.out.println(items.listAll());
