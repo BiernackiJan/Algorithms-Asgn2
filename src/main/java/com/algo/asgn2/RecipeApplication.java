@@ -10,7 +10,6 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class RecipeApplication extends Application {
-
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("recipe.fxml"));
