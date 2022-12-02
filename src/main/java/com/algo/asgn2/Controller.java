@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.lang.String.valueOf;
+
 public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
     public static LinkedList<Ingredient> items = new LinkedList<>();
@@ -454,77 +456,14 @@ public class Controller {
     private Group updateGoodsField;//group to display with input text fields to edit a BakedGood when it is chosen from the list view and edit button pressed
     @FXML
     private Group confirmDelete;//group to ask if you are sure that oyu want to delete this item
-
-
-
-    //Idea for Edit/Deletion of recipe that I have came up with and created in the GUI:
-    //When recipe is chosen from the choice box to edit, the recipes will list in the listView, once a recipe is selected and then the Edit
-    //button is pressed, a list of all Ingredients imputed into the Recipe is displayed in the top right of the screen. You can then, select
-    //an Ingredient and choose to edit it or delete it. if you choose to edit it 4 text fields will pop up below the buttons and an Update
-    //button will be at the bottom to confirm the edit. If you choose to delete an ingredient a confirmation question will pop-up under the
-    //buttons with the item that you wish to delete displaying in a listView bellow and a confirm button will be present at the bottom.
-
-
-    public void editItems(ActionEvent event){
-        if(event.getSource()==btnStartEdit && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
-                updateGoodsField.setVisible(false);
-                ingFromRecipe.setVisible(false);
-                editChosenRecipeIngredient.setVisible(false);
-                selectedIngDelete.setVisible(false);
-                confirmDelete.setVisible(false);
-                updateIngredientsField.setVisible(true);
-            }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1 && editChosenGood.getSelectionModel().getSelectedItem() != null){//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
-                updateIngredientsField.setVisible(false);
-                ingFromRecipe.setVisible(false);
-                editChosenRecipeIngredient.setVisible(false);
-                selectedIngDelete.setVisible(false);
-                confirmDelete.setVisible(false);
-                updateGoodsField.setVisible(true);
-            }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
-                updateIngredientsField.setVisible(false);
-                confirmDelete.setVisible(false);
-                editChosenRecipeIngredient.setVisible(false);
-                selectedIngDelete.setVisible(false);
-                updateGoodsField.setVisible(false);
-                ingFromRecipe.setVisible(true);
-            }
-        }
-        if(event.getSource()==btnStartDelete && editChosenIngredient.getSelectionModel().getSelectedItem() != null |){//Delete message shows up when the button is pressed
-            updateIngredientsField.setVisible(false);
-            updateGoodsField.setVisible(false);
-            editChosenRecipeIngredient.setVisible(false);
-            selectedIngDelete.setVisible(false);
-            ingFromRecipe.setVisible(false);
-            confirmDelete.setVisible(true);
-        }
-
-        if(event.getSource()==btnStartDelete && editChosenGood.getSelectionModel().getSelectedItem() != null){
-            updateIngredientsField.setVisible(false);
-            updateGoodsField.setVisible(false);
-            editChosenRecipeIngredient.setVisible(false);
-            selectedIngDelete.setVisible(false);
-            ingFromRecipe.setVisible(false);
-            confirmDelete.setVisible(true);
-        }
-        if(event.getSource()==btnStartDelete && editChosenRecipe.getSelectionModel().getSelectedItem() != null ){
-            updateIngredientsField.setVisible(false);
-            updateGoodsField.setVisible(false);
-            editChosenRecipeIngredient.setVisible(false);
-            selectedIngDelete.setVisible(false);
-            ingFromRecipe.setVisible(false);
-            confirmDelete.setVisible(true);
-        }
-    }
+    @FXML
+    private ListView chosenRecipeComponents;
 
 
 
 
-    public void confirmDelete(ActionEvent event){}//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
 
-    public void confirmEdit(ActionEvent event){}//when this is pressed all the fields that were edited should be changed and applied to the object
+
 
 
 
@@ -542,10 +481,6 @@ public class Controller {
     @FXML
     private Button btnDelSelectedIngredient;//after choosing an Ingredient from a recipe you can delete it
 
-
-
-
-    //updateIngredientField
     @FXML
     private TextField ingrNameUpdate;//Update an ingredient name chosen from a Recipe
     @FXML
@@ -555,6 +490,95 @@ public class Controller {
     @FXML
     private TextArea ingDescUpdate;//Update an ingredient Description chosen form Recipe
 
+
+
+
+    public void editItems(ActionEvent event) {
+        if (event.getSource() == btnStartEdit && editChosenIngredient.getSelectionModel().getSelectedItem() != null) {//Edit boxes show up
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
+                updateGoodsField.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                confirmDelete.setVisible(false);
+                updateIngredientsField.setVisible(true);
+                Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+                ingrNameUpdate.setText(ing.getIngName());
+                ingKcalUpdate.setText(valueOf(ing.getCalories()));
+                ingMlUpdate.setText(valueOf(ing.getAmount()));
+                ingDescUpdate.setText(ing.getIngDes());
+            }
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null) {//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
+                updateIngredientsField.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                confirmDelete.setVisible(false);
+                updateGoodsField.setVisible(true);
+            }
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
+                updateIngredientsField.setVisible(false);
+                confirmDelete.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                updateGoodsField.setVisible(false);
+                ingFromRecipe.setVisible(true);
+            }
+        }
+
+
+        if (event.getSource() == btnStartDelete) {//Delete message shows up when the button is pressed
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null) {
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                confirmDelete.setVisible(true);
+                chosenRecipeComponents.getItems().clear();
+                Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+                chosenRecipeComponents.getItems().add(ing);
+            }
+
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null) {
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                confirmDelete.setVisible(true);
+                chosenRecipeComponents.getItems().clear();
+                BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+                chosenRecipeComponents.getItems().add(bg);
+            }
+
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {
+                chosenRecipeComponents.getItems().clear();
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+                chosenRecipeComponents.getItems().add(rp);
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                selectedIngDelete.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                confirmDelete.setVisible(true);
+            }
+        }
+    }
+
+
+
+    public void confirmDelete(ActionEvent event){}//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
+
+    public void confirmEdit(ActionEvent event){}//when this is pressed all the fields that were edited should be changed and applied to the object
+
+
+
+
+
+
+
+    //updateIngredientField
 
 
 

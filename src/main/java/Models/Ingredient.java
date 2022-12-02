@@ -73,6 +73,6 @@ public class Ingredient {
     @Override
     public String toString() {
         return  "  " + ingName + ",  " + ingDes +
-                "  " + kcal*100 + "kcal per 100g" + '\n' ;
+                "  " + kcal + "kcal per " + amount + "g " +  '\n' ;
     }
 }
