@@ -3,14 +3,21 @@ package Models;
 public class Ingredient {
     private String ingName;
     private String ingDes;
-    private float calories;
-    private float amount;
+    private int calories;
+    private int amount;
+    private int kcal;
 
-    public Ingredient(String n, String d, float c, float a) {
+    public Ingredient(String n, String d, int c, int a) {
         this.ingName = n;
         this.ingDes = d;
         this.calories = c;
         this.amount = a;
+    }
+
+    public Ingredient(String n,String d,int kcal){
+        this.ingName = n;
+        this.ingDes = d;
+        this.kcal = kcal;
     }
     //Getters-----------------------------------------------------
     public String getIngName() {
@@ -38,24 +45,25 @@ public class Ingredient {
         this.ingDes = ingDes;
     }
 
-    public void setCalories(float calories) {
+    public void setCalories(int calories) {
         this.calories = calories;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
     //Methods--------------------------------------------------
 
-    public void calculateKcal(float per){
-        float kcalPer1g = calories/amount;
+    public int calculateKcal(int per){
+        int kcalPer1g = calories/amount;
+        return kcalPer1g*per;
     }
 
 
     @Override
     public String toString() {
         return  "  " + ingName + ",  " + ingDes +
-                "  Calories: " + calories + " Amount needed: " + amount + '\n' ;
+                "  " + calculateKcal(100) + "kcal per 100g" + '\n' ;
     }
 }

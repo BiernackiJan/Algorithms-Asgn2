@@ -93,13 +93,12 @@ public class Controller {
             pnlIngredients.setVisible(false);
             pnlOverview.setVisible(false);
             pnlEdit.setVisible(false);
-            youHaveAdded.setVisible(false);
             pnlSearch.setVisible(false);
             pnlDrillDown.setVisible(false);
             pnlBakedGoods.setVisible(true);
         }
         if (actionEvent.getSource() == btnRecipes) {
-            populateChooseGood();
+            populateRecipeFields();
             pnlRecipes.setStyle("-fx-background-color : #02030A");
             pnlRecipes.toFront();
             pnlIngredients.setVisible(false);
@@ -203,9 +202,8 @@ public class Controller {
     private ListView<Ingredient> listAllIng;
     @FXML
     private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
-
-    @FXML
-    private ListView<Ingredient> ingredientList;
+//    @FXML
+//    private ListView<Ingredient> ingredientList;
 
     @FXML
     private void addIngredient(ActionEvent event){
@@ -214,8 +212,8 @@ public class Controller {
 
         String iN = ingredientName.getText();
         String iD = ingredientDesc.getText();
-        int iK = Float.parseFloat(ingredientKcal.getText());
-        int iM = Float.parseFloat(perMeasurement.getText());
+        int iK = Integer.parseInt(ingredientKcal.getText());
+        int iM = Integer.parseInt(perMeasurement.getText());
 
         items.add(new Ingredient(iN,iD, iK,iM));
         System.out.println(items.listAll());
@@ -251,8 +249,6 @@ public class Controller {
     @FXML
     private TextField imageUrl;//enter the BakedGoods image url
     @FXML
-    private Group youHaveAdded;//You Have Added:   "Label"
-    @FXML
     private Group bakedImage;
     @FXML
     private ImageView goodsImage;//ImageView to show the image of the added BakedGood left sied bellow button
@@ -262,7 +258,6 @@ public class Controller {
     public void addGood(ActionEvent actionEvent){
         listAddedGood.getItems().clear();
         bakedImage.setVisible(true);
-        youHaveAdded.setVisible(true);
 
         String bN = goodsName.getText();
         String bC = originCt.getText();
@@ -300,23 +295,61 @@ public class Controller {
     @FXML
     private ComboBox<BakedGoods> chooseGood; //choose which baked good to make a recipe for
     @FXML
+    private TextField recipeName;//Name of the recipe
+    @FXML
     private ListView<Ingredient> ingredientsList;//to list all ingredients and allow to pick one to add
     @FXML
     private TextField ingredientGrams;//measurement of Ingredient to the recipe to calculate grams later
     @FXML
     private ListView<Ingredient> addedIngredients; //listView to show the ingredients already added to the recipe
+    @FXML
+    private ComboBox<Recipe> chooseRecipeToAddTo;
 
 
-    public void populateChooseGood(){
+    public void populateRecipeFields(){
+        chooseGood.getItems().clear();
+        ingredientsList.getItems().clear();
         for(int i = 0; i < list.numNodes(); i++){
             chooseGood.getItems().add((BakedGoods) list.get(i));
         }
+        for(int i = 0; i < items.numNodes(); i++){
+            ingredientsList.getItems().add((Ingredient) items.get(i));
+        }
     }
-    @FXML
-    public void addToRec(ActionEvent action){} //Button to add an ingredient to a recipe
-    @FXML
-    public void chooseIngredient(MouseEvent event){}//Choosing an ingredient from the list by pressing it
 
+    public void createRecipe(ActionEvent event){
+        String str = recipeName.getText();
+        Recipe R = new Recipe(str);
+        BakedGoods bg = chooseGood.getSelectionModel().getSelectedItem();
+        bg.recipes.add(R);
+        choseBakedGood();
+    }
+
+    Ingredient selectedIng;
+    public void selectedIngredient(MouseEvent event){
+        selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
+    }
+
+    public void addToRec(ActionEvent action){
+        Recipe r =  chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
+        int amnt = Integer.parseInt(ingredientGrams.getText());
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(),selectedIng.getIngDes(),selectedIng.calculateKcal(amnt));
+       if(selectedIng != null && ingredientGrams.getCharacters()!=null){
+            r.recipeIngredients.add(rIng);
+            addedIngredients.getItems().add(rIng);
+       }
+
+
+
+    } //Button to add an ingredient to a recipe
+
+    public void choseBakedGood(){
+        chooseRecipeToAddTo.getItems().clear();
+        BakedGoods bg = chooseGood.getSelectionModel().getSelectedItem();
+        for(int i = 0; i < bg.recipes.numNodes(); i++){
+            chooseRecipeToAddTo.getItems().add((Recipe) bg.recipes.get(i));
+        }
+    }//Populating choose Recipe choice box when Baked Good is chosen in the ComboBox
 
 
 

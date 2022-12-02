@@ -238,7 +238,7 @@
                      <children>
                         <ListView fx:id="listAddedGood1" layoutY="21.0" prefHeight="151.0" prefWidth="183.0" style="-fx-border-width: .3em;" stylesheets="@style.css" />
                         <ImageView fx:id="goodsImage" fitHeight="142.0" fitWidth="174.0" layoutX="5.0" layoutY="26.0" />
-                        <Label id="btnBrighter" fx:id="youHaveAdded" alignment="CENTER" layoutX="342.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff">
+                        <Label id="btnBrighter" alignment="CENTER" layoutX="342.0" prefHeight="28.0" prefWidth="140.0" text="You have added:" textFill="#00c3ff">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -255,16 +255,24 @@
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="ingredientsList" layoutX="45.0" layoutY="205.0" onMouseClicked="#chooseIngredient" prefHeight="277.0" prefWidth="359.0" stylesheets="@style.css" />
+                  <ListView fx:id="ingredientsList" layoutX="45.0" layoutY="205.0" onMouseClicked="#selectedIngredient" prefHeight="277.0" prefWidth="359.0" stylesheets="@style.css" />
                   <Label layoutX="79.0" layoutY="96.0" prefHeight="74.0" prefWidth="150.0" text="Recipe for" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="27.0" />
                      </font>
                   </Label>
-                  <ComboBox id="btnBrighter" fx:id="chooseGood" layoutX="229.0" layoutY="117.0" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
-                  <TextField fx:id="ingredientGrams" layoutX="484.0" layoutY="188.0" prefHeight="35.0" prefWidth="172.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
-                  <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="512.0" layoutY="238.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" stylesheets="@style.css" text="Add Ingredient" />
-                  <ListView fx:id="addedIngredients" layoutX="415.0" layoutY="288.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
+                  <ComboBox id="btnBrighter" fx:id="chooseGood" layoutX="229.0" layoutY="117.0" onMouseExited="#choseBakedGood" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
+                  <TextField fx:id="ingredientGrams" layoutX="513.0" layoutY="187.0" prefHeight="35.0" prefWidth="172.0" promptText="Grams/Millilitres" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="541.0" layoutY="237.0" mnemonicParsing="false" onAction="#addToRec" prefHeight="35.0" prefWidth="116.0" stylesheets="@style.css" text="Add Ingredient" />
+                  <ListView fx:id="addedIngredients" layoutX="444.0" layoutY="287.0" prefHeight="194.0" prefWidth="311.0" stylesheets="@style.css" />
+                  <TextField fx:id="recipeName" layoutX="79.0" layoutY="160.0" prefHeight="27.0" prefWidth="172.0" promptText="Recipe Name" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
+                  <Button id="btnBrighter" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="268.0" layoutY="160.0" mnemonicParsing="false" onAction="#createRecipe" prefHeight="28.0" prefWidth="93.0" stylesheets="@style.css" text="Create" />
+                  <ComboBox id="btnBrighter" fx:id="chooseRecipeToAddTo" layoutX="503.0" layoutY="145.0" prefHeight="28.0" prefWidth="192.0" promptText="Choose Recipe" stylesheets="@style.css" />
+                  <Label alignment="CENTER" layoutX="20.0" layoutY="493.0" prefHeight="39.0" prefWidth="408.0" text="Choose Ingredients from the list to add to the Recipe" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                </children></Pane>
             <Pane fx:id="pnlEdit" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
@@ -281,9 +289,9 @@
                            </font>
                         </Label>
                         <ComboBox id="btnBrighter" fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" onMouseClicked="#chooseItemToList" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
-                        <ListView fx:id="editChosenIngredient" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                        <ListView fx:id="editChosenGood" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                        <ListView fx:id="editChosenRecipe" layoutY="81.0" onMouseClicked="#chooseIngredient" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView fx:id="editChosenIngredient" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView fx:id="editChosenGood" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView fx:id="editChosenRecipe" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
                         <Button id="btnBrighter" fx:id="btnStartEdit" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="366.0" layoutY="81.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
                         <Button id="btnBrighter" fx:id="btnStartDelete" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="366.0" layoutY="128.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
                      </children>
