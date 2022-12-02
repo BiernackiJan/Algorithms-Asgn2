@@ -216,7 +216,12 @@ public class Controller {
         int iM = Integer.parseInt(perMeasurement.getText());
 
         items.add(new Ingredient(iN,iD, iK,iM));
-        System.out.println(items.listAll());
+
+        ingredientName.clear();
+        ingredientDesc.clear();
+        ingredientKcal.clear();
+        perMeasurement.clear();
+
 
         listAllIng.getItems().add(new Ingredient(iN,iD, iK,iM));
 
@@ -270,6 +275,11 @@ public class Controller {
         //https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w= Sample Apple image
         Image image = new Image(bU);
         goodsImage.setImage(image);
+
+        goodsName.clear();
+        originCt.clear();
+        goodsDesc.clear();
+        imageUrl.clear();
     } //displays the youHaveAdded label bellow the add button
 
     //Text fields: goodsName, originCt , ImageUrl , goodsDesc
@@ -337,13 +347,14 @@ public class Controller {
         float kcals = amnt*selectedIng.getKcal();
         Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), kcals);
         float f = r.getKcal() + kcals;
-        System.out.println(r.getKcal());
         r.setKcal(f);
-        System.out.println(r.getKcal());
+
+        ingredientGrams.clear();
+
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().add(rIng.toString1() + ",  " + amnt + "kcal");
+            addedIngredients.getItems().add(rIng.toString1() + ",  " + amnt + "g/ml");
         }
     } //Button to add an ingredient to a recipe
 
@@ -378,7 +389,7 @@ public class Controller {
     @FXML
     private ComboBox<String> chooseTypeToEdit;//choose if you want to edit an Ingredient, Baked Good or Recipe
 
-    //3 ListViews one for each object type TODO: Make sure correct ListView show up when the type to edit is chosen in the ComboBox
+    //3 ListViews one for each object type
     @FXML
     private ListView<Ingredient> editChosenIngredient;
     @FXML
@@ -455,7 +466,7 @@ public class Controller {
 
 
     public void editItems(ActionEvent event){
-        if(event.getSource()==btnStartEdit){
+        if(event.getSource()==btnStartEdit && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
                 updateGoodsField.setVisible(false); //TODO: Only make fields appear when an Ingredient is chosen from the ListView
                 ingFromRecipe.setVisible(false);
@@ -464,7 +475,7 @@ public class Controller {
                 confirmDelete.setVisible(false);
                 updateIngredientsField.setVisible(true);
             }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1 && editChosenGood.getSelectionModel().getSelectedItem() != null){//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
                 updateIngredientsField.setVisible(false);//TODO: Only make fields appear when a Baked Good is chosen from the ListView
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
@@ -472,7 +483,7 @@ public class Controller {
                 confirmDelete.setVisible(false);
                 updateGoodsField.setVisible(true);
             }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
+            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
                 updateIngredientsField.setVisible(false);//TODO: GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN FROM THE LIST OF RECIPES TO WORK OFF OF
                 confirmDelete.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
@@ -481,7 +492,7 @@ public class Controller {
                 ingFromRecipe.setVisible(true);
             }
         }
-        if(event.getSource()==btnStartDelete){//Delete message shows up when the button is pressed
+        if(event.getSource()==btnStartDelete && (editChosenIngredient.getSelectionModel().getSelectedItem() != null || editChosenGood.getSelectionModel().getSelectedItem() != null || editChosenRecipe.getSelectionModel().getSelectedItem() != null )){//Delete message shows up when the button is pressed
             updateIngredientsField.setVisible(false);//TODO: Make the message only show up when an item is chosen from a ListView
             updateGoodsField.setVisible(false);
             editChosenRecipeIngredient.setVisible(false);
