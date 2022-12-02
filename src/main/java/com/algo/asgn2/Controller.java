@@ -301,7 +301,7 @@ public class Controller {
     @FXML
     private TextField ingredientGrams;//measurement of Ingredient to the recipe to calculate grams later
     @FXML
-    private ListView<Ingredient> addedIngredients; //listView to show the ingredients already added to the recipe
+    private ListView<String> addedIngredients; //listView to show the ingredients already added to the recipe
     @FXML
     private ComboBox<Recipe> chooseRecipeToAddTo;
 
@@ -325,20 +325,20 @@ public class Controller {
         choseBakedGood();
     }
 
-    Ingredient selectedIng;
+     private Ingredient selectedIng;
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
+        System.out.println("Selected" + selectedIng);
     }
 
-    public void addToRec(ActionEvent action){
-        Recipe r =  chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
-        int amnt = Integer.parseInt(ingredientGrams.getText());
-        Ingredient rIng = new Ingredient(selectedIng.getIngName(),selectedIng.getIngDes(),selectedIng.calculateKcal(amnt));
-       if(selectedIng != null && ingredientGrams.getCharacters()!=null){
+    public void addToRec(ActionEvent action) {
+        Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
+        float amnt = Float.parseFloat(ingredientGrams.getText());
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), amnt*selectedIng.getKcal());
+        if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().add(rIng);
-       }
-
+            addedIngredients.getItems().add(rIng.toString1());
+        }
 
 
     } //Button to add an ingredient to a recipe
@@ -346,8 +346,10 @@ public class Controller {
     public void choseBakedGood(){
         chooseRecipeToAddTo.getItems().clear();
         BakedGoods bg = chooseGood.getSelectionModel().getSelectedItem();
-        for(int i = 0; i < bg.recipes.numNodes(); i++){
-            chooseRecipeToAddTo.getItems().add((Recipe) bg.recipes.get(i));
+        if(bg != null) {
+            for (int i = 0; i < bg.recipes.numNodes(); i++) {
+                chooseRecipeToAddTo.getItems().add((Recipe) bg.recipes.get(i));
+            }
         }
     }//Populating choose Recipe choice box when Baked Good is chosen in the ComboBox
 

@@ -3,21 +3,22 @@ package Models;
 public class Ingredient {
     private String ingName;
     private String ingDes;
-    private int calories;
-    private int amount;
-    private int kcal;
+    private float calories;
+    private float amount;
+    private float kcal;
 
-    public Ingredient(String n, String d, int c, int a) {
+    public Ingredient(String n, String d, float c, float a) {
         this.ingName = n;
         this.ingDes = d;
         this.calories = c;
         this.amount = a;
+        this.kcal = calculateKcal(1);
     }
 
-    public Ingredient(String n,String d,int kcal){
+    public Ingredient(String n,String d,float calories){
         this.ingName = n;
         this.ingDes = d;
-        this.kcal = kcal;
+        this.kcal = calories;
     }
     //Getters-----------------------------------------------------
     public String getIngName() {
@@ -36,6 +37,8 @@ public class Ingredient {
         return amount;
     }
 
+    public float getKcal() { return kcal; }
+
     //Setters------------------------------------------------------
     public void setIngName(String ingName) {
         this.ingName = ingName;
@@ -45,25 +48,31 @@ public class Ingredient {
         this.ingDes = ingDes;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(float calories) {
         this.calories = calories;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
     //Methods--------------------------------------------------
 
-    public int calculateKcal(int per){
-        int kcalPer1g = calories/amount;
-        return kcalPer1g*per;
+    public float calculateKcal(float per){
+        kcal = calories/amount;
+        return kcal*per;
     }
 
+
+
+    public String toString1() {
+        return  "  " + ingName + ",  " + ingDes +
+                "  " + kcal + "kcal " + '\n' ;
+    }
 
     @Override
     public String toString() {
         return  "  " + ingName + ",  " + ingDes +
-                "  " + calculateKcal(100) + "kcal per 100g" + '\n' ;
+                "  " + kcal*100 + "kcal per 100g" + '\n' ;
     }
 }
