@@ -343,7 +343,7 @@ public class Controller {
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().add(rIng.toString1());
+            addedIngredients.getItems().add(rIng.toString1() + ",  " + amnt + "kcal");
         }
     } //Button to add an ingredient to a recipe
 
@@ -394,21 +394,39 @@ public class Controller {
 
 
     @FXML
-    private void chooseItemToList(MouseEvent event){
+    private void chooseItemToList(ActionEvent event){
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0){//Show the ListView when Ingredients are chosen in the ComboBox
             editChosenGood.setVisible(false);
             editChosenRecipe.setVisible(false);
             editChosenIngredient.setVisible(true);
+            editChosenIngredient.getItems().clear();
+            for(int i = 0; i < items.numNodes(); i++) {
+                Ingredient ing = (Ingredient) items.get(i);
+                editChosenIngredient.getItems().add(ing);
+            }
         }
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){//Show the ListView when Baked Goods are chosen in the ComboBox
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(false);
             editChosenGood.setVisible(true);
+            editChosenGood.getItems().clear();
+            for(int i = 0 ; i < list.numNodes(); i++){
+                BakedGoods bg = (BakedGoods) list.get(i);
+                editChosenGood.getItems().add(bg);
+            }
         }
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){//Show ListView when Recipe is chosen in the ComboBox
             editChosenGood.setVisible(false);
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(true);
+            editChosenRecipe.getItems().clear();
+            for(int i = 0; i < list.numNodes(); i++){
+                BakedGoods bg = (BakedGoods) list.get(i);
+                for(int j = 0; j < bg.recipes.numNodes(); j++){
+                    Recipe rp = (Recipe) bg.recipes.get(j);
+                    editChosenRecipe.getItems().add(rp);
+                }
+            }
         }
 
     }//Used to show the list of all Ingredients, Baked Goods or Recipes

@@ -288,7 +288,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ComboBox id="btnBrighter" fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" onMouseClicked="#chooseItemToList" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
+                        <ComboBox id="btnBrighter" fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" onAction="#chooseItemToList" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
                         <ListView fx:id="editChosenIngredient" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
                         <ListView fx:id="editChosenGood" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
                         <ListView fx:id="editChosenRecipe" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />

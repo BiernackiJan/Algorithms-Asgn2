@@ -67,7 +67,7 @@ public class Ingredient {
 
     public String toString1() {
         return  "  " + ingName + ",  " + ingDes +
-                "  " + kcal + "kcal " + '\n' ;
+                "  " + kcal + "kcal ";
     }
 
     @Override
