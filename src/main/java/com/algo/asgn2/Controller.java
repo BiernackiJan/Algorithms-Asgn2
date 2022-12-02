@@ -468,7 +468,7 @@ public class Controller {
     public void editItems(ActionEvent event){
         if(event.getSource()==btnStartEdit && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
-                updateGoodsField.setVisible(false); //TODO: Only make fields appear when an Ingredient is chosen from the ListView
+                updateGoodsField.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
@@ -476,7 +476,7 @@ public class Controller {
                 updateIngredientsField.setVisible(true);
             }
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1 && editChosenGood.getSelectionModel().getSelectedItem() != null){//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
-                updateIngredientsField.setVisible(false);//TODO: Only make fields appear when a Baked Good is chosen from the ListView
+                updateIngredientsField.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
@@ -484,7 +484,7 @@ public class Controller {
                 updateGoodsField.setVisible(true);
             }
             if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
-                updateIngredientsField.setVisible(false);//TODO: GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN FROM THE LIST OF RECIPES TO WORK OFF OF
+                updateIngredientsField.setVisible(false);
                 confirmDelete.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
@@ -492,8 +492,25 @@ public class Controller {
                 ingFromRecipe.setVisible(true);
             }
         }
-        if(event.getSource()==btnStartDelete && (editChosenIngredient.getSelectionModel().getSelectedItem() != null || editChosenGood.getSelectionModel().getSelectedItem() != null || editChosenRecipe.getSelectionModel().getSelectedItem() != null )){//Delete message shows up when the button is pressed
-            updateIngredientsField.setVisible(false);//TODO: Make the message only show up when an item is chosen from a ListView
+        if(event.getSource()==btnStartDelete && editChosenIngredient.getSelectionModel().getSelectedItem() != null |){//Delete message shows up when the button is pressed
+            updateIngredientsField.setVisible(false);
+            updateGoodsField.setVisible(false);
+            editChosenRecipeIngredient.setVisible(false);
+            selectedIngDelete.setVisible(false);
+            ingFromRecipe.setVisible(false);
+            confirmDelete.setVisible(true);
+        }
+
+        if(event.getSource()==btnStartDelete && editChosenGood.getSelectionModel().getSelectedItem() != null){
+            updateIngredientsField.setVisible(false);
+            updateGoodsField.setVisible(false);
+            editChosenRecipeIngredient.setVisible(false);
+            selectedIngDelete.setVisible(false);
+            ingFromRecipe.setVisible(false);
+            confirmDelete.setVisible(true);
+        }
+        if(event.getSource()==btnStartDelete && editChosenRecipe.getSelectionModel().getSelectedItem() != null ){
+            updateIngredientsField.setVisible(false);
             updateGoodsField.setVisible(false);
             editChosenRecipeIngredient.setVisible(false);
             selectedIngDelete.setVisible(false);
