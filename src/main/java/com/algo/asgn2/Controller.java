@@ -334,13 +334,17 @@ public class Controller {
     public void addToRec(ActionEvent action) {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
-        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), amnt*selectedIng.getKcal());
+        float kcals = amnt*selectedIng.getKcal();
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), kcals);
+        float f = r.getKcal() + kcals;
+        System.out.println(r.getKcal());
+        r.setKcal(f);
+        System.out.println(r.getKcal());
+
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
             addedIngredients.getItems().add(rIng.toString1());
         }
-
-
     } //Button to add an ingredient to a recipe
 
     public void choseBakedGood(){
