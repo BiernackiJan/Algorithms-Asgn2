@@ -64,6 +64,20 @@ public class LinkedList<E> {
         }
     }
 
+    public String listOne() {
+        if (head == null) {
+            return "";
+        } else {
+            Node temp = head;
+            String singleItem = "";
+            while (temp != null) {
+                singleItem = String.valueOf(temp.getData());
+                temp = temp.next;
+            }
+            return singleItem;
+        }
+    }
+
     public void delAll(){
         if(head!=null){
             head = null;

@@ -568,6 +568,13 @@ public class Controller {
     private Button byKcal;//button to sort searched items by Kcal
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
+
+    @FXML
+    private TextField searchOption1;
+
+    @FXML
+    private TextField searchOption2;
+
     @FXML
     private ListView listSearchItems;
     @FXML
@@ -579,6 +586,29 @@ public class Controller {
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
+        if (searchOption1!=null){
+            String s = searchOption1.getText();
+            listSearchItems.getItems().clear();
+            //loops through all the Baked Goods to see if the searchOption1 is there
+            for (int i = 0; i < list.numNodes(); i++){
+                BakedGoods b = (BakedGoods) list.get(i);
+                Recipe r = (Recipe) b.recipes.get(i);//TODO check the recipe add getting probem with r been null
+                //System.out.println(list.get(i));
+                if (b.toString().contains(s) || r.toString().contains(s)){
+                    System.out.println(b + " " + r);
+                    listSearchItems.getItems().add(b + "" + r);
+                }
+            }
+//            for (int i = 0; i < items.numNodes(); i++){
+//                Ingredient ing = (Ingredient) items.get(i);
+//                //Recipe r = (Recipe) ing.recipes.get(i);
+//                //System.out.println(list.get(i));
+//                if (ing.toString().contains(s)){
+//                    System.out.println(ing);
+//                    listSearchItems.getItems().add(ing);
+//                }
+//            }
+        }
     }
 
     public void searchIconHover(MouseEvent event){//Effect of image brightening when releasing the mouse
