@@ -8,22 +8,16 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
 
@@ -457,13 +451,7 @@ public class Controller {
     @FXML
     private Group confirmDelete;//group to ask if you are sure that oyu want to delete this item
     @FXML
-    private ListView chosenRecipeComponents;
-
-
-
-
-
-
+    private ListView chosenItemToDelete;
 
 
 
@@ -481,6 +469,7 @@ public class Controller {
     @FXML
     private Button btnDelSelectedIngredient;//after choosing an Ingredient from a recipe you can delete it
 
+    //Ingredient Update Fields
     @FXML
     private TextField ingrNameUpdate;//Update an ingredient name chosen from a Recipe
     @FXML
@@ -491,6 +480,22 @@ public class Controller {
     private TextArea ingDescUpdate;//Update an ingredient Description chosen form Recipe
 
 
+    //Baked Goods Update Fields
+    @FXML
+    private TextField goodNameUpdate;
+    @FXML
+    private TextField goodCtUpdate;
+    @FXML
+    private TextField goodUrlUpdate;
+    @FXML
+    private TextArea goodDescUpdate;
+
+
+    //Recipe Update Fields
+    @FXML
+    private Label recipeToUpdateName;
+    @FXML
+    private ListView<Ingredient> chosenRecipeIngredients;
 
 
     public void editItems(ActionEvent event) {
@@ -515,6 +520,11 @@ public class Controller {
                 selectedIngDelete.setVisible(false);
                 confirmDelete.setVisible(false);
                 updateGoodsField.setVisible(true);
+                BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+                goodNameUpdate.setText(bg.getGoodsName());
+                goodCtUpdate.setText(valueOf(bg.getOriginCountry()));
+                goodUrlUpdate.setText(valueOf(bg.getURL()));
+                goodDescUpdate.setText(bg.getGoodsDesc());
             }
             if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
                 updateIngredientsField.setVisible(false);
@@ -523,6 +533,13 @@ public class Controller {
                 selectedIngDelete.setVisible(false);
                 updateGoodsField.setVisible(false);
                 ingFromRecipe.setVisible(true);
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+                recipeToUpdateName.setText(rp.getName());
+                chosenRecipeIngredients.getItems().clear();
+                for(int i = 0; i < rp.recipeIngredients.numNodes(); i++) {
+                    Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
+                    chosenRecipeIngredients.getItems().add(ing);
+                }
             }
         }
 
@@ -535,9 +552,9 @@ public class Controller {
                 selectedIngDelete.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 confirmDelete.setVisible(true);
-                chosenRecipeComponents.getItems().clear();
+                chosenItemToDelete.getItems().clear();
                 Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
-                chosenRecipeComponents.getItems().add(ing);
+                chosenItemToDelete.getItems().add(ing);
             }
 
             if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null) {
@@ -547,15 +564,15 @@ public class Controller {
                 selectedIngDelete.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 confirmDelete.setVisible(true);
-                chosenRecipeComponents.getItems().clear();
+                chosenItemToDelete.getItems().clear();
                 BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
-                chosenRecipeComponents.getItems().add(bg);
+                chosenItemToDelete.getItems().add(bg);
             }
 
             if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {
-                chosenRecipeComponents.getItems().clear();
+                chosenItemToDelete.getItems().clear();
                 Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
-                chosenRecipeComponents.getItems().add(rp);
+                chosenItemToDelete.getItems().add(rp);
                 updateIngredientsField.setVisible(false);
                 updateGoodsField.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);

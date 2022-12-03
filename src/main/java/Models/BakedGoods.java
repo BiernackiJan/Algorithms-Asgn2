@@ -18,7 +18,7 @@ public class BakedGoods {
     }
 
     //Getters--------------------------------------------------
-    public String getGoodsType() {
+    public String getGoodsDesc() {
         return goodsDes;
     }
 
