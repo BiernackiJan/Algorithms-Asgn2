@@ -5,6 +5,7 @@ import Models.Ingredient;
 import Models.Recipe;
 import Resources.LinkedList;
 import javafx.application.Platform;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -200,7 +201,6 @@ public class Controller {
     private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
 //    @FXML
 //    private ListView<Ingredient> ingredientList;
-
     @FXML
     private void addIngredient(ActionEvent event){
         ingWasAdded.setVisible(true);
@@ -331,7 +331,7 @@ public class Controller {
         choseBakedGood();
     }
 
-     private Ingredient selectedIng;
+    private Ingredient selectedIng;
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
         System.out.println("Selected" + selectedIng);

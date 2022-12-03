@@ -196,7 +196,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="25.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
                      <font>
@@ -255,7 +255,7 @@
                         <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="ingredientsList" layoutX="45.0" layoutY="205.0" onMouseClicked="#selectedIngredient" prefHeight="277.0" prefWidth="359.0" stylesheets="@style.css" />
+                  <ListView id="chooseItem" fx:id="ingredientsList" layoutX="45.0" layoutY="205.0" onMouseClicked="#selectedIngredient" prefHeight="277.0" prefWidth="359.0" stylesheets="@style.css" />
                   <Label layoutX="79.0" layoutY="96.0" prefHeight="74.0" prefWidth="150.0" text="Recipe for" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="27.0" />
@@ -274,7 +274,7 @@
                      </font>
                   </Label>
                </children></Pane>
-            <Pane fx:id="pnlEdit" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlEdit" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="222.0" layoutY="22.0" prefHeight="74.0" prefWidth="365.0" text="Edit/Delete" textFill="WHITE" underline="true">
                      <font>
@@ -289,9 +289,9 @@
                            </font>
                         </Label>
                         <ComboBox id="btnBrighter" fx:id="chooseTypeToEdit" layoutX="86.0" layoutY="35.0" onAction="#chooseItemToList" prefHeight="28.0" prefWidth="192.0" stylesheets="@style.css" />
-                        <ListView fx:id="editChosenIngredient" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                        <ListView fx:id="editChosenGood" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
-                        <ListView fx:id="editChosenRecipe" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView id="chooseItem" fx:id="editChosenIngredient" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView id="chooseItem" fx:id="editChosenGood" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
+                        <ListView id="chooseItem" fx:id="editChosenRecipe" layoutY="81.0" prefHeight="350.0" prefWidth="359.0" stylesheets="@style.css" visible="false" />
                         <Button id="btnBrighter" fx:id="btnStartEdit" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="366.0" layoutY="81.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
                         <Button id="btnBrighter" fx:id="btnStartDelete" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="366.0" layoutY="128.0" mnemonicParsing="false" onAction="#editItems" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
                      </children>
@@ -337,7 +337,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ListView fx:id="chosenRecipeIngredients" layoutX="3.0" prefHeight="114.0" prefWidth="267.0" stylesheets="@style.css" />
+                        <ListView id="chooseItem" fx:id="chosenRecipeIngredients" layoutX="3.0" prefHeight="114.0" prefWidth="267.0" stylesheets="@style.css" />
                         <Button id="btnBrighter" fx:id="btnEditSelectedIngredient" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="31.0" layoutY="115.0" mnemonicParsing="false" onAction="#recipeItemControl" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Edit" />
                         <Button id="btnBrighter" fx:id="btnDelSelectedIngredient" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="136.0" layoutY="115.0" mnemonicParsing="false" onAction="#recipeItemControl" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Delete" />
                      </children>
