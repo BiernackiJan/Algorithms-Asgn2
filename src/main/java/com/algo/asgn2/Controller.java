@@ -222,6 +222,8 @@ public class Controller {
 
         listAddedIng.getItems().clear();
         listAddedIng.getItems().add(new Ingredient(iN,iD, iK,iM));
+
+        editChosenIngredient.getItems().add(new Ingredient(iN,iD, iK,iM));
     } //button to add an ingredient to the system
 
 
@@ -270,6 +272,7 @@ public class Controller {
         //https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w= Sample Apple image
         Image image = new Image(bU);
         goodsImage.setImage(image);
+        editChosenGood.getItems().add(new BakedGoods(bN, bD, bC, bU));
     } //displays the youHaveAdded label bellow the add button
 
     //Text fields: goodsName, originCt , ImageUrl , goodsDesc
@@ -305,6 +308,9 @@ public class Controller {
     @FXML
     private ComboBox<Recipe> chooseRecipeToAddTo;
 
+    @FXML
+    private ListView<String> recIng; //displays what recipe to add
+
 
     public void populateRecipeFields(){
         chooseGood.getItems().clear();
@@ -328,9 +334,19 @@ public class Controller {
      private Ingredient selectedIng;
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < items.numNodes(); i++) {
+            Ingredient ing = (Ingredient) items.get(i);
+            //loops through all the Ingredients and show the user which one he has selected
+            //TODO css on the display
+            if (selectedIng.toString().contains(((Ingredient) items.get(i)).toString1()));{
+                recIng.getItems().clear();
+                recIng.getItems().add(((Ingredient) items.get(i)).getIngName());
+            }
+        }
         System.out.println("Selected" + selectedIng);
     }
 
+    //Button to add an ingredient to a recipe
     public void addToRec(ActionEvent action) {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
@@ -345,7 +361,7 @@ public class Controller {
             r.recipeIngredients.add(rIng);
             addedIngredients.getItems().add(rIng.toString1());
         }
-    } //Button to add an ingredient to a recipe
+    }
 
     public void choseBakedGood(){
         chooseRecipeToAddTo.getItems().clear();
@@ -370,9 +386,6 @@ public class Controller {
     //Edit/Delete/Update
     @FXML
     private Pane pnlEdit;
-
-
-
 
     //Left Side of plane to choose item to edit
     @FXML

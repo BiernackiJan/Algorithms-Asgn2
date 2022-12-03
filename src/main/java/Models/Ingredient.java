@@ -75,4 +75,5 @@ public class Ingredient {
         return  "  " + ingName + ",  " + ingDes +
                 "  " + kcal*100 + "kcal per 100g" + '\n' ;
     }
+
 }
