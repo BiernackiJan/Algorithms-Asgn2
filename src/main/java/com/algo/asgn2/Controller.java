@@ -208,10 +208,12 @@ public class Controller {
 
         String iN = ingredientName.getText();
         String iD = ingredientDesc.getText();
-        int iK = Integer.parseInt(ingredientKcal.getText());
-        int iM = Integer.parseInt(perMeasurement.getText());
+        float iK = Float.parseFloat(ingredientKcal.getText());
+        float iM = Float.parseFloat(perMeasurement.getText());
 
-        items.add(new Ingredient(iN,iD, iK,iM));
+        Ingredient ing = new Ingredient(iN,iD, iK,iM);
+
+        items.add(ing);
 
         ingredientName.clear();
         ingredientDesc.clear();
@@ -219,10 +221,10 @@ public class Controller {
         perMeasurement.clear();
 
 
-        listAllIng.getItems().add(new Ingredient(iN,iD, iK,iM));
+        listAllIng.getItems().add(ing);
 
         listAddedIng.getItems().clear();
-        listAddedIng.getItems().add(new Ingredient(iN,iD, iK,iM));
+        listAddedIng.getItems().add(ing);
     } //button to add an ingredient to the system
 
 
@@ -341,16 +343,21 @@ public class Controller {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
         float kcals = amnt*selectedIng.getKcal();
+        System.out.println(amnt);
+        System.out.printf(String.valueOf(kcals));
         Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), kcals);
+        rIng.setAmount(amnt);
+        System.out.println(rIng.toString1());
         float f = r.getKcal() + kcals;
         r.setKcal(f);
 
         ingredientGrams.clear();
+        System.out.println(rIng.getKcal());
 
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().add(rIng.toString1() + ",  " + amnt + "g/ml");
+            addedIngredients.getItems().add(rIng.toString1());
         }
     } //Button to add an ingredient to a recipe
 
@@ -395,7 +402,7 @@ public class Controller {
 
 
     @FXML
-    private Button btnStartEdit; //TODO: Make this button work and show the edit fields when an Item is selected in the ListView
+    private Button btnStartEdit;
     @FXML
     private Button btnStartDelete;//TODO: Make the button show the question message when an item is selected from ListView and button is pressed
 
@@ -496,11 +503,13 @@ public class Controller {
     private Label recipeToUpdateName;
     @FXML
     private ListView<Ingredient> chosenRecipeIngredients;
+    @FXML
+    private TextField chosenIngMlUpdate;
 
 
     public void editItems(ActionEvent event) {
-        if (event.getSource() == btnStartEdit && editChosenIngredient.getSelectionModel().getSelectedItem() != null) {//Edit boxes show up
-            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
+        if (event.getSource() == btnStartEdit ) {//Edit boxes show up
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
                 updateGoodsField.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
@@ -535,11 +544,7 @@ public class Controller {
                 ingFromRecipe.setVisible(true);
                 Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
                 recipeToUpdateName.setText(rp.getName());
-                chosenRecipeIngredients.getItems().clear();
-                for(int i = 0; i < rp.recipeIngredients.numNodes(); i++) {
-                    Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
-                    chosenRecipeIngredients.getItems().add(ing);
-                }
+                populateRecipeIngredients();
             }
         }
 
@@ -570,47 +575,60 @@ public class Controller {
             }
 
             if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {
-                chosenItemToDelete.getItems().clear();
-                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
-                chosenItemToDelete.getItems().add(rp);
                 updateIngredientsField.setVisible(false);
                 updateGoodsField.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 selectedIngDelete.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 confirmDelete.setVisible(true);
+                chosenItemToDelete.getItems().clear();
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+                chosenItemToDelete.getItems().add(rp);
             }
         }
     }
 
 
+    public void populateRecipeIngredients(){
+        chosenRecipeIngredients.getItems().clear();
+        Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+        for(int i = 0; i < rp.recipeIngredients.numNodes(); i++) {
+            Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
+            chosenRecipeIngredients.getItems().add(ing);//TODO: NEED TO CHANGE INGREDIENTS TOSTRING SO THAT IT IS GENERIC AND THAT LIST VIEWS THAT NEED TO BE ADDED TO THAT ARE NOT OBJECT TYPE ONLY RETURN toSting1
+        }
+    }
 
-    public void confirmDelete(ActionEvent event){}//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
+    public void confirmDelete(ActionEvent event){
+
+
+
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
+            Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+            int i = chosenRecipeIngredients.getSelectionModel().getSelectedIndex();
+            rp.recipeIngredients.deleteNode(i);
+            populateRecipeIngredients();
+        }
+    }//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
 
     public void confirmEdit(ActionEvent event){}//when this is pressed all the fields that were edited should be changed and applied to the object
 
 
-
-
-
-
-
-    //updateIngredientField
-
-
-
-
-
-
     @FXML
     public void recipeItemControl(ActionEvent action){ //TODO: MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
-        if(action.getSource()==btnEditSelectedIngredient){//Edit button to edit a selected Ingredient from the chosen Recipe
+        if(action.getSource()==btnEditSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){//Edit button to edit a selected Ingredient from the chosen Recipe
             selectedIngDelete.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
+            Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
+            String str = String.valueOf(ing.getAmount());
+            chosenIngMlUpdate.setText(str);
         } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
-        if(action.getSource()==btnDelSelectedIngredient){
+        if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
             editChosenRecipeIngredient.setVisible(false);
-            selectedIngDelete.setVisible(true);
+            chosenItemToDelete.getItems().clear();
+            Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
+            chosenItemToDelete.getItems().add(ing);
+            confirmDelete.setVisible(true);
         }//Selecting an Ingredient from the list of Ingredients in a Recipe and pressing the delete button should pop up a question if you confirm
     }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
 
