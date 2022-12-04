@@ -162,7 +162,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -196,7 +196,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+            <Pane fx:id="pnlIngredients" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="234.0" layoutY="25.0" prefHeight="53.0" prefWidth="326.0" text="Ingredient To Add" textFill="WHITE" underline="true">
                      <font>
@@ -330,7 +330,7 @@
                         </Label>
                      </children>
                   </Group>
-                  <Group fx:id="ingFromRecipe" layoutX="506.0" layoutY="125.0">
+                  <Group fx:id="ingFromRecipe" layoutX="506.0" layoutY="125.0" visible="false">
                      <children>
                         <Label fx:id="recipeToUpdateName" alignment="CENTER" layoutX="20.0" layoutY="-35.0" prefHeight="35.0" prefWidth="233.0" textFill="WHITE">
                            <font>
@@ -347,22 +347,6 @@
                         <TextField fx:id="chosenIngMlUpdate" layoutX="64.0" layoutY="91.0" prefHeight="35.0" prefWidth="150.0" promptText="Grams/Milliliters" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" stylesheets="@style.css" />
                         <Button id="btnBrighter" fx:id="updateChosenIng" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="89.0" layoutY="142.0" mnemonicParsing="false" onAction="#confirmEdit" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Update" />
                         <Label layoutX="183.0" layoutY="100.0" text="g/ml" textFill="WHITE" />
-                     </children>
-                  </Group>
-                  <Group fx:id="selectedIngDelete" layoutX="504.0" layoutY="281.0" visible="false">
-                     <children>
-                        <ListView fx:id="chosenRecipeIngToDel" layoutY="88.0" prefHeight="114.0" prefWidth="267.0" stylesheets="@style.css" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="27.0" prefHeight="53.0" prefWidth="214.0" text="Are you sure you want" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Button id="btnBrighter" fx:id="delConfirm1" contentDisplay="TEXT_ONLY" graphicTextGap="22.0" layoutX="84.0" layoutY="212.0" mnemonicParsing="false" onAction="#confirmDelete" prefHeight="35.0" prefWidth="100.0" stylesheets="@style.css" text="Confirm" />
-                        <Label alignment="CENTER" layoutX="71.0" layoutY="36.0" prefHeight="27.0" prefWidth="126.0" text="to delete" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
                      </children>
                   </Group>
                </children>
