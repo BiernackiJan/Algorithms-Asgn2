@@ -4,6 +4,7 @@ import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
 import Resources.LinkedList;
+import Resources.MyHashSC;
 import javafx.application.Platform;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
@@ -25,6 +26,8 @@ import static java.lang.String.valueOf;
 public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
     public static LinkedList<Ingredient> items = new LinkedList<>();
+
+    public static MyHashSC<Ingredient> ingHashTable = new MyHashSC<>(10);
 
 
 
@@ -212,6 +215,9 @@ public class Controller {
         float iM = Float.parseFloat(perMeasurement.getText());
 
         Ingredient ing = new Ingredient(iN,iD, iK,iM);
+
+        ingHashTable.add(ing);
+        ingHashTable.displayHashTable();
 
         items.add(ing);
 
@@ -599,9 +605,19 @@ public class Controller {
     }
 
     public void confirmDelete(ActionEvent event){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
+            int i = editChosenIngredient.getSelectionModel().getSelectedIndex();
+            items.deleteNode(i);
+        }
 
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null){
+            int i = editChosenGood.getSelectionModel().getSelectedIndex();
+            list.deleteNode(i);
+        }
 
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
 
+        }
 
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
             Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
