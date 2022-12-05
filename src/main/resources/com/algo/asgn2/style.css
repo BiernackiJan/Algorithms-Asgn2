@@ -101,3 +101,7 @@
 #goodsImage{
     -fx-border-color: blue;
 }
+
+#chooseItem .list-cell:selected{
+    -fx-background-color: #181dd6;
+}

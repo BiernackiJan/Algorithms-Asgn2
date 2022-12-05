@@ -1,9 +1,11 @@
 package Models;
 
 import Resources.LinkedList;
+import Resources.MyHashSC;
 
 public class BakedGoods {
     public LinkedList<Recipe> recipes = new LinkedList<>();
+    public MyHashSC<Recipe> recipeHashTable = new MyHashSC<>(10);
 
     private String goodsName;
     private String goodsDes;
@@ -18,7 +20,7 @@ public class BakedGoods {
     }
 
     //Getters--------------------------------------------------
-    public String getGoodsType() {
+    public String getGoodsDesc() {
         return goodsDes;
     }
 
@@ -35,8 +37,8 @@ public class BakedGoods {
     }
 
     //Setters-------------------------------------------------
-    public void setGoodsType(String goodsType) {
-        this.goodsDes = goodsType;
+    public void setGoodsDes(String goodsDes) {
+        this.goodsDes = goodsDes;
     }
 
     public void setGoodsName(String goodsName) {

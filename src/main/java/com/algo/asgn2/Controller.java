@@ -4,30 +4,30 @@ import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
 import Resources.LinkedList;
+import Resources.MyHashSC;
 import javafx.application.Platform;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import static java.lang.String.valueOf;
 
 public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
     public static LinkedList<Ingredient> items = new LinkedList<>();
+
+    public static MyHashSC<BakedGoods> hashList = new MyHashSC<>(10);
 
 
 
@@ -185,6 +185,9 @@ public class Controller {
 
 
 
+
+
+
     //Ingredients
     @FXML
     private Pane pnlIngredients; //ingredients plane
@@ -204,7 +207,6 @@ public class Controller {
     private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
 //    @FXML
 //    private ListView<Ingredient> ingredientList;
-
     @FXML
     private void addIngredient(ActionEvent event){
         ingWasAdded.setVisible(true);
@@ -212,19 +214,26 @@ public class Controller {
 
         String iN = ingredientName.getText();
         String iD = ingredientDesc.getText();
-        int iK = Integer.parseInt(ingredientKcal.getText());
-        int iM = Integer.parseInt(perMeasurement.getText());
+        float iK = Float.parseFloat(ingredientKcal.getText());
+        float iM = Float.parseFloat(perMeasurement.getText());
 
-        items.add(new Ingredient(iN,iD, iK,iM));
-        System.out.println(items.listAll());
+        Ingredient ing = new Ingredient(iN,iD, iK,iM);
+        items.add(ing);
 
-        listAllIng.getItems().add(new Ingredient(iN,iD, iK,iM));
+        ingredientName.clear();
+        ingredientDesc.clear();
+        ingredientKcal.clear();
+        perMeasurement.clear();
+
+
+        listAllIng.getItems().add(ing);
 
         listAddedIng.getItems().clear();
-        listAddedIng.getItems().add(new Ingredient(iN,iD, iK,iM));
-
-        editChosenIngredient.getItems().add(new Ingredient(iN,iD, iK,iM));
+        listAddedIng.getItems().add(ing);
     } //button to add an ingredient to the system
+
+
+
 
 
 
@@ -266,18 +275,33 @@ public class Controller {
         String bD = goodsDesc.getText();
         String bU = imageUrl.getText();
 
-        list.add(new BakedGoods(bN, bD, bC, bU));
-        listAddedGood.getItems().add(new BakedGoods(bN, bD, bC, bU));
+        BakedGoods bg = new BakedGoods(bN, bD, bC, bU);
 
-        //https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w= Sample Apple image
+        list.add(bg);
+        listAddedGood.getItems().add(bg);
+
+        //Sample Apple image
+        //https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w=
         Image image = new Image(bU);
         goodsImage.setImage(image);
-        editChosenGood.getItems().add(new BakedGoods(bN, bD, bC, bU));
+
+//        hashList.add(bg,0);
+//        BakedGoods hashedGood = hashList.get(0);
+//        System.out.printf(String.valueOf(hashedGood));
+//        System.out.printf(String.valueOf(bg));
+
+
+        goodsName.clear();
+        originCt.clear();
+        goodsDesc.clear();
+        imageUrl.clear();
     } //displays the youHaveAdded label bellow the add button
 
     //Text fields: goodsName, originCt , ImageUrl , goodsDesc
     //at the bottom under the button is a image view to show the image from good added called goodsImage
     //there is also a list view to show the good that was just added called listAddedGood
+
+
 
 
 
@@ -308,9 +332,6 @@ public class Controller {
     @FXML
     private ComboBox<Recipe> chooseRecipeToAddTo;
 
-    @FXML
-    private ListView<String> recIng; //displays what recipe to add
-
 
     public void populateRecipeFields(){
         chooseGood.getItems().clear();
@@ -331,37 +352,33 @@ public class Controller {
         choseBakedGood();
     }
 
-     private Ingredient selectedIng;
+    private Ingredient selectedIng;
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
-        for (int i = 0; i < items.numNodes(); i++) {
-            Ingredient ing = (Ingredient) items.get(i);
-            //loops through all the Ingredients and show the user which one he has selected
-            //TODO css on the display
-            if (selectedIng.toString().contains(((Ingredient) items.get(i)).toString1()));{
-                recIng.getItems().clear();
-                recIng.getItems().add(((Ingredient) items.get(i)).getIngName());
-            }
-        }
         System.out.println("Selected" + selectedIng);
     }
 
-    //Button to add an ingredient to a recipe
     public void addToRec(ActionEvent action) {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
         float kcals = amnt*selectedIng.getKcal();
+        System.out.println(amnt);
+        System.out.printf(String.valueOf(kcals));
         Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), kcals);
+        rIng.setAmount(amnt);
+        System.out.println(rIng.toString1());
         float f = r.getKcal() + kcals;
-        System.out.println(r.getKcal());
         r.setKcal(f);
-        System.out.println(r.getKcal());
+
+        ingredientGrams.clear();
+        System.out.println(rIng.getKcal());
+
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
             addedIngredients.getItems().add(rIng.toString1());
         }
-    }
+    } //Button to add an ingredient to a recipe
 
     public void choseBakedGood(){
         chooseRecipeToAddTo.getItems().clear();
@@ -383,15 +400,28 @@ public class Controller {
 
 
 
+
+
+
+
+
+
+
+
+
+
     //Edit/Delete/Update
     @FXML
     private Pane pnlEdit;
+
+
+
 
     //Left Side of plane to choose item to edit
     @FXML
     private ComboBox<String> chooseTypeToEdit;//choose if you want to edit an Ingredient, Baked Good or Recipe
 
-    //3 ListViews one for each object type TODO: Make sure correct ListView show up when the type to edit is chosen in the ComboBox
+    //3 ListViews one for each object type
     @FXML
     private ListView<Ingredient> editChosenIngredient;
     @FXML
@@ -401,27 +431,57 @@ public class Controller {
 
 
     @FXML
-    private Button btnStartEdit; //TODO: Make this button work and show the edit fields when an Item is selected in the ListView
+    private Button btnStartEdit;
     @FXML
     private Button btnStartDelete;//TODO: Make the button show the question message when an item is selected from ListView and button is pressed
 
 
+    public void populateChosenIngredientList(){
+        editChosenIngredient.getItems().clear();
+        for(int i = 0; i < items.numNodes(); i++) {
+            Ingredient ing = (Ingredient) items.get(i);
+            editChosenIngredient.getItems().add(ing);
+        }
+    }
+
+    public void populateChosenGoodList(){
+        editChosenGood.getItems().clear();
+        for(int i = 0 ; i < list.numNodes(); i++){
+            BakedGoods bg = (BakedGoods) list.get(i);
+            editChosenGood.getItems().add(bg);
+        }
+    }
+
+    public void populateChosenRecipeList(){
+        editChosenRecipe.getItems().clear();
+        for(int i = 0; i < list.numNodes(); i++){
+            BakedGoods bg = (BakedGoods) list.get(i);
+            for(int j = 0; j < bg.recipes.numNodes(); j++){
+                Recipe rp = (Recipe) bg.recipes.get(j);
+                editChosenRecipe.getItems().add(rp);
+            }
+        }
+    }
+
     @FXML
-    private void chooseItemToList(MouseEvent event){
+    private void chooseItemToList(ActionEvent event){
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0){//Show the ListView when Ingredients are chosen in the ComboBox
             editChosenGood.setVisible(false);
             editChosenRecipe.setVisible(false);
             editChosenIngredient.setVisible(true);
+            populateChosenIngredientList();
         }
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){//Show the ListView when Baked Goods are chosen in the ComboBox
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(false);
             editChosenGood.setVisible(true);
+            populateChosenGoodList();
         }
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){//Show ListView when Recipe is chosen in the ComboBox
             editChosenGood.setVisible(false);
             editChosenIngredient.setVisible(false);
             editChosenRecipe.setVisible(true);
+            populateChosenRecipeList();
         }
 
     }//Used to show the list of all Ingredients, Baked Goods or Recipes
@@ -438,60 +498,8 @@ public class Controller {
     private Group updateGoodsField;//group to display with input text fields to edit a BakedGood when it is chosen from the list view and edit button pressed
     @FXML
     private Group confirmDelete;//group to ask if you are sure that oyu want to delete this item
-
-
-
-    //Idea for Edit/Deletion of recipe that I have came up with and created in the GUI:
-    //When recipe is chosen from the choice box to edit, the recipes will list in the listView, once a recipe is selected and then the Edit
-    //button is pressed, a list of all Ingredients imputed into the Recipe is displayed in the top right of the screen. You can then, select
-    //an Ingredient and choose to edit it or delete it. if you choose to edit it 4 text fields will pop up below the buttons and an Update
-    //button will be at the bottom to confirm the edit. If you choose to delete an ingredient a confirmation question will pop-up under the
-    //buttons with the item that you wish to delete displaying in a listView bellow and a confirm button will be present at the bottom.
-
-
-    public void editItems(ActionEvent event){
-        if(event.getSource()==btnStartEdit){
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
-                updateGoodsField.setVisible(false); //TODO: Only make fields appear when an Ingredient is chosen from the ListView
-                ingFromRecipe.setVisible(false);
-                editChosenRecipeIngredient.setVisible(false);
-                selectedIngDelete.setVisible(false);
-                confirmDelete.setVisible(false);
-                updateIngredientsField.setVisible(true);
-            }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==1){//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
-                updateIngredientsField.setVisible(false);//TODO: Only make fields appear when a Baked Good is chosen from the ListView
-                ingFromRecipe.setVisible(false);
-                editChosenRecipeIngredient.setVisible(false);
-                selectedIngDelete.setVisible(false);
-                confirmDelete.setVisible(false);
-                updateGoodsField.setVisible(true);
-            }
-            if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==2){//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
-                updateIngredientsField.setVisible(false);//TODO: GET THIS TO BE ONLY DISPLAYED ONCE A RECIPE IS CHOSEN FROM THE LIST OF RECIPES TO WORK OFF OF
-                confirmDelete.setVisible(false);
-                editChosenRecipeIngredient.setVisible(false);
-                selectedIngDelete.setVisible(false);
-                updateGoodsField.setVisible(false);
-                ingFromRecipe.setVisible(true);
-            }
-        }
-        if(event.getSource()==btnStartDelete){//Delete message shows up when the button is pressed
-            updateIngredientsField.setVisible(false);//TODO: Make the message only show up when an item is chosen from a ListView
-            updateGoodsField.setVisible(false);
-            editChosenRecipeIngredient.setVisible(false);
-            selectedIngDelete.setVisible(false);
-            ingFromRecipe.setVisible(false);
-            confirmDelete.setVisible(true);
-        }
-    }
-
-
-
-
-    public void confirmDelete(ActionEvent event){}//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
-
-    public void confirmEdit(ActionEvent event){}//when this is pressed all the fields that were edited should be changed and applied to the object
+    @FXML
+    private ListView chosenItemToDelete;
 
 
 
@@ -503,16 +511,13 @@ public class Controller {
     @FXML
     private Group editChosenRecipeIngredient;//Group containing fields to edit a chosen Ingredient from Recipe and button to confirm update
     @FXML
-    private Group selectedIngDelete;//Group containing a confirmation message to delete the selected item with a confirm button
-    @FXML
     private Button btnEditSelectedIngredient;//after choosing an Ingredient from a recipe you can edit it
     @FXML
     private Button btnDelSelectedIngredient;//after choosing an Ingredient from a recipe you can delete it
 
 
 
-
-    //updateIngredientField
+    //Ingredient Update Fields
     @FXML
     private TextField ingrNameUpdate;//Update an ingredient name chosen from a Recipe
     @FXML
@@ -523,32 +528,253 @@ public class Controller {
     private TextArea ingDescUpdate;//Update an ingredient Description chosen form Recipe
 
 
+    //Baked Goods Update Fields
+    @FXML
+    private TextField goodNameUpdate;
+    @FXML
+    private TextField goodCtUpdate;
+    @FXML
+    private TextField goodUrlUpdate;
+    @FXML
+    private TextArea goodDescUpdate;
 
 
+    //Recipe Update Fields
+    @FXML
+    private Label recipeToUpdateName;
+    @FXML
+    private ListView<Ingredient> chosenRecipeIngredients;
+    @FXML
+    private TextField chosenIngMlUpdate;
 
+    @FXML
+    private TextField chosenRecipeNameUpdate;
+    @FXML
+    private Group editChosenRecipeUpdate;
+
+
+    public void editItems(ActionEvent event) {
+        if (event.getSource() == btnStartEdit ) {//Edit boxes show up
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null) {//When Ingredients are chosen in the ComboBox the fields will show up to edit fields when the button is pressed
+                updateGoodsField.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                confirmDelete.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
+                updateIngredientsField.setVisible(true);
+
+                Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+
+                ingrNameUpdate.setText(ing.getIngName());
+                ingKcalUpdate.setText(valueOf(ing.getCalories()));
+                ingMlUpdate.setText(valueOf(ing.getAmount()));
+                ingDescUpdate.setText(ing.getIngDes());
+            }
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null) {//When Baked Goods are chosen in the ComboBox only fields to edit those will show up
+                updateIngredientsField.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                confirmDelete.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
+                updateGoodsField.setVisible(true);
+
+                BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+
+                goodNameUpdate.setText(bg.getGoodsName());
+                goodCtUpdate.setText(valueOf(bg.getOriginCountry()));
+                goodUrlUpdate.setText(valueOf(bg.getURL()));
+                goodDescUpdate.setText(bg.getGoodsDesc());
+            }
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {//When Recipe is chosen in the ComboBox and edit button is pressed fields to edit Ingredients in the Recipe
+                updateIngredientsField.setVisible(false);
+                confirmDelete.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                updateGoodsField.setVisible(false);
+                ingFromRecipe.setVisible(true);
+                editChosenRecipeUpdate.setVisible(true);
+                editChosenRecipeUpdate.setVisible(true);
+
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+                recipeToUpdateName.setText(rp.getName());
+                chosenRecipeNameUpdate.setText(rp.getName());
+
+                populateRecipeIngredients();
+            }
+        }
+
+
+        if (event.getSource() == btnStartDelete) {//Delete message shows up when the button is pressed
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null) {
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
+                confirmDelete.setVisible(true);
+
+                chosenItemToDelete.getItems().clear();
+                Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+                chosenItemToDelete.getItems().add(ing);
+            }
+
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null) {
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
+                confirmDelete.setVisible(true);
+
+                chosenItemToDelete.getItems().clear();
+                BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+                chosenItemToDelete.getItems().add(bg);
+            }
+
+            if (chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null) {
+                updateIngredientsField.setVisible(false);
+                updateGoodsField.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
+                ingFromRecipe.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
+                confirmDelete.setVisible(true);
+
+                chosenItemToDelete.getItems().clear();
+
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+                chosenItemToDelete.getItems().add(rp);
+            }
+        }
+    }
+
+
+    public void populateRecipeIngredients(){
+        chosenRecipeIngredients.getItems().clear();
+        Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+        for(int i = 0; i < rp.recipeIngredients.numNodes(); i++) {
+            Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
+            chosenRecipeIngredients.getItems().add(ing);//TODO: NEED TO CHANGE INGREDIENTS TOSTRING SO THAT IT IS GENERIC AND THAT LIST VIEWS THAT NEED TO BE ADDED TO THAT ARE NOT OBJECT TYPE ONLY RETURN toSting1
+        }
+    }
+
+    public void confirmDelete(ActionEvent event){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
+            int i = editChosenIngredient.getSelectionModel().getSelectedIndex();
+            items.deleteNode(i);
+            populateChosenIngredientList();
+            confirmDelete.setVisible(false);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null){
+            int i = editChosenGood.getSelectionModel().getSelectedIndex();
+            list.deleteNode(i);
+            populateChosenGoodList();
+            confirmDelete.setVisible(false);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+            for(int i = 0; i  < list.numNodes(); i++){
+                BakedGoods bg = (BakedGoods) list.get(i);
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();//TODO HASHING HERE????
+                for(int j = 0; j < bg.recipes.numNodes(); j++){
+                    Recipe rpToCheck = (Recipe) bg.recipes.get(j);
+                    if(rp.hashCode() == rpToCheck.hashCode()){
+                        bg.recipes.deleteNode(j);
+                        populateChosenRecipeList();
+                        confirmDelete.setVisible(false);
+                    }
+                }
+            }
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
+            Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+            int i = chosenRecipeIngredients.getSelectionModel().getSelectedIndex();
+            rp.recipeIngredients.deleteNode(i);
+            populateRecipeIngredients();
+            confirmDelete.setVisible(false);
+        }
+    }//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
+
+    public void confirmEdit(ActionEvent event){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
+            Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+            String ingName = ingrNameUpdate.getText();
+            float ingKcal = Float.parseFloat(ingKcalUpdate.getText());
+            float ingMl = Float.parseFloat(ingMlUpdate.getText());
+            String ingDesc = ingDescUpdate.getText();
+
+
+            ing.setIngName(ingName);
+            ing.setCalories(ingKcal);
+            ing.setAmount(ingMl);
+            ing.setIngDes(ingDesc);
+
+
+            populateChosenIngredientList();
+            updateIngredientsField.setVisible(false);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null){
+            BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+            String goodName = goodNameUpdate.getText();
+            String goodCT = goodCtUpdate.getText();
+            String goodDesc = goodDescUpdate.getText();
+            String goodUrl = goodUrlUpdate.getText();
+
+
+            bg.setGoodsName(goodName);
+            bg.setOriginCountry(goodCT);
+            bg.setGoodsDes(goodDesc);
+            bg.setURL(goodUrl);
+
+
+            populateChosenGoodList();
+            updateGoodsField.setVisible(false);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+            Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+            String name = chosenRecipeNameUpdate.getText();
+
+            rp.setName(name);
+            populateChosenRecipeList();
+
+
+            recipeToUpdateName.setText(rp.getName());
+            chosenRecipeNameUpdate.setText(rp.getName());
+        }
+    }//when this is pressed all the fields that were edited should be changed and applied to the object
 
 
     @FXML
-    public void recipeItemControl(ActionEvent action){ //TODO: MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
-        if(action.getSource()==btnEditSelectedIngredient){//Edit button to edit a selected Ingredient from the chosen Recipe
-            selectedIngDelete.setVisible(false);
+    public void recipeItemControl(ActionEvent action){
+        if(action.getSource()==btnEditSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){//Edit button to edit a selected Ingredient from the chosen Recipe
+            editChosenRecipeUpdate.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
+
+            Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
+            String str = String.valueOf(ing.getAmount());
+            chosenIngMlUpdate.setText(str);
         } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
-        if(action.getSource()==btnDelSelectedIngredient){
+        if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
             editChosenRecipeIngredient.setVisible(false);
-            selectedIngDelete.setVisible(true);
+            chosenItemToDelete.getItems().clear();
+            Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
+            chosenItemToDelete.getItems().add(ing);
+            confirmDelete.setVisible(true);
         }//Selecting an Ingredient from the list of Ingredients in a Recipe and pressing the delete button should pop up a question if you confirm
     }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
 
 
 
-    //Idea:
-    //For the list to edit or update/delete something choose from a choice box what Item type you want to edit from.
-    //For each item type there is a listView set up that is set to non-visible when an Item in the list view will be chosen that Object can then be edited
-    //When the edit button is pressed after choosing an item from a list, a menu pops up in regard to what was chosen from the list when the button was pressed
-    //For baked goods the correct textFields would pop up. The same goes for the Ingredients
-    //For the delete button I want to have a message pop up on the right asking if you are sure you want to delete this item and list the item and press okay to delete it
-    //For the edit I want to be able to edit the values already imputed and after pressing the update button to change those values imputed btn
+
+
+
+
+
+
+
+
 
 
 
@@ -568,13 +794,6 @@ public class Controller {
     private Button byKcal;//button to sort searched items by Kcal
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
-
-    @FXML
-    private TextField searchOption1;
-
-    @FXML
-    private TextField searchOption2;
-
     @FXML
     private ListView listSearchItems;
     @FXML
@@ -586,29 +805,6 @@ public class Controller {
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
-        if (searchOption1!=null){
-            String s = searchOption1.getText();
-            listSearchItems.getItems().clear();
-            //loops through all the Baked Goods to see if the searchOption1 is there
-            for (int i = 0; i < list.numNodes(); i++){
-                BakedGoods b = (BakedGoods) list.get(i);
-                Recipe r = (Recipe) b.recipes.get(i);//TODO check the recipe add getting probem with r been null
-                //System.out.println(list.get(i));
-                if (b.toString().contains(s) || r.toString().contains(s)){
-                    System.out.println(b + " " + r);
-                    listSearchItems.getItems().add(b + "" + r);
-                }
-            }
-//            for (int i = 0; i < items.numNodes(); i++){
-//                Ingredient ing = (Ingredient) items.get(i);
-//                //Recipe r = (Recipe) ing.recipes.get(i);
-//                //System.out.println(list.get(i));
-//                if (ing.toString().contains(s)){
-//                    System.out.println(ing);
-//                    listSearchItems.getItems().add(ing);
-//                }
-//            }
-        }
     }
 
     public void searchIconHover(MouseEvent event){//Effect of image brightening when releasing the mouse
