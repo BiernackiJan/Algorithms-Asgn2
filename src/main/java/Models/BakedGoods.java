@@ -37,8 +37,8 @@ public class BakedGoods {
     }
 
     //Setters-------------------------------------------------
-    public void setGoodsType(String goodsType) {
-        this.goodsDes = goodsType;
+    public void setGoodsDes(String goodsDes) {
+        this.goodsDes = goodsDes;
     }
 
     public void setGoodsName(String goodsName) {

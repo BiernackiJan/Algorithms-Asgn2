@@ -279,6 +279,12 @@ public class Controller {
         Image image = new Image(bU);
         goodsImage.setImage(image);
 
+//        hashList.add(bg,0);
+//        BakedGoods hashedGood = hashList.get(0);
+//        System.out.printf(String.valueOf(hashedGood));
+//        System.out.printf(String.valueOf(bg));
+
+
         goodsName.clear();
         originCt.clear();
         goodsDesc.clear();
@@ -648,7 +654,33 @@ public class Controller {
         }
     }//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
 
-    public void confirmEdit(ActionEvent event){}//when this is pressed all the fields that were edited should be changed and applied to the object
+    public void confirmEdit(ActionEvent event){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
+            Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+            String ingName = ingrNameUpdate.getText();
+            float ingKcal = Float.parseFloat(ingKcalUpdate.getText());
+            float ingMl = Float.parseFloat(ingMlUpdate.getText());
+            String ingDesc = ingDescUpdate.getText();
+            ing.setIngName(ingName);
+            ing.setCalories(ingKcal);
+            ing.setAmount(ingMl);
+            ing.setIngDes(ingDesc);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null){
+            BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+            String goodName = goodNameUpdate.getText();
+            String goodCT = goodCtUpdate.getText();
+            String goodDesc = goodDescUpdate.getText();
+            String goodUrl = goodUrlUpdate.getText();
+
+
+            bg.setGoodsName(goodName);
+            bg.setOriginCountry(goodCT);
+            bg.setGoodsDes(goodDesc);
+            bg.setURL(goodUrl);
+        }
+    }//when this is pressed all the fields that were edited should be changed and applied to the object
 
 
     @FXML

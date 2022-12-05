@@ -44,7 +44,6 @@ public class MyHashSC<E> {
 
 
     public List<E> get(int key){
-        System.out.println(hashTable[key]);
         return hashTable[key];
     }
 
