@@ -529,6 +529,11 @@ public class Controller {
     @FXML
     private TextField chosenIngMlUpdate;
 
+    @FXML
+    private TextField chosenRecipeNameUpdate;
+    @FXML
+    private Group editChosenRecipeUpdate;
+
 
     public void editItems(ActionEvent event) {
         if (event.getSource() == btnStartEdit ) {//Edit boxes show up
@@ -537,8 +542,11 @@ public class Controller {
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 confirmDelete.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
                 updateIngredientsField.setVisible(true);
+
                 Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
+
                 ingrNameUpdate.setText(ing.getIngName());
                 ingKcalUpdate.setText(valueOf(ing.getCalories()));
                 ingMlUpdate.setText(valueOf(ing.getAmount()));
@@ -549,8 +557,11 @@ public class Controller {
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 confirmDelete.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
                 updateGoodsField.setVisible(true);
+
                 BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
+
                 goodNameUpdate.setText(bg.getGoodsName());
                 goodCtUpdate.setText(valueOf(bg.getOriginCountry()));
                 goodUrlUpdate.setText(valueOf(bg.getURL()));
@@ -562,8 +573,13 @@ public class Controller {
                 editChosenRecipeIngredient.setVisible(false);
                 updateGoodsField.setVisible(false);
                 ingFromRecipe.setVisible(true);
+                editChosenRecipeUpdate.setVisible(true);
+                editChosenRecipeUpdate.setVisible(true);
+
                 Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
                 recipeToUpdateName.setText(rp.getName());
+                chosenRecipeNameUpdate.setText(rp.getName());
+
                 populateRecipeIngredients();
             }
         }
@@ -575,7 +591,9 @@ public class Controller {
                 updateGoodsField.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 ingFromRecipe.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
                 confirmDelete.setVisible(true);
+
                 chosenItemToDelete.getItems().clear();
                 Ingredient ing = editChosenIngredient.getSelectionModel().getSelectedItem();
                 chosenItemToDelete.getItems().add(ing);
@@ -586,7 +604,9 @@ public class Controller {
                 updateGoodsField.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 ingFromRecipe.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
                 confirmDelete.setVisible(true);
+
                 chosenItemToDelete.getItems().clear();
                 BakedGoods bg = editChosenGood.getSelectionModel().getSelectedItem();
                 chosenItemToDelete.getItems().add(bg);
@@ -597,8 +617,11 @@ public class Controller {
                 updateGoodsField.setVisible(false);
                 editChosenRecipeIngredient.setVisible(false);
                 ingFromRecipe.setVisible(false);
+                editChosenRecipeUpdate.setVisible(false);
                 confirmDelete.setVisible(true);
+
                 chosenItemToDelete.getItems().clear();
+
                 Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
                 chosenItemToDelete.getItems().add(rp);
             }
@@ -661,10 +684,16 @@ public class Controller {
             float ingKcal = Float.parseFloat(ingKcalUpdate.getText());
             float ingMl = Float.parseFloat(ingMlUpdate.getText());
             String ingDesc = ingDescUpdate.getText();
+
+
             ing.setIngName(ingName);
             ing.setCalories(ingKcal);
             ing.setAmount(ingMl);
             ing.setIngDes(ingDesc);
+
+
+            populateChosenIngredientList();
+            updateIngredientsField.setVisible(false);
         }
 
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 1 && editChosenGood.getSelectionModel().getSelectedItem() != null){
@@ -679,14 +708,32 @@ public class Controller {
             bg.setOriginCountry(goodCT);
             bg.setGoodsDes(goodDesc);
             bg.setURL(goodUrl);
+
+
+            populateChosenGoodList();
+            updateGoodsField.setVisible(false);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+            Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+            String name = chosenRecipeNameUpdate.getText();
+
+            rp.setName(name);
+            populateChosenRecipeList();
+
+
+            recipeToUpdateName.setText(rp.getName());
+            chosenRecipeNameUpdate.setText(rp.getName());
         }
     }//when this is pressed all the fields that were edited should be changed and applied to the object
 
 
     @FXML
-    public void recipeItemControl(ActionEvent action){ //TODO: MAKE THESE ONLY WORK IF AN INGREDIENT IS CHOSEN FROM THE LISTVIEW
+    public void recipeItemControl(ActionEvent action){
         if(action.getSource()==btnEditSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){//Edit button to edit a selected Ingredient from the chosen Recipe
+            editChosenRecipeUpdate.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
+
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
             String str = String.valueOf(ing.getAmount());
             chosenIngMlUpdate.setText(str);
