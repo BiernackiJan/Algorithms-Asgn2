@@ -43,6 +43,12 @@ public class MyHashSC<E> {
     }
 
 
+    public List<E> get(int key){
+        System.out.println(hashTable[key]);
+        return hashTable[key];
+    }
+
+
 //    public static void main(String[] args) {
 //        MyHashSC<String> h=new MyHashSC<>(7);
 //        Scanner k=new Scanner(System.in);

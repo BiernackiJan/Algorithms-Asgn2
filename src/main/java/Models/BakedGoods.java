@@ -1,9 +1,11 @@
 package Models;
 
 import Resources.LinkedList;
+import Resources.MyHashSC;
 
 public class BakedGoods {
     public LinkedList<Recipe> recipes = new LinkedList<>();
+    public MyHashSC<Recipe> recipeHashTable = new MyHashSC<>(10);
 
     private String goodsName;
     private String goodsDes;
