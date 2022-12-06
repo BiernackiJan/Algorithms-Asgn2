@@ -769,7 +769,9 @@ public class Controller {
 
 
 
-
+    //TODO Ingredient inside recipe edit doesnt update ingredient measurement value
+    //TODO Delete ingredient inside a recipe doesnt work (Deletes Chosen Recipe)
+    //TODO ingredient chosen from recipe must hide the text field of measurement when other button pressed
 
 
 
