@@ -816,22 +816,7 @@ public class Controller {
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
         if (searchOption1!=null){
-            String s1 = searchOption1.getText();
-            listSearchItems.getItems().clear();
-            //loops through all the Baked Goods to see if the searchOption1 is there
-            for (int i = 0; i < list.numNodes(); i++){
-                String b = ((BakedGoods) list.get(i)).fullString();
-                //Recipe r = (Recipe) b.recipes.get(i);//TODO check the recipe add getting probem with r been null
-                System.out.println(((BakedGoods) list.get(i)).fullString());
-                if (b.contains(s1)){
-                    System.out.println(b);
-                    String str1 = ((BakedGoods) list.get(i)).oneString();
-                    listSearchItems.getItems().add(str1);
-                }
-            }
-        }
-        if (searchOption2!=null){
-            String s2 = searchOption2.getText();
+            String s2 = searchOption1.getText();
             listSearchItems.getItems().clear();
             //loops through everything in order to find all the items with name
             for (int i=0; i < list.numNodes(); i++){
@@ -843,8 +828,23 @@ public class Controller {
                 for (int j=0; j < b.recipes.numNodes(); j++){
                     Recipe r = (Recipe) b.recipes.get(j);
                     if (r.toString().contains(s2)){
-                    listSearchItems.getItems().add(r);
+                        listSearchItems.getItems().add(r);
                     }
+                }
+            }
+        }
+        if (searchOption2!=null){
+            String s1 = searchOption2.getText();
+            listSearchItems.getItems().clear();
+            //loops through all the Baked Goods to see if the searchOption1 is there
+            for (int i = 0; i < list.numNodes(); i++){
+                String b = ((BakedGoods) list.get(i)).fullString();
+                //Recipe r = (Recipe) b.recipes.get(i);//TODO check the recipe add getting probem with r been null
+                System.out.println(((BakedGoods) list.get(i)).fullString());
+                if (b.contains(s1)){
+                    System.out.println(b);
+                    String str1 = ((BakedGoods) list.get(i)).oneString();
+                    listSearchItems.getItems().add(str1);
                 }
             }
         }
