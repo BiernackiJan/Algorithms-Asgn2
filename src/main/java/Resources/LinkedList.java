@@ -29,6 +29,43 @@ public class LinkedList<E> {
         addNodes();
     }
 
+//    public void sortList()
+//    {
+//
+//        // Node current will point to head
+//        Node current = head, index = null;
+//
+//        int temp;
+//
+//        if (head == null) {
+//            return;
+//        }
+//        else {
+//            while (current != null) {
+//                // Node index will point to node next to
+//                // current
+//                index = current.next;
+//
+//                while (index != null) {
+//                    // If current node's data is greater
+//                    // than index's node data, swap the data
+//                    // between them
+//                    char str = String.valueOf(current.data);
+//                    int first = str[0];
+//                    String str1 = String.valueOf(index);
+//                    if (str > str1) {
+//                        temp = current.data;
+//                        current.data = index.data;
+//                        index.data = temp;
+//                    }
+//
+//                    index = index.next;
+//                }
+//                current = current.next;
+//            }
+//        }
+//    }
+
 
     public Object get(int index)
     {
@@ -124,6 +161,8 @@ public class LinkedList<E> {
     public void setHead(Node head) {
         this.head = head;
     }
+
+
 
     @Override
     public String toString() {

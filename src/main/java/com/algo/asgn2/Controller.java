@@ -857,6 +857,22 @@ public class Controller {
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
+            for (int i=0; i < list.numNodes(); i++){
+                int j = 1;
+                j++;
+                System.out.println(i);
+                String temp = ((BakedGoods) (list.get(i))).getGoodsName();
+                String temp1 = ((BakedGoods) (list.get(j))).getGoodsName();
+
+                String str = temp.toUpperCase();
+                String str1 = temp1.toUpperCase();
+
+                System.out.println(str + " 1");
+                System.out.println(str1 + " 2");
+
+
+                //if (str.contains())
+            }
         }
         if(event.getSource()==byKcal){
             System.out.println("Sorting by Kcal");
