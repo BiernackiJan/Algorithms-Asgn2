@@ -839,7 +839,6 @@ public class Controller {
             //loops through all the Baked Goods to see if the searchOption1 is there
             for (int i = 0; i < list.numNodes(); i++){
                 String b = ((BakedGoods) list.get(i)).fullString();
-                //Recipe r = (Recipe) b.recipes.get(i);//TODO check the recipe add getting probem with r been null
                 System.out.println(((BakedGoods) list.get(i)).fullString());
                 if (b.contains(s1)){
                     System.out.println(b);
