@@ -207,9 +207,9 @@
                         <Image url="@images/Pastry-PNG-Images.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="177.0" fitWidth="156.0" layoutX="83.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="177.0" fitWidth="156.0" layoutX="77.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@images/pngwing.com.png" />
+                        <Image url="@images/macaroni.png" />
                      </image>
                   </ImageView>
                </children>
