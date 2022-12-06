@@ -285,10 +285,12 @@ public class Controller {
         Image image = new Image(bU);
         goodsImage.setImage(image);
 
-//        hashList.add(bg,0);
-//        BakedGoods hashedGood = hashList.get(0);
-//        System.out.printf(String.valueOf(hashedGood));
-//        System.out.printf(String.valueOf(bg));
+        hashList.add(bg,bg.hashCode());
+
+        hashList.displayHashTable();
+        System.out.println(bg.hashCode());
+        //System.out.printf(String.valueOf(hashedGood));
+        System.out.printf(String.valueOf(bg));
 
 
         goodsName.clear();
@@ -674,7 +676,7 @@ public class Controller {
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
             for(int i = 0; i  < list.numNodes(); i++){
                 BakedGoods bg = (BakedGoods) list.get(i);
-                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();//TODO HASHING HERE????
+                Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
                 for(int j = 0; j < bg.recipes.numNodes(); j++){
                     Recipe rpToCheck = (Recipe) bg.recipes.get(j);
                     if(rp.hashCode() == rpToCheck.hashCode()){
