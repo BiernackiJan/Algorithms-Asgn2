@@ -466,6 +466,15 @@ public class Controller {
         }
     }
 
+    public void populateRecipeIngredientList(){
+        chosenRecipeIngredients.getItems().clear();
+        Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+        for(int i = 0 ; i < rp.recipeIngredients.numNodes(); i++){
+            Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
+            chosenRecipeIngredients.getItems().add(ing);
+        }
+    }
+
     @FXML
     private void chooseItemToList(ActionEvent event){
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex()==0){//Show the ListView when Ingredients are chosen in the ComboBox
@@ -639,6 +648,7 @@ public class Controller {
                 editChosenRecipeIngredient.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeUpdate.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
                 confirmDelete.setVisible(true);
 
                 chosenItemToDelete.getItems().clear();
@@ -737,6 +747,7 @@ public class Controller {
         }
 
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+
             Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
             String name = chosenRecipeNameUpdate.getText();
 
@@ -746,14 +757,21 @@ public class Controller {
 
             recipeToUpdateName.setText(rp.getName());
             chosenRecipeNameUpdate.setText(rp.getName());
+            editChosenRecipeUpdate.setVisible(false);
         }
 
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
-            Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
 
-            float amnt = ing.getAmount();
-            float totalKcals = (ing.getCalories());
+            float amnt = Float.parseFloat(chosenIngMlUpdate.getText());
+
+            ing.setCalories(amnt);
+            ing.setAmount(amnt);
+
+            editChosenRecipeIngredient.setVisible(false);
+
+            populateRecipeIngredients();
+
 
 //            for(int i = 0; i < rp.recipeIngredients.numNodes(); i++){
 //                if(rp.recipeIngredients.get(i).hashCode() == ing.hashCode() && chosenRecipeIngredients.getSelectionModel().getSelectedItem() == rp.recipeIngredients.get(i)){
@@ -769,6 +787,7 @@ public class Controller {
     public void recipeItemControl(ActionEvent action){
         if(action.getSource()==btnEditSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){//Edit button to edit a selected Ingredient from the chosen Recipe
             editChosenRecipeUpdate.setVisible(false);
+            confirmDelete.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
 
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
@@ -777,18 +796,19 @@ public class Controller {
         } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
         if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
             editChosenRecipeIngredient.setVisible(false);
+            editChosenRecipeUpdate.setVisible(false);
+            confirmDelete.setVisible(true);
+
             chosenItemToDelete.getItems().clear();
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
             chosenItemToDelete.getItems().add(ing);
-            confirmDelete.setVisible(true);
+
         }//Selecting an Ingredient from the list of Ingredients in a Recipe and pressing the delete button should pop up a question if you confirm
     }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
 
 
 
-    //TODO Ingredient inside recipe edit doesnt update ingredient measurement value
-    //TODO Delete ingredient inside a recipe doesnt work (Deletes Chosen Recipe)                DONE!!!!
-    //TODO ingredient chosen from recipe must hide the text field of measurement when other button pressed
+
     //TODO Make the total kcal of a recipe change when an Ing in a recipe is edited or deleted
 
 

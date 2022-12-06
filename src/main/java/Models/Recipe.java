@@ -31,8 +31,7 @@ public class Recipe {
     @Override
     public String toString() {
         return  " Recipe For: " + Name +
-                ", " + Kcal + "\n" +
-                " Ingredients: " + recipeIngredients.listAll();
+                ", " + Kcal + "\n" ;
     }
 }
 

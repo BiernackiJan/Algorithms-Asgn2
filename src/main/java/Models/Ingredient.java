@@ -3,9 +3,9 @@ package Models;
 public class Ingredient {
     private String ingName;
     private String ingDes;
-    private float calories;
-    private float amount;
-    private float kcal;//calories per 1g/ml
+    private float calories;//calories per amount
+    private float amount;//amount for calories
+    private float kcal;//Kcal per 1g/ml
 
     public Ingredient(String n, String d, float c, float a) {
         this.ingName = n;
@@ -48,8 +48,8 @@ public class Ingredient {
         this.ingDes = ingDes;
     }
 
-    public void setCalories(float calories) {
-        this.calories = calories;
+    public void setCalories(float amount) {
+        this.calories = kcal*amount;
     }
 
     public void setAmount(float amount) {
@@ -69,7 +69,7 @@ public class Ingredient {
 
     public String toString1() {
         return  "  " + ingName + ",  " + ingDes +
-                "  " + kcal + "kcal " + ",  "  + amount + "g/ml ";
+                "  " + amount + "g/ml ";
     }
 
     @Override
