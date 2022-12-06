@@ -5,12 +5,12 @@ public class Ingredient {
     private String ingDes;
     private float calories;
     private float amount;
-    private float kcal;
+    private float kcal;//calories per 1g/ml
 
     public Ingredient(String n, String d, float c, float a) {
         this.ingName = n;
         this.ingDes = d;
-        this.calories = c;
+        this.calories = c; //cal per amount
         this.amount = a;
         this.kcal = calculateKcal(1);
     }
@@ -55,6 +55,8 @@ public class Ingredient {
     public void setAmount(float amount) {
         this.amount = amount;
     }
+
+    public void setKcal(float kcal){this.kcal = kcal;}
 
     //Methods--------------------------------------------------
 

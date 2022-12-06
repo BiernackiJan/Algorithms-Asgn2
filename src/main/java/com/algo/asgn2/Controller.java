@@ -364,14 +364,15 @@ public class Controller {
     public void addToRec(ActionEvent action) {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
-        float kcals = amnt*selectedIng.getKcal();
+        float cals = amnt*selectedIng.getKcal();
 
 
         Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), amnt);
 
-        rIng.setCalories(kcals);
+        rIng.setKcal(rIng.calculateKcal(amnt));
+        rIng.setCalories(cals);
 
-        float f = r.getKcal() + kcals;
+        float f = r.getKcal() + cals;
         r.setKcal(f);
 
         ingredientGrams.clear();
@@ -752,7 +753,7 @@ public class Controller {
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
 
             float amnt = ing.getAmount();
-            float totalKcals = (ing.getCalories())
+            float totalKcals = (ing.getCalories());
 
 //            for(int i = 0; i < rp.recipeIngredients.numNodes(); i++){
 //                if(rp.recipeIngredients.get(i).hashCode() == ing.hashCode() && chosenRecipeIngredients.getSelectionModel().getSelectedItem() == rp.recipeIngredients.get(i)){
