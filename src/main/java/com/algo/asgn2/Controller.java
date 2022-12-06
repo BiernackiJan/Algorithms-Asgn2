@@ -355,6 +355,7 @@ public class Controller {
     }
 
     private Ingredient selectedIng;
+
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
         System.out.println("Selected" + selectedIng);
@@ -364,16 +365,16 @@ public class Controller {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
         float kcals = amnt*selectedIng.getKcal();
-        System.out.println(amnt);
-        System.out.printf(String.valueOf(kcals));
-        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), kcals);
-        rIng.setAmount(amnt);
-        System.out.println(rIng.toString1());
+
+
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), amnt);
+
+        rIng.setCalories(kcals);
+
         float f = r.getKcal() + kcals;
         r.setKcal(f);
 
         ingredientGrams.clear();
-        System.out.println(rIng.getKcal());
 
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
@@ -435,8 +436,7 @@ public class Controller {
     @FXML
     private Button btnStartEdit;
     @FXML
-    private Button btnStartDelete;//TODO: Make the button show the question message when an item is selected from ListView and button is pressed
-
+    private Button btnStartDelete;
 
     public void populateChosenIngredientList(){
         editChosenIngredient.getItems().clear();
@@ -673,7 +673,7 @@ public class Controller {
             confirmDelete.setVisible(false);
         }
 
-        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null && chosenRecipeIngredients.getSelectionModel().getSelectedItem() == null){
             for(int i = 0; i  < list.numNodes(); i++){
                 BakedGoods bg = (BakedGoods) list.get(i);
                 Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
@@ -683,6 +683,7 @@ public class Controller {
                         bg.recipes.deleteNode(j);
                         populateChosenRecipeList();
                         confirmDelete.setVisible(false);
+                        ingFromRecipe.setVisible(false);
                     }
                 }
             }
@@ -745,6 +746,21 @@ public class Controller {
             recipeToUpdateName.setText(rp.getName());
             chosenRecipeNameUpdate.setText(rp.getName());
         }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
+            Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+            Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
+
+            float amnt = ing.getAmount();
+            float totalKcals = (ing.getCalories())
+
+//            for(int i = 0; i < rp.recipeIngredients.numNodes(); i++){
+//                if(rp.recipeIngredients.get(i).hashCode() == ing.hashCode() && chosenRecipeIngredients.getSelectionModel().getSelectedItem() == rp.recipeIngredients.get(i)){
+//                    rp.recipeIngredients.deleteNode(i);
+//
+//                }
+//            }
+        }
     }//when this is pressed all the fields that were edited should be changed and applied to the object
 
 
@@ -770,9 +786,9 @@ public class Controller {
 
 
     //TODO Ingredient inside recipe edit doesnt update ingredient measurement value
-    //TODO Delete ingredient inside a recipe doesnt work (Deletes Chosen Recipe)
+    //TODO Delete ingredient inside a recipe doesnt work (Deletes Chosen Recipe)                DONE!!!!
     //TODO ingredient chosen from recipe must hide the text field of measurement when other button pressed
-
+    //TODO Make the total kcal of a recipe change when an Ing in a recipe is edited or deleted
 
 
 
