@@ -373,13 +373,14 @@ public class Controller {
         float f = r.getKcal() + kcals;
         r.setKcal(f);
 
-        ingredientGrams.clear();
+
         System.out.println(rIng.getKcal());
 
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().add(rIng.toString1());
+            populateRecipeAddedIng();
+            ingredientGrams.clear();
         }
     } //Button to add an ingredient to a recipe
 
@@ -393,9 +394,16 @@ public class Controller {
         }
     }//Populating choose Recipe choice box when Baked Good is chosen in the ComboBox
 
+    public void populateRecipeAddedIng(){
+        addedIngredients.getItems().clear();
+        Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
+        for (int i = 0; i < r.recipeIngredients.numNodes(); i++){
+            Ingredient ing = (Ingredient) r.recipeIngredients.get(i);
+            addedIngredients.getItems().add(ing.toString1());
+        }
+    }
 
-
-
+    //TODO make the addedIngredients List in Recipe change when a Recipe is chosen in the choice box
 
 
 
@@ -819,7 +827,7 @@ public class Controller {
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
         //returns the baked good and recipe that the search word is found in
-        if (searchOption1!=null){
+        if (!searchOption1.getText().isBlank()){
             String s1 = searchOption1.getText();
             listSearchItems.getItems().clear();
             //loops through everything in order to find all the items with name
@@ -833,7 +841,7 @@ public class Controller {
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Recipe r = (Recipe) b.recipes.get(j);
                         if (r.toString().contains(s1)) {
-                            String temp = r.toString();
+                            String temp = r.stringCheck();
                             listSearchItems.getItems().add(temp);
                         }
                     }
@@ -853,9 +861,9 @@ public class Controller {
                 }
                 if (!b.toString().contains(s2)) {
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
-                        Ingredient r = (Ingredient) items.get(j);
-                        String temp = r.toString();
-                        if (r.toString().contains(s2)) {
+                        Ingredient ing = (Ingredient) items.get(j);
+                        String temp = ing.toString();
+                        if (ing.toString().contains(s2)) {
                             listSearchItems.getItems().add(temp);
                         }
                     }
@@ -892,7 +900,7 @@ public class Controller {
 
                             System.out.println("s " + s);
                             System.out.println("temp " + temp);
-                                if (temp.contains(s)){
+                                if (s.contains(temp)){
                                     System.out.println(temp + " Hello");
                                     listIngInOtherRecipe.getItems().add(ing.toString());
                                 }

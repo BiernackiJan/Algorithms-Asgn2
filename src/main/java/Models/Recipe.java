@@ -28,11 +28,15 @@ public class Recipe {
         Kcal = kcal;
     }
 
-    @Override
-    public String toString() {
+    public String stringCheck(){
         return  " Recipe For: " + Name +
                 ", " + Kcal + "\n" +
                 " Ingredients: " + recipeIngredients.listAll();
+    }
+    @Override
+    public String toString() {
+        return  " Recipe For: " + Name +
+                ", " + Kcal + "\n" ;
     }
 }
 
