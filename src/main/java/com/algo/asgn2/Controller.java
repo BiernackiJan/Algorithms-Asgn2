@@ -18,8 +18,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import java.io.IOException;
+import java.io.*;
 
 import static java.lang.String.valueOf;
 
@@ -881,8 +883,51 @@ public class Controller {
         }
     }
 
+    @FXML
+    void save(MouseEvent event) throws Exception {
+        XStream xstream = new XStream(new DomDriver());
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("Baking_Store.xml"));
+        LinkedList<BakedGoods> list1 = list;
+        LinkedList<Ingredient> list2 = items;
+        out.writeObject(list1);
+        out.writeObject(list2);
+        out.close();
+    }
+
+    @FXML
+    void load(MouseEvent event) throws Exception {
+        Class<?>[] classes = new Class[]{BakedGoods.class, Recipe.class, Ingredient.class,
+               LinkedList.class, Node.class};
+
+        //setting up the xstream object with default security and the above classes
+        XStream xstream = new XStream(new DomDriver());
+        XStream.setupDefaultSecurity(xstream);
+        xstream.allowTypes(classes);
+
+        //doing the actual serialisation to an XML file
+        ObjectInputStream in = xstream.createObjectInputStream(new FileReader("Baking_Store.xml"));
+        list = (LinkedList<BakedGoods>) in.readObject();
+        items = (LinkedList<Ingredient>) in.readObject();
+        in.close();
+
+    }
+    @FXML
+    void reset(MouseEvent event){
+        //deletes all the nodes in both linked lists
+        list.delAll();
+        items.delAll();
+
+        listAllIng.getItems().clear();
+        listAddedIng.getItems().clear();
+        listAddedGood.getItems().clear();
+
+        ingredientsList.getItems().clear();
+        addedIngredients.getItems().clear();
+        listSearchItems.getItems().clear();
+        listIngInOtherRecipe.getItems().clear();
 
 
+    }
 
 
 
