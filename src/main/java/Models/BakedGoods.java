@@ -61,6 +61,12 @@ public class BakedGoods {
                 + recipes.listAll();
     }
 
+    public String oneString() {
+        return  "  " + goodsName + ",  " + goodsDes +
+                "  Originated in: " + originCountry + '\n'
+                + recipes.listOne();
+    }
+
     @Override
     public String toString() {
         return  "  " + goodsName + ",  " + goodsDes +
