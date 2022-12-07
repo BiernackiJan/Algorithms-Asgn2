@@ -845,9 +845,11 @@ public class Controller {
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
     @FXML
-    private ListView listSearchItems;
+    private ListView listAllSearchItems;
     @FXML
     private ListView listIngInOtherRecipe;
+    @FXML
+    private ListView listIngInOtherRecipe1;
     @FXML
     private TextField searchOption1;
 
@@ -861,15 +863,37 @@ public class Controller {
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
-        if (searchOption1!=null){
+        if (searchOption1.getText() != null){
             String s2 = searchOption1.getText();
-            listSearchItems.getItems().clear();
+            listAllSearchItems.getItems().clear();
             s2 = s2.toLowerCase();
+            System.out.println(s2);
+            String ingStr = "ingredients";
+            String bgStr = "baked goods";
+            String rpStr = "recipes";
 
-            if(s2.contains("ingredients")){
+
+            if(ingStr.contains(s2)){
                 for(int i = 0; i < items.numNodes(); i++){
-                    Ingredient ing = items.get(i);
+                    Ingredient ing = (Ingredient) items.get(i);
+                    listAllSearchItems.getItems().add(ing);
+                }
+            }
 
+            if(bgStr.contains(s2)){
+                for(int i = 0; i < list.numNodes(); i ++){
+                    BakedGoods bg = (BakedGoods)  list.get(i);
+                    listAllSearchItems.getItems().add(bg);
+                }
+            }
+
+            if(rpStr.contains(s2)){
+                for(int i = 0; i < list.numNodes(); i++){
+                    BakedGoods bg = (BakedGoods) list.get(i);
+                    for(int j = 0; j < bg.recipes.numNodes(); j++){
+                        Ingredient ing = (Ingredient) bg.recipes.get(j);
+                        listAllSearchItems.getItems().add(ing);
+                    }
                 }
             }
 
@@ -879,12 +903,12 @@ public class Controller {
                     BakedGoods b = ((BakedGoods) list.get(i));
                     if (b.toString().contains(s2)) {
                         BakedGoods str2 = ((BakedGoods) list.get(i));
-                        listSearchItems.getItems().add(str2);
+                        listAllSearchItems.getItems().add(str2);
                     }
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Recipe r = (Recipe) b.recipes.get(j);
                         if (r.toString().contains(s2)) {
-                            listSearchItems.getItems().add(r);
+                            listAllSearchItems.getItems().add(r);
                         }
                     }
                 }
@@ -892,7 +916,7 @@ public class Controller {
         }
         if (searchOption2!=null){
             String s1 = searchOption2.getText();
-            listSearchItems.getItems().clear();
+            listAllSearchItems.getItems().clear();
             //loops through all the Baked Goods to see if the searchOption1 is there
             for (int i = 0; i < list.numNodes(); i++){
                 String b = ((BakedGoods) list.get(i)).fullString();
@@ -900,7 +924,7 @@ public class Controller {
                 if (b.contains(s1)){
                     System.out.println(b);
                     String str1 = ((BakedGoods) list.get(i)).oneString();
-                    listSearchItems.getItems().add(str1);
+                    listAllSearchItems.getItems().add(str1);
                 }
             }
         }
@@ -916,6 +940,7 @@ public class Controller {
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
+            //alphabetically sort using .subString with an array list of all letters
         }
         if(event.getSource()==byKcal){
             System.out.println("Sorting by Kcal");
