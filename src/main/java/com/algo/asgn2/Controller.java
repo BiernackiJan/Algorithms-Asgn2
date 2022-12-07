@@ -826,7 +826,7 @@ public class Controller {
     @FXML
     private ListView listIngInOtherRecipe;
     @FXML
-    private ListView listIngInOtherRecipe1;
+    private ListView listAllSearchItems;
     @FXML
     private TextField searchOption1;
 
@@ -837,12 +837,12 @@ public class Controller {
 
 
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
+        listAllSearchItems.getItems().clear();
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
-        if (searchOption1.getText() != ""){
+        if (!searchOption1.getText().isBlank()){
             String s2 = searchOption1.getText();
-            listIngInOtherRecipe1.getItems().clear();
             s2 = s2.toLowerCase();
 
             String ingStr = "ingredient";
@@ -853,15 +853,14 @@ public class Controller {
             if(ingStr.contains(s2)){
                 for(int i = 0; i < items.numNodes(); i++){
                     Ingredient ing = (Ingredient) items.get(i);
-                    listIngInOtherRecipe.getItems().add(ing);
-                    listIngInOtherRecipe1.getItems().add(ing);
+                    listAllSearchItems.getItems().add(ing);
                 }
             }
 
             if(bgStr.contains(s2)){
                 for(int i = 0; i < list.numNodes(); i ++){
                     BakedGoods bg = (BakedGoods)  list.get(i);
-                    listIngInOtherRecipe1.getItems().add(bg);
+                    listAllSearchItems.getItems().add(bg);
                 }
             }
 
@@ -870,7 +869,7 @@ public class Controller {
                     BakedGoods bg = (BakedGoods) list.get(i);
                     for(int j = 0; j < bg.recipes.numNodes(); j++){
                         Ingredient ing = (Ingredient) bg.recipes.get(j);
-                        listIngInOtherRecipe1.getItems().add(ing);
+                        listAllSearchItems.getItems().add(ing);
                     }
                 }
             }
@@ -881,20 +880,20 @@ public class Controller {
                     BakedGoods b = ((BakedGoods) list.get(i));
                     if (b.toString().contains(s2)) {
                         BakedGoods str2 = ((BakedGoods) list.get(i));
-                        listIngInOtherRecipe1.getItems().add(str2);
+                        listAllSearchItems.getItems().add(str2);
                     }
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Recipe r = (Recipe) b.recipes.get(j);
                         if (r.toString().contains(s2)) {
-                            listIngInOtherRecipe1.getItems().add(r);
+                            listAllSearchItems.getItems().add(r);
                         }
                     }
                 }
             }
         }
-        if (searchOption2!=null){
+        if (!searchOption2.getText().isBlank()){
+
             String s1 = searchOption2.getText();
-            listIngInOtherRecipe1.getItems().clear();
             //loops through all the Baked Goods to see if the searchOption1 is there
             for (int i = 0; i < list.numNodes(); i++){
                 String b = ((BakedGoods) list.get(i)).fullString();
@@ -902,7 +901,7 @@ public class Controller {
                 if (b.contains(s1)){
                     System.out.println(b);
                     String str1 = ((BakedGoods) list.get(i)).oneString();
-                    listIngInOtherRecipe1.getItems().add(str1);
+                    listAllSearchItems.getItems().add(str1);
                 }
             }
         }
@@ -918,8 +917,10 @@ public class Controller {
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
-            //alphabetically sort using .subString with an array list of all letters
+            //TODO alphabetically sort using .subString with an array list of all letters
+            //TODO use hash values for the first 2-3 letters of the name
 
+            //listAllSearchItems.getItems().ge
 
         }
         if(event.getSource()==byKcal){
@@ -984,12 +985,12 @@ public class Controller {
 
         //setting up the xstream object with default security and the above classes
         XStream xstream = new XStream(new DomDriver());
-        XStream.setupDefaultSecurity(xstream);
+        //XStream.setupDefaultSecurity(xstream);
         xstream.allowTypes(classes);
 
         //doing the actual serialisation to an XML file
         ObjectInputStream in = xstream.createObjectInputStream(new FileReader("Ingredients.xml"));
-        items = (LinkedList<Ingredient>) in.readObject() ;
+        items = (LinkedList<Ingredient>) in.readObject();
         in.close();
     }
 

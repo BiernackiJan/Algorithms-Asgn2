@@ -1,14 +1,41 @@
 <object-stream>
   <Resources.LinkedList>
     <head>
+      <next>
+        <next>
+          <next>
+            <data class="Models.Ingredient">
+              <ingName>Lemon</ingName>
+              <ingDes>Sour Citrus Fruit</ingDes>
+              <calories>90.0</calories>
+              <amount>30.0</amount>
+              <kcal>3.0</kcal>
+            </data>
+          </next>
+          <data class="Models.Ingredient">
+            <ingName>Apple</ingName>
+            <ingDes>Sweet Fruit</ingDes>
+            <calories>50.0</calories>
+            <amount>5.0</amount>
+            <kcal>10.0</kcal>
+          </data>
+        </next>
+        <data class="Models.Ingredient">
+          <ingName>Flour</ingName>
+          <ingDes>Binding Ingredient</ingDes>
+          <calories>50.0</calories>
+          <amount>10.0</amount>
+          <kcal>5.0</kcal>
+        </data>
+      </next>
       <data class="Models.Ingredient">
-        <ingName>jknksaanck</ingName>
-        <ingDes>njadndjan</ingDes>
-        <calories>1000.0</calories>
+        <ingName>Sugar</ingName>
+        <ingDes>White Powder</ingDes>
+        <calories>100.0</calories>
         <amount>10.0</amount>
-        <kcal>100.0</kcal>
+        <kcal>10.0</kcal>
       </data>
     </head>
-    <nodes>1</nodes>
+    <nodes>4</nodes>
   </Resources.LinkedList>
 </object-stream>
