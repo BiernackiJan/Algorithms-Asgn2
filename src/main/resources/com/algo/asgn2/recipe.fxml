@@ -375,7 +375,7 @@
                   </Group>
                </children>
             </Pane>
-            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0" visible="false">
+            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="28.0" prefHeight="53.0" prefWidth="214.0" text="Search for Items" textFill="#e7e5e5">
                      <font>
@@ -404,7 +404,8 @@
                   <Button id="btnBrighter" fx:id="alphabetical" layoutX="152.0" layoutY="137.0" mnemonicParsing="false" onAction="#sortButton" prefHeight="25.0" prefWidth="86.0" stylesheets="@style.css" text="Alphabetical" />
                   <Button id="btnBrighter" fx:id="byKcal" layoutX="268.0" layoutY="137.0" mnemonicParsing="false" onAction="#sortButton" prefHeight="25.0" prefWidth="86.0" stylesheets="@style.css" text="By Kcal" />
                   <ListView fx:id="listIngInOtherRecipe" layoutX="500.0" layoutY="171.0" prefHeight="379.0" prefWidth="279.0" stylesheets="@style.css" />
-                  <ListView fx:id="listAllSearchItems" layoutX="25.0" layoutY="171.0" prefHeight="379.0" prefWidth="445.0" stylesheets="@style.css" />
+                  <ListView fx:id="listIngInOtherRecipe10" layoutX="25.0" layoutY="171.0" prefHeight="379.0" prefWidth="391.0" stylesheets="@style.css" visible="false" />
+                  <ListView fx:id="listIngInOtherRecipe1" layoutX="25.0" layoutY="171.0" prefHeight="379.0" prefWidth="279.0" stylesheets="@style.css" />
                </children>
             </Pane>
             <Pane fx:id="pnlDrillDown" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">

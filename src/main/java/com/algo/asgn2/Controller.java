@@ -54,11 +54,6 @@ public class Controller {
     private Button btnDrillDown;
     @FXML
     private Button btnSignout;
-
-
-
-    @FXML
-    private Button btnDrillDown1;
     @FXML
     private Pane pnlDrillDown1;
 
@@ -152,18 +147,6 @@ public class Controller {
             Platform.exit();;
         }
 
-        if(actionEvent.getSource()==btnDrillDown1){
-            pnlDrillDown1.toFront();
-            pnlRecipes.setVisible(false);
-            pnlIngredients.setVisible(false);
-            pnlOverview.setVisible(false);
-            pnlBakedGoods.setVisible(false);
-            pnlEdit.setVisible(false);
-            pnlSearch.setVisible(false);
-            pnlDrillDown.setVisible(false);
-            pnlDrillDown1.setVisible(true);
-        }
-
     }
 
 
@@ -182,6 +165,9 @@ public class Controller {
     private Pane pnlOverview;//Nothing needed here for now Maybe a save and load button + reset facility if needed
 
 
+    public int checkHashValue(String str){;
+        return str.hashCode();
+    }
 
 
 
@@ -365,7 +351,6 @@ public class Controller {
 
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
-        System.out.println("Selected" + selectedIng);
     }
 
     public void addToRec(ActionEvent action) {
@@ -778,14 +763,6 @@ public class Controller {
             editChosenRecipeIngredient.setVisible(false);
 
             populateRecipeIngredients();
-
-
-//            for(int i = 0; i < rp.recipeIngredients.numNodes(); i++){
-//                if(rp.recipeIngredients.get(i).hashCode() == ing.hashCode() && chosenRecipeIngredients.getSelectionModel().getSelectedItem() == rp.recipeIngredients.get(i)){
-//                    rp.recipeIngredients.deleteNode(i);
-//
-//                }
-//            }
         }
     }//when this is pressed all the fields that were edited should be changed and applied to the object
 
@@ -801,7 +778,7 @@ public class Controller {
             String str = String.valueOf(ing.getAmount());
             chosenIngMlUpdate.setText(str);
         } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
-        if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
+        if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null) {
             editChosenRecipeIngredient.setVisible(false);
             editChosenRecipeUpdate.setVisible(false);
             confirmDelete.setVisible(true);
@@ -833,6 +810,8 @@ public class Controller {
 
 
 
+
+
     //Search
     @FXML
     private Pane pnlSearch;
@@ -844,8 +823,6 @@ public class Controller {
     private Button byKcal;//button to sort searched items by Kcal
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
-    @FXML
-    private ListView listAllSearchItems;
     @FXML
     private ListView listIngInOtherRecipe;
     @FXML
@@ -863,12 +840,12 @@ public class Controller {
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
-        if (searchOption1.getText() != null){
+        if (searchOption1.getText() != ""){
             String s2 = searchOption1.getText();
-            listAllSearchItems.getItems().clear();
+            listIngInOtherRecipe1.getItems().clear();
             s2 = s2.toLowerCase();
-            System.out.println(s2);
-            String ingStr = "ingredients";
+
+            String ingStr = "ingredient";
             String bgStr = "baked goods";
             String rpStr = "recipes";
 
@@ -876,14 +853,15 @@ public class Controller {
             if(ingStr.contains(s2)){
                 for(int i = 0; i < items.numNodes(); i++){
                     Ingredient ing = (Ingredient) items.get(i);
-                    listAllSearchItems.getItems().add(ing);
+                    listIngInOtherRecipe.getItems().add(ing);
+                    listIngInOtherRecipe1.getItems().add(ing);
                 }
             }
 
             if(bgStr.contains(s2)){
                 for(int i = 0; i < list.numNodes(); i ++){
                     BakedGoods bg = (BakedGoods)  list.get(i);
-                    listAllSearchItems.getItems().add(bg);
+                    listIngInOtherRecipe1.getItems().add(bg);
                 }
             }
 
@@ -892,7 +870,7 @@ public class Controller {
                     BakedGoods bg = (BakedGoods) list.get(i);
                     for(int j = 0; j < bg.recipes.numNodes(); j++){
                         Ingredient ing = (Ingredient) bg.recipes.get(j);
-                        listAllSearchItems.getItems().add(ing);
+                        listIngInOtherRecipe1.getItems().add(ing);
                     }
                 }
             }
@@ -903,12 +881,12 @@ public class Controller {
                     BakedGoods b = ((BakedGoods) list.get(i));
                     if (b.toString().contains(s2)) {
                         BakedGoods str2 = ((BakedGoods) list.get(i));
-                        listAllSearchItems.getItems().add(str2);
+                        listIngInOtherRecipe1.getItems().add(str2);
                     }
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Recipe r = (Recipe) b.recipes.get(j);
                         if (r.toString().contains(s2)) {
-                            listAllSearchItems.getItems().add(r);
+                            listIngInOtherRecipe1.getItems().add(r);
                         }
                     }
                 }
@@ -916,7 +894,7 @@ public class Controller {
         }
         if (searchOption2!=null){
             String s1 = searchOption2.getText();
-            listAllSearchItems.getItems().clear();
+            listIngInOtherRecipe1.getItems().clear();
             //loops through all the Baked Goods to see if the searchOption1 is there
             for (int i = 0; i < list.numNodes(); i++){
                 String b = ((BakedGoods) list.get(i)).fullString();
@@ -924,7 +902,7 @@ public class Controller {
                 if (b.contains(s1)){
                     System.out.println(b);
                     String str1 = ((BakedGoods) list.get(i)).oneString();
-                    listAllSearchItems.getItems().add(str1);
+                    listIngInOtherRecipe1.getItems().add(str1);
                 }
             }
         }
@@ -941,6 +919,8 @@ public class Controller {
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
             //alphabetically sort using .subString with an array list of all letters
+
+
         }
         if(event.getSource()==byKcal){
             System.out.println("Sorting by Kcal");
@@ -1012,6 +992,5 @@ public class Controller {
         items = (LinkedList<Ingredient>) in.readObject() ;
         in.close();
     }
-
 
 }
