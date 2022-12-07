@@ -21,6 +21,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.io.*;
+import java.util.Locale;
 
 import static java.lang.String.valueOf;
 
@@ -802,7 +803,7 @@ public class Controller {
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
     @FXML
-    private ListView<String> listSearchItems;
+    private ListView<Object> listSearchItems;
     @FXML
     private ListView<String> listIngInOtherRecipe;
     @FXML
@@ -818,56 +819,62 @@ public class Controller {
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
-        //returns the baked good and recipe that the search word is found in
-        if (searchOption1!=null){
-            String s1 = searchOption1.getText();
-            listSearchItems.getItems().clear();
+        listSearchItems.getItems().clear();
+        String s1 = searchOption1.getText();
+        String s2 = searchOption2.getText();
+        if (!searchOption2.getText().isBlank() && !searchOption1.getText().isBlank()){
             //loops through everything in order to find all the items with name
             for (int i=0; i < list.numNodes(); i++){
                 BakedGoods b = ((BakedGoods) list.get(i));
-                if (b.toString().contains(s1)){
+
+                for (int j = 0; j < b.recipes.numNodes(); j++) {
+                        Recipe r = (Recipe) b.recipes.get(j);
+                            if (b.toString().toLowerCase().contains(s1.toLowerCase()) && r.toString().toLowerCase().contains(s2.toLowerCase())){
+                                //String str2 = list.get(j) + "" + r;
+                                listSearchItems.getItems().add(b + "" + r);
+                            } else System.out.println("ERROR");
+                        }
+                }
+            }
+
+        //returns the baked good and recipe that the search word is found in
+        if (!searchOption1.getText().isBlank() && searchOption2.getText().isBlank()){
+            //loops through everything in order to find all the items with name
+            for (int i=0; i < list.numNodes(); i++){
+                BakedGoods b = ((BakedGoods) list.get(i));
+                if (b.toString().toLowerCase().contains(s1.toLowerCase())){
                     String str2 = ((BakedGoods) list.get(i)).fullString();
                     listSearchItems.getItems().add(str2);
                 }
                 if (!b.toString().contains(s1)) {
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Recipe r = (Recipe) b.recipes.get(j);
-                        if (r.toString().contains(s1)) {
-                            String temp = r.toString();
-                            listSearchItems.getItems().add(temp);
+                        if (r.toString().toLowerCase().contains(s1.toLowerCase())) {
+                            //String temp = r.toString();
+                            listSearchItems.getItems().add(r);
                         }
                     }
                 }
             }
         }
         //returns all instances of the word
-        if (!searchOption2.getText().isBlank()){
-            String s2 = searchOption2.getText();
-            listSearchItems.getItems().clear();
+        if (!searchOption2.getText().isBlank() && searchOption1.getText().isBlank()){
             //loops through all the Baked Goods to see if the searchOption2 is there
             for (int i = 0; i < list.numNodes(); i++){
                 BakedGoods b = ((BakedGoods) list.get(i));
-                if (b.toString().contains(s2)){
+                if (b.toString().toLowerCase().contains(s2.toLowerCase())){
                     String str1 = b.toString();
                     listSearchItems.getItems().add(str1);
                 }
                 if (!b.toString().contains(s2)) {
                     for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Ingredient r = (Ingredient) items.get(j);
-                        String temp = r.toString();
-                        if (r.toString().contains(s2)) {
-                            listSearchItems.getItems().add(temp);
+                        //String temp = r.toString();
+                        if (r.toString().toLowerCase().contains(s2.toLowerCase())) {
+                            listSearchItems.getItems().addAll(r);
                         }
                     }
                 }
-//                if (!b.toString().contains(s2)) {
-//                    for (int j = 0; j < b.recipes.numNodes(); j++) {
-//                        Recipe r = (Recipe) b.recipes.get(j);
-//                        if (r.toString().contains(s2)) {
-//                            listSearchItems.getItems().add(r);
-//                        }
-//                    }
-//                }
             }
         }
     }
@@ -875,7 +882,7 @@ public class Controller {
     @FXML
     void displayRecipes(MouseEvent event) {
         listIngInOtherRecipe.getItems().clear();
-        String s = listSearchItems.getSelectionModel().getSelectedItem();
+        Object s = listSearchItems.getSelectionModel().getSelectedItem();
             if (s != null){
                 //loops through all the backed goods
                 for (int i = 0; i < list.numNodes(); i++){
@@ -892,10 +899,10 @@ public class Controller {
 
                             System.out.println("s " + s);
                             System.out.println("temp " + temp);
-                                if (temp.contains(s)){
-                                    System.out.println(temp + " Hello");
-                                    listIngInOtherRecipe.getItems().add(ing.toString());
-                                }
+//                                if (ing.contains(s)){
+//                                    System.out.println(temp + " Hello");
+//                                    listIngInOtherRecipe.getItems().add(ing.toString());
+//                                }
                         }
                     }
                 }
