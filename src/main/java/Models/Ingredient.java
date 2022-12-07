@@ -67,13 +67,13 @@ public class Ingredient {
 
     public String toString1() {
         return  "  " + ingName + ",  " + ingDes +
-                "  " + kcal + "kcal " + ",  "  + amount + "g/ml ";
+                "  " + kcal + "kcal per " + amount + " g/ml ";
     }
 
     @Override
     public String toString() {
         return  "  " + ingName + ",  " + ingDes +
-                "  " + calories + "kcal per " + amount + "g " +  '\n' ;
+                "  " + calories + "kcal per " + amount + " g/ml " +  '\n' ;
     }
 
 }

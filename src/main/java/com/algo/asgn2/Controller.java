@@ -6,7 +6,6 @@ import Models.Recipe;
 import Resources.LinkedList;
 import Resources.MyHashSC;
 import javafx.application.Platform;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -803,9 +802,9 @@ public class Controller {
     @FXML
     private Button alphabetical;//button to sort searched items by alphabet
     @FXML
-    private ListView listSearchItems;
+    private ListView<String> listSearchItems;
     @FXML
-    private ListView listIngInOtherRecipe;
+    private ListView<String> listIngInOtherRecipe;
     @FXML
     private TextField searchOption1;
 
@@ -819,39 +818,90 @@ public class Controller {
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
+        //returns the baked good and recipe that the search word is found in
         if (searchOption1!=null){
-            String s2 = searchOption1.getText();
+            String s1 = searchOption1.getText();
             listSearchItems.getItems().clear();
             //loops through everything in order to find all the items with name
             for (int i=0; i < list.numNodes(); i++){
                 BakedGoods b = ((BakedGoods) list.get(i));
-                if (b.toString().contains(s2)){
-                    BakedGoods str2 = ((BakedGoods) list.get(i));
+                if (b.toString().contains(s1)){
+                    String str2 = ((BakedGoods) list.get(i)).fullString();
                     listSearchItems.getItems().add(str2);
                 }
-                for (int j=0; j < b.recipes.numNodes(); j++){
-                    Recipe r = (Recipe) b.recipes.get(j);
-                    if (r.toString().contains(s2)){
-                        listSearchItems.getItems().add(r);
+                if (!b.toString().contains(s1)) {
+                    for (int j = 0; j < b.recipes.numNodes(); j++) {
+                        Recipe r = (Recipe) b.recipes.get(j);
+                        if (r.toString().contains(s1)) {
+                            String temp = r.toString();
+                            listSearchItems.getItems().add(temp);
+                        }
                     }
                 }
             }
         }
-        if (searchOption2!=null){
-            String s1 = searchOption2.getText();
+        //returns all instances of the word
+        if (!searchOption2.getText().isBlank()){
+            String s2 = searchOption2.getText();
             listSearchItems.getItems().clear();
-            //loops through all the Baked Goods to see if the searchOption1 is there
+            //loops through all the Baked Goods to see if the searchOption2 is there
             for (int i = 0; i < list.numNodes(); i++){
-                String b = ((BakedGoods) list.get(i)).fullString();
-                System.out.println(((BakedGoods) list.get(i)).fullString());
-                if (b.contains(s1)){
-                    System.out.println(b);
-                    String str1 = ((BakedGoods) list.get(i)).oneString();
+                BakedGoods b = ((BakedGoods) list.get(i));
+                if (b.toString().contains(s2)){
+                    String str1 = b.toString();
                     listSearchItems.getItems().add(str1);
                 }
+                if (!b.toString().contains(s2)) {
+                    for (int j = 0; j < b.recipes.numNodes(); j++) {
+                        Ingredient r = (Ingredient) items.get(j);
+                        String temp = r.toString();
+                        if (r.toString().contains(s2)) {
+                            listSearchItems.getItems().add(temp);
+                        }
+                    }
+                }
+//                if (!b.toString().contains(s2)) {
+//                    for (int j = 0; j < b.recipes.numNodes(); j++) {
+//                        Recipe r = (Recipe) b.recipes.get(j);
+//                        if (r.toString().contains(s2)) {
+//                            listSearchItems.getItems().add(r);
+//                        }
+//                    }
+//                }
             }
         }
     }
+
+    @FXML
+    void displayRecipes(MouseEvent event) {
+        listIngInOtherRecipe.getItems().clear();
+        String s = listSearchItems.getSelectionModel().getSelectedItem();
+            if (s != null){
+                //loops through all the backed goods
+                for (int i = 0; i < list.numNodes(); i++){
+                    BakedGoods b = (BakedGoods) list.get(i);
+                    //loops through all the recipes
+                    for (int j = 0; j < b.recipes.numNodes(); j++){
+                        Recipe r = (Recipe) b.recipes.get(j);
+                        //System.out.println(r);
+                        for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
+                            Ingredient ing = (Ingredient) r.recipeIngredients.get(k);
+                            //System.out.println(ing);
+                            //listIngInOtherRecipe.getItems().add(r + " HELLO");
+                            String temp = ing.toString1();
+
+                            System.out.println("s " + s);
+                            System.out.println("temp " + temp);
+                                if (temp.contains(s)){
+                                    System.out.println(temp + " Hello");
+                                    listIngInOtherRecipe.getItems().add(ing.toString());
+                                }
+                        }
+                    }
+                }
+            }
+    }
+
 
     public void searchIconHover(MouseEvent event){//Effect of image brightening when releasing the mouse
         searchIcon1.setVisible(false);
