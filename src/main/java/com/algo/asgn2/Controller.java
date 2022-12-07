@@ -1,12 +1,15 @@
 package com.algo.asgn2;
 
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
 import Resources.LinkedList;
 import Resources.MyHashSC;
 import javafx.application.Platform;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
+import java.io.*;
 
 import static java.lang.String.valueOf;
 
@@ -84,6 +87,7 @@ public class Controller {
             ingWasAdded.setVisible(false);
             listAddedIng.setVisible(false);
             pnlDrillDown.setVisible(false);
+            populateAllIngredientList();
             pnlIngredients.setVisible(true);
         }
         if(actionEvent.getSource()== btnBakedGoods) {
@@ -226,11 +230,19 @@ public class Controller {
         perMeasurement.clear();
 
 
-        listAllIng.getItems().add(ing);
+        populateAllIngredientList();
 
         listAddedIng.getItems().clear();
         listAddedIng.getItems().add(ing);
     } //button to add an ingredient to the system
+
+    public void populateAllIngredientList(){
+        listAllIng.getItems().clear();
+        for(int i = 0; i < items.numNodes(); i++){
+            Ingredient ing = (Ingredient) items.get(i);
+            listAllIng.getItems().add(ing);
+        }
+    }
 
 
 
@@ -298,11 +310,6 @@ public class Controller {
         goodsDesc.clear();
         imageUrl.clear();
     } //displays the youHaveAdded label bellow the add button
-
-    //Text fields: goodsName, originCt , ImageUrl , goodsDesc
-    //at the bottom under the button is a image view to show the image from good added called goodsImage
-    //there is also a list view to show the good that was just added called listAddedGood
-
 
 
 
@@ -937,8 +944,27 @@ public class Controller {
     }
 
 
+    public void save(ActionEvent event) throws Exception{
+        XStream xstream = new XStream(new DomDriver());
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("Ingredients.xml"));
+        LinkedList<Ingredient> list1 = items;
+        out.writeObject(list1);
+        out.close();
+    }
 
+    public void load(ActionEvent event) throws Exception {
+        Class<?>[] classes = new Class[]{Ingredient.class, LinkedList.class, Resources.Node.class };
 
+        //setting up the xstream object with default security and the above classes
+        XStream xstream = new XStream(new DomDriver());
+        XStream.setupDefaultSecurity(xstream);
+        xstream.allowTypes(classes);
+
+        //doing the actual serialisation to an XML file
+        ObjectInputStream in = xstream.createObjectInputStream(new FileReader("Ingredients.xml"));
+        items = (LinkedList<Ingredient>) in.readObject() ;
+        in.close();
+    }
 
 
 }
