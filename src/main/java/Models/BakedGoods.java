@@ -55,6 +55,11 @@ public class BakedGoods {
 
     //Methods--------------------------------------------------
 
+    public String fullString() {
+        return  "  " + goodsName + ",  " + goodsDes +
+                "  Originated in: " + originCountry + '\n'
+                + recipes.listAll();
+    }
 
     @Override
     public String toString() {
