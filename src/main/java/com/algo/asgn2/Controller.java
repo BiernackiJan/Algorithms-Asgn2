@@ -864,17 +864,28 @@ public class Controller {
         if (searchOption1!=null){
             String s2 = searchOption1.getText();
             listSearchItems.getItems().clear();
-            //loops through everything in order to find all the items with name
-            for (int i=0; i < list.numNodes(); i++){
-                BakedGoods b = ((BakedGoods) list.get(i));
-                if (b.toString().contains(s2)){
-                    BakedGoods str2 = ((BakedGoods) list.get(i));
-                    listSearchItems.getItems().add(str2);
+            s2 = s2.toLowerCase();
+
+            if(s2.contains("ingredients")){
+                for(int i = 0; i < items.numNodes(); i++){
+                    Ingredient ing = items.get(i);
+
                 }
-                for (int j=0; j < b.recipes.numNodes(); j++){
-                    Recipe r = (Recipe) b.recipes.get(j);
-                    if (r.toString().contains(s2)){
-                        listSearchItems.getItems().add(r);
+            }
+
+            else{
+                //loops through everything in order to find all the items with name
+                for (int i = 0; i < list.numNodes(); i++) {
+                    BakedGoods b = ((BakedGoods) list.get(i));
+                    if (b.toString().contains(s2)) {
+                        BakedGoods str2 = ((BakedGoods) list.get(i));
+                        listSearchItems.getItems().add(str2);
+                    }
+                    for (int j = 0; j < b.recipes.numNodes(); j++) {
+                        Recipe r = (Recipe) b.recipes.get(j);
+                        if (r.toString().contains(s2)) {
+                            listSearchItems.getItems().add(r);
+                        }
                     }
                 }
             }
