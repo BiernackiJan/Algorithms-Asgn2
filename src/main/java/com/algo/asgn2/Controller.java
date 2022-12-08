@@ -829,7 +829,7 @@ public class Controller {
     @FXML
     private ListView listIngInOtherRecipe;
     @FXML
-    private ListView listAllSearchItems;
+    private ListView<Object> listAllSearchItems;
     @FXML
     private TextField searchOption1;
 
@@ -837,10 +837,10 @@ public class Controller {
     private TextField searchOption2;
 
 
-
-
+    public LinkedList<Object> searchItems = new LinkedList<>();
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
         listAllSearchItems.getItems().clear();
+        searchItems.delAll();
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
@@ -856,6 +856,7 @@ public class Controller {
             if(ingStr.contains(s2)){
                 for(int i = 0; i < items.numNodes(); i++){
                     Ingredient ing = (Ingredient) items.get(i);
+                    searchItems.add(ing);
                     listAllSearchItems.getItems().add(ing);
                 }
             }
@@ -864,6 +865,7 @@ public class Controller {
                 for(int i = 0; i < list.numNodes(); i ++){
                     BakedGoods bg = (BakedGoods)  list.get(i);
                     listAllSearchItems.getItems().add(bg);
+                    searchItems.add(bg);
                 }
             }
 
@@ -873,6 +875,7 @@ public class Controller {
                     for(int j = 0; j < bg.recipes.numNodes(); j++){
                         Recipe rp = (Recipe) bg.recipes.get(j);
                         listAllSearchItems.getItems().add(rp);
+                        searchItems.add(bg);
                     }
                 }
             }
@@ -903,8 +906,9 @@ public class Controller {
                 System.out.println(((BakedGoods) list.get(i)).fullString());
                 if (b.contains(s1)){
                     System.out.println(b);
-                    String str1 = ((BakedGoods) list.get(i)).oneString();
+                    Object str1 = list.get(i);
                     listAllSearchItems.getItems().add(str1);
+                    searchItems.add(str1);
                 }
             }
         }
@@ -917,6 +921,7 @@ public class Controller {
         searchIcon.setVisible(true);
     }
 
+    int z = 0;
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
@@ -924,24 +929,39 @@ public class Controller {
             //TODO use hash values for the first 2-3 letters of the name
 
             //TODO Problems starting to arise when trying to retrieve listtView Children
-            listAllSearchItems.getItems().clear();;
-            int j = 1;
-            listAllSearchItems.get;
-            while (listAllSearchItems.getItems().get(j) != null){
-                j++;
-                System.out.println(j);
-                String str = listAllSearchItems.getItems().get(j).toString().toLowerCase();
-                String str1 = str.substring(0,3);
+
+            z = 0;
+            //listAllSearchItems.getItems().clear();
+            int num = searchItems.numNodes();
+            //System.out.println(num);
+            while(z < num){
+                Object obj = searchItems.get(z);
+                String str = "" + obj;
+                String str1 = str.substring(2,4).toLowerCase();
                 System.out.println(str1);
-                AlphabeticalSort.sortAlphabetically(str1 ,listAllSearchItems.getItems().get(j));
+                AlphabeticalSort.sortAlphabetically(str1 ,searchItems.get(z)); //TODO fix this not looping fully
+                System.out.println(z);
+                z ++;
             }
 
-            for(int i = 0; i < AlphabeticalSort.sort.numNodes(); i++){
-                listAllSearchItems.getItems().add(AlphabeticalSort.sort.get(i));
-                System.out.println(AlphabeticalSort.sort.get(i));
-            }
+//            for(int itemNum = 0; itemNum <= num; itemNum = itemNum+1 ){
+//                String str = searchItems.get(itemNum).toString().toLowerCase();
+//                //System.out.println(str);
+//                String str1 = str.substring(2,4);
+//                //System.out.println(str1);
+//
+//                AlphabeticalSort.sortAlphabetically(str1 ,searchItems.get(itemNum));
+//                System.out.println("i = " + itemNum);
+//
+//            }
 
-
+            //System.out.println(AlphabeticalSort.sort.numNodes());
+//            for(int j = 0; j < AlphabeticalSort.sort.numNodes(); j++){
+//                listAllSearchItems.getItems().add(AlphabeticalSort.sort.get(j));
+////                System.out.println(j);
+////                System.out.println(AlphabeticalSort.sort.get(j));
+//            }
+//            AlphabeticalSort.resetSortLL();
         }
         if(event.getSource()==byKcal){
             System.out.println("Sorting by Kcal");

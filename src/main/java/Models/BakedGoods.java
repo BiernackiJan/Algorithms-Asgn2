@@ -69,7 +69,7 @@ public class BakedGoods {
 
     @Override
     public String toString() {
-        return  "  " + goodsName + ",  " + goodsDes +
+        return  goodsName + ",  " + goodsDes +
                 "  Originated in: " + originCountry + '\n' ;
     }
 }
