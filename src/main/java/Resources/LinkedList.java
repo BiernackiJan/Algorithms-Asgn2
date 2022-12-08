@@ -109,6 +109,42 @@ public class LinkedList<E> {
         }
     }
 
+    public void addAtIndex(E data, int index){
+        if(head != null){
+            if(index == 0){
+                Node temp = new Node(data);
+                Node current = head;
+                head = temp;
+                head.setNext(current);
+            }
+
+            if(index <= numNodes() && index > 0){
+                Node current = head;
+                for(int i = 1; i < index; i++){
+                    current = current.getNext();
+                }
+
+                Node temp = head;
+                Node newNode = new Node(data);
+                for(int i = 1; i == index ; i++){
+                    temp = temp.getNext();
+                }
+                temp.setNext(newNode);;
+                newNode.setNext(current);;
+            }
+
+            else {
+                Node current = head;
+                Node temp = new Node(data);
+                while(current.getNext() != null){
+                    current = current.getNext();
+                }
+                current.setNext(temp);
+                temp.setNext(null);
+            }
+        }
+    }
+
     public void addNodes(){
         nodes ++;
     }

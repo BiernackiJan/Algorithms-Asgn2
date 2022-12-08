@@ -1,6 +1,7 @@
 package com.algo.asgn2;
 
 
+import Resources.AlphabeticalSort;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -21,6 +22,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
+import Resources.AlphabeticalSort;
 
 import java.io.*;
 
@@ -920,11 +923,29 @@ public class Controller {
             //TODO alphabetically sort using .subString with an array list of all letters
             //TODO use hash values for the first 2-3 letters of the name
 
-            //listAllSearchItems.getItems().ge
+            //TODO Problems starting to arise when trying to retrieve listtView Children
+            listAllSearchItems.getItems().clear();;
+            int j = 1;
+            listAllSearchItems.get;
+            while (listAllSearchItems.getItems().get(j) != null){
+                j++;
+                System.out.println(j);
+                String str = listAllSearchItems.getItems().get(j).toString().toLowerCase();
+                String str1 = str.substring(0,3);
+                System.out.println(str1);
+                AlphabeticalSort.sortAlphabetically(str1 ,listAllSearchItems.getItems().get(j));
+            }
+
+            for(int i = 0; i < AlphabeticalSort.sort.numNodes(); i++){
+                listAllSearchItems.getItems().add(AlphabeticalSort.sort.get(i));
+                System.out.println(AlphabeticalSort.sort.get(i));
+            }
+
 
         }
         if(event.getSource()==byKcal){
             System.out.println("Sorting by Kcal");
+
         }
     }
 
