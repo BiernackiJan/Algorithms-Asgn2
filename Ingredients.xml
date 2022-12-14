@@ -5,73 +5,46 @@
         <next>
           <next>
             <next>
-              <next>
-                <next>
-                  <next>
-                    <data class="Models.Ingredient">
-                      <ingName>DA</ingName>
-                      <ingDes>1</ingDes>
-                      <calories>1.0</calories>
-                      <amount>1.0</amount>
-                      <kcal>1.0</kcal>
-                    </data>
-                  </next>
-                  <data class="Models.Ingredient">
-                    <ingName>CC</ingName>
-                    <ingDes>1</ingDes>
-                    <calories>1.0</calories>
-                    <amount>1.0</amount>
-                    <kcal>1.0</kcal>
-                  </data>
-                </next>
-                <data class="Models.Ingredient">
-                  <ingName>AC</ingName>
-                  <ingDes>1</ingDes>
-                  <calories>1.0</calories>
-                  <amount>1.0</amount>
-                  <kcal>1.0</kcal>
-                </data>
-              </next>
               <data class="Models.Ingredient">
-                <ingName>AA</ingName>
-                <ingDes>1</ingDes>
-                <calories>1.0</calories>
-                <amount>1.0</amount>
-                <kcal>1.0</kcal>
+                <ingName>Lemon</ingName>
+                <ingDes>Sour Citrus</ingDes>
+                <calories>60.0</calories>
+                <amount>10.0</amount>
+                <kcal>6.0</kcal>
               </data>
             </next>
             <data class="Models.Ingredient">
-              <ingName>CD</ingName>
-              <ingDes>1</ingDes>
-              <calories>1.0</calories>
-              <amount>1.0</amount>
-              <kcal>1.0</kcal>
+              <ingName>Apple</ingName>
+              <ingDes>Sweet Fruit</ingDes>
+              <calories>40.0</calories>
+              <amount>20.0</amount>
+              <kcal>2.0</kcal>
             </data>
           </next>
           <data class="Models.Ingredient">
-            <ingName>Dc</ingName>
-            <ingDes>1</ingDes>
-            <calories>1.0</calories>
-            <amount>1.0</amount>
-            <kcal>1.0</kcal>
+            <ingName>Baking Powder</ingName>
+            <ingDes>Growth </ingDes>
+            <calories>75.0</calories>
+            <amount>25.0</amount>
+            <kcal>3.0</kcal>
           </data>
         </next>
         <data class="Models.Ingredient">
-          <ingName>AD</ingName>
-          <ingDes>njnd</ingDes>
-          <calories>100.0</calories>
-          <amount>1.0</amount>
-          <kcal>100.0</kcal>
+          <ingName>Flour</ingName>
+          <ingDes>Binding Powder</ingDes>
+          <calories>50.0</calories>
+          <amount>5.0</amount>
+          <kcal>10.0</kcal>
         </data>
       </next>
       <data class="Models.Ingredient">
-        <ingName>AB</ingName>
-        <ingDes>dmka</ingDes>
+        <ingName>Sugar</ingName>
+        <ingDes>White Powder</ingDes>
         <calories>100.0</calories>
         <amount>10.0</amount>
         <kcal>10.0</kcal>
       </data>
     </head>
-    <nodes>8</nodes>
+    <nodes>5</nodes>
   </Resources.LinkedList>
 </object-stream>

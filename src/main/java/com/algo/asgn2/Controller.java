@@ -1,7 +1,6 @@
 package com.algo.asgn2;
 
 
-import Resources.AlphabeticalSort;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -23,7 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import Resources.AlphabeticalSort;
 
 import java.io.*;
 
@@ -837,7 +835,7 @@ public class Controller {
     private TextField searchOption2;
 
 
-    public LinkedList<Object> searchItems = new LinkedList<>();
+    public static LinkedList<Object> searchItems = new LinkedList<>();
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
         listAllSearchItems.getItems().clear();
         searchItems.delAll();
@@ -921,7 +919,6 @@ public class Controller {
         searchIcon.setVisible(true);
     }
 
-    int z = 0;
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
@@ -930,43 +927,75 @@ public class Controller {
 
             //TODO Problems starting to arise when trying to retrieve listtView Children
 
-            z = 0;
-            //listAllSearchItems.getItems().clear();
-            int num = searchItems.numNodes();
-            //System.out.println(num);
-            while(z < num){
-                Object obj = searchItems.get(z);
-                String str = "" + obj;
-                String str1 = str.substring(2,4).toLowerCase();
-                System.out.println(str1);
-                AlphabeticalSort.sortAlphabetically(str1 ,searchItems.get(z)); //TODO fix this not looping fully
-                System.out.println(z);
-                z ++;
+            alphabeticalSort(searchItems);
+            listAllSearchItems.getItems().clear();
+            for(int i = 0; i < searchItems.numNodes(); i++){
+                listAllSearchItems.getItems().add(searchItems.get(i));
             }
-
-//            for(int itemNum = 0; itemNum <= num; itemNum = itemNum+1 ){
-//                String str = searchItems.get(itemNum).toString().toLowerCase();
-//                //System.out.println(str);
-//                String str1 = str.substring(2,4);
-//                //System.out.println(str1);
-//
-//                AlphabeticalSort.sortAlphabetically(str1 ,searchItems.get(itemNum));
-//                System.out.println("i = " + itemNum);
-//
-//            }
-
-            //System.out.println(AlphabeticalSort.sort.numNodes());
-//            for(int j = 0; j < AlphabeticalSort.sort.numNodes(); j++){
-//                listAllSearchItems.getItems().add(AlphabeticalSort.sort.get(j));
-////                System.out.println(j);
-////                System.out.println(AlphabeticalSort.sort.get(j));
-//            }
-//            AlphabeticalSort.resetSortLL();
         }
         if(event.getSource()==byKcal){
             System.out.println("Sorting by Kcal");
 
         }
+    }
+
+    //Make an alphabetical sort class that will take in a Linked List and sort it alphabetically
+    public void alphabeticalSort(LinkedList<Object> list){
+        boolean added;
+        LinkedList<Object> sortedList = new LinkedList<>();
+        //TODO make a linked list that will sort the items alphabetically in a insertion sort fashion
+        for(int j = 0; j < list.numNodes(); j++) {
+            added = false;
+            Object obj = list.get(j);
+            String str = obj.toString().toLowerCase();
+            String str1 = str.substring(2, 4);
+            int hash = str1.hashCode();
+            if (sortedList.numNodes() == 0) {
+                sortedList.add(obj);
+                System.out.println(sortedList.listAll());
+                System.out.println("No items in list");//TODO FIX: loops through the sorted list but < sortedList.numNodes() gives an error and so does <=
+            } else {
+                    for (int i = 0; i < sortedList.numNodes(); i++) {
+                        if(!added) {
+                            Object obj1 = sortedList.get(i);
+                            String str2 = obj1.toString().toLowerCase();
+                            String str3 = str2.substring(2, 4);
+                            int hash1 = str3.hashCode();
+                            if(!added) {
+                                if (hash <= hash1) {
+                                    sortedList.add(i, obj);
+                                    System.out.println("Added to list");
+                                    added = true;
+                                }
+                            }
+                        if(!added) {
+                            if (i == sortedList.numNodes() - 1) {
+                                sortedList.add(obj);
+                                System.out.println("Added to end of list");
+                                added = true;
+                            }
+                        }
+                        }
+                }
+
+//            for (int i = 0; i < sortedList.numNodes(); i++) {
+//                System.out.println(i);
+//                else {
+//                    Object obj1 = sortedList.get(i);
+//                    String str2 = obj1.toString().toLowerCase();
+//                    String str3 = str2.substring(2, 4);
+//
+//                    if (str1.compareTo(str3) < 0) {
+//                        System.out.println("< 0");
+//                    }
+//                    if (str1.compareTo(str3) < 0) {
+//                        System.out.println("< 0");
+//                    }
+//                }
+//            }
+            }
+        }
+        System.out.println(sortedList.listAll());
     }
 
 

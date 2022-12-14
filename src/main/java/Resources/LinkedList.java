@@ -7,13 +7,11 @@ public class LinkedList<E> {
     private int nodes = 0;
 
 
-
     public void add(E data) {
         //creating a node head if not present yet
         if (head == null) {
             head = new Node(data);
-        }
-        else {
+        } else {
             Node temp = new Node(data);
             Node current = head;
             //checking for a null pointer exception
@@ -30,8 +28,7 @@ public class LinkedList<E> {
     }
 
 
-    public Object get(int index)
-    {
+    public Object get(int index) {
         // index must be 1 or higher
         if (index == 0)
             return head.getData();
@@ -44,8 +41,7 @@ public class LinkedList<E> {
                 current = current.getNext();
             }
             return current.getData();
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -58,7 +54,7 @@ public class LinkedList<E> {
             String allItems = "";
             while (temp != null) {
                 allItems += temp.getData();
-                temp = temp.next;
+                temp = temp.getNext();
             }
             return allItems;
         }
@@ -78,8 +74,8 @@ public class LinkedList<E> {
         }
     }
 
-    public void delAll(){
-        if(head!=null){
+    public void delAll() {
+        if (head != null) {
             head = null;
         }
     }
@@ -99,44 +95,42 @@ public class LinkedList<E> {
                     current = current.getNext();
                 }
                 Node temp = current.getNext().getNext();
-                if(temp != null) {
+                if (temp != null) {
                     current.setNext(temp);
-                }else {
+                } else {
                     current.setNext(null);
                 }
             }
-            nodes --;
+            nodes--;
         }
     }
 
-    public void addAtIndex(E data, int index){
-        if(head != null){
-            if(index == 0){
+    public void add(int index, E data) {
+        if (head != null) {
+            if (index == 0) {
                 Node temp = new Node(data);
                 Node current = head;
                 head = temp;
                 head.setNext(current);
             }
 
-            if(index <= numNodes() && index > 0){
+            else if (index <= numNodes() && index > 0) {
                 Node current = head;
-                for(int i = 1; i < index; i++){
+                for (int i = 1; i < index; i++) {
                     current = current.getNext();
                 }
 
                 Node temp = head;
                 Node newNode = new Node(data);
-                for(int i = 1; i == index ; i++){
+                for (int i = 1; i == index; i++) {
                     temp = temp.getNext();
                 }
-                temp.setNext(newNode);;
-                newNode.setNext(current);;
-            }
-
-            else {
+                temp.setNext(newNode);
+                newNode.setNext(current);
+            } else {
                 Node current = head;
                 Node temp = new Node(data);
-                while(current.getNext() != null){
+                while (current.getNext() != null) {
                     current = current.getNext();
                 }
                 current.setNext(temp);
@@ -145,20 +139,30 @@ public class LinkedList<E> {
         }
     }
 
-    public void addNodes(){
-        nodes ++;
+    public void addNodes() {
+        nodes++;
     }
 
-    public int numNodes(){
+    public int numNodes() {
         return nodes;
     }
 
-    public Node getHead(){
+    public Node getHead() {
         return head;
     }
 
     public void setHead(Node head) {
         this.head = head;
+    }
+
+    public void set(int index, E data) {
+        if (head != null) {
+            Node current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.getNext();
+            }
+            current.setData(data);
+        }
     }
 
     @Override
