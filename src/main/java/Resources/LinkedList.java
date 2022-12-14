@@ -107,36 +107,21 @@ public class LinkedList<E> {
 
     public void add(int index, E data) {
         if (head != null) {
-            if (index == 0) {
+            if (index == 0) {//TODO add to front
                 Node temp = new Node(data);
-                Node current = head;
+                temp.setNext(head);
                 head = temp;
-                head.setNext(current);
-            }
-
-            else if (index <= numNodes() && index > 0) {
-                Node current = head;
-                for (int i = 1; i < index; i++) {
-                    current = current.getNext();
-                }
-
-                Node temp = head;
-                Node newNode = new Node(data);
-                for (int i = 1; i == index; i++) {
-                    temp = temp.getNext();
-                }
-                temp.setNext(newNode);
-                newNode.setNext(current);
             } else {
                 Node current = head;
-                Node temp = new Node(data);
-                while (current.getNext() != null) {
+                for (int i = 0; i < index - 1; i++) {
                     current = current.getNext();
                 }
+                Node temp = new Node(data);
+                temp.setNext(current.getNext());
                 current.setNext(temp);
-                temp.setNext(null);
             }
         }
+        nodes++;
     }
 
     public void addNodes() {
@@ -145,6 +130,10 @@ public class LinkedList<E> {
 
     public int numNodes() {
         return nodes;
+    }
+
+    public void setNodes(int nodes) {
+        this.nodes = nodes;
     }
 
     public Node getHead() {

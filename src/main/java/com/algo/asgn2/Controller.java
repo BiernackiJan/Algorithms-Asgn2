@@ -929,8 +929,13 @@ public class Controller {
 
             alphabeticalSort(searchItems);
             listAllSearchItems.getItems().clear();
-            for(int i = 0; i < searchItems.numNodes(); i++){
+            System.out.println(searchItems.listAll());
+            int i = 0;
+            System.out.println(searchItems.numNodes());
+            while(i < searchItems.numNodes()) {
+                System.out.println(i);
                 listAllSearchItems.getItems().add(searchItems.get(i));
+                i++;
             }
         }
         if(event.getSource()==byKcal){
@@ -940,62 +945,49 @@ public class Controller {
     }
 
     //Make an alphabetical sort class that will take in a Linked List and sort it alphabetically
-    public void alphabeticalSort(LinkedList<Object> list){
+    public void alphabeticalSort(LinkedList<Object> list) {
         boolean added;
         LinkedList<Object> sortedList = new LinkedList<>();
+        System.out.println(list.listAll());
         //TODO make a linked list that will sort the items alphabetically in a insertion sort fashion
-        for(int j = 0; j < list.numNodes(); j++) {
+        for (int j = 0; j < list.numNodes(); j++) {
             added = false;
             Object obj = list.get(j);
             String str = obj.toString().toLowerCase();
             String str1 = str.substring(2, 4);
+            System.out.println(obj);
             int hash = str1.hashCode();
             if (sortedList.numNodes() == 0) {
                 sortedList.add(obj);
-                System.out.println(sortedList.listAll());
-                System.out.println("No items in list");//TODO FIX: loops through the sorted list but < sortedList.numNodes() gives an error and so does <=
+                System.out.println("No items in list");
             } else {
-                    for (int i = 0; i < sortedList.numNodes(); i++) {
-                        if(!added) {
-                            Object obj1 = sortedList.get(i);
-                            String str2 = obj1.toString().toLowerCase();
-                            String str3 = str2.substring(2, 4);
-                            int hash1 = str3.hashCode();
-                            if(!added) {
-                                if (hash <= hash1) {
-                                    sortedList.add(i, obj);
-                                    System.out.println("Added to list");
-                                    added = true;
-                                }
-                            }
-                        if(!added) {
-                            if (i == sortedList.numNodes() - 1) {
-                                sortedList.add(obj);
-                                System.out.println("Added to end of list");
+                for (int i = 0; i < sortedList.numNodes(); i++) {
+                    if (!added) {
+                        Object obj1 = sortedList.get(i);
+                        String str2 = obj1.toString().toLowerCase();
+                        String str3 = str2.substring(2, 4);
+                        int hash1 = str3.hashCode();
+                        if (!added) {
+                            if (hash <= hash1) {
+                                sortedList.add(i, obj);
+                                System.out.println("Added to list");
                                 added = true;
                             }
                         }
+                        else if (i == sortedList.numNodes() - 1) {
+                                sortedList.add(obj);
+                                System.out.println("Added to end of list");
+                                added = true;
                         }
+                    }
                 }
-
-//            for (int i = 0; i < sortedList.numNodes(); i++) {
-//                System.out.println(i);
-//                else {
-//                    Object obj1 = sortedList.get(i);
-//                    String str2 = obj1.toString().toLowerCase();
-//                    String str3 = str2.substring(2, 4);
-//
-//                    if (str1.compareTo(str3) < 0) {
-//                        System.out.println("< 0");
-//                    }
-//                    if (str1.compareTo(str3) < 0) {
-//                        System.out.println("< 0");
-//                    }
-//                }
-//            }
             }
         }
-        System.out.println(sortedList.listAll());
+        searchItems = sortedList;
+    }
+
+    public void kcalSort(LinkedList<Object> list){
+
     }
 
 
