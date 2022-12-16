@@ -922,16 +922,10 @@ public class Controller {
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
-            //TODO alphabetically sort using .subString with an array list of all letters
-            //TODO use hash values for the first 2-3 letters of the name
-
-            //TODO Problems starting to arise when trying to retrieve listtView Children
 
             alphabeticalSort(searchItems);
             listAllSearchItems.getItems().clear();
-            System.out.println(searchItems.listAll());
             int i = 0;
-            System.out.println(searchItems.numNodes());
             while(i < searchItems.numNodes()) {
                 System.out.println(i);
                 listAllSearchItems.getItems().add(searchItems.get(i));
@@ -939,6 +933,13 @@ public class Controller {
             }
         }
         if(event.getSource()==byKcal){
+            kcalSort(searchItems);
+            listAllSearchItems.getItems().clear();
+            int i = 0;
+            while(i < searchItems.numNodes()) {
+                listAllSearchItems.getItems().add(searchItems.get(i));
+                i++;
+            }
             System.out.println("Sorting by Kcal");
 
         }
@@ -948,8 +949,6 @@ public class Controller {
     public void alphabeticalSort(LinkedList<Object> list) {
         boolean added;
         LinkedList<Object> sortedList = new LinkedList<>();
-        System.out.println(list.listAll());
-        //TODO make a linked list that will sort the items alphabetically in a insertion sort fashion
         for (int j = 0; j < list.numNodes(); j++) {
             added = false;
             Object obj = list.get(j);
@@ -986,8 +985,105 @@ public class Controller {
         searchItems = sortedList;
     }
 
-    public void kcalSort(LinkedList<Object> list){
-
+    public void kcalSort(LinkedList<Object> list) {
+        //TODO make a linked list that will sort the items by Kcal in a insertion sort fashion
+        LinkedList<Object> sortedList = new LinkedList<>();
+        boolean added;
+        for (int i = 0; i < list.numNodes(); i++) {
+            added = false;
+            Object obj = list.get(i);
+            System.out.println(i);
+//            if(obj instanceof BakedGoods){
+//                BakedGoods bg = (BakedGoods) obj;
+//                if(sortedList.numNodes() == 0){
+//                    sortedList.add(bg);
+//                }
+//                else{
+//                    for(int j = 0; j < sortedList.numNodes(); j++){
+//                        Object obj1 = sortedList.get(j);
+//                        BakedGoods bg1 = (BakedGoods) obj1;
+//                        if(bg.getKcal() <= bg1.getKcal()){
+//                            sortedList.add(j, bg);
+//                        }
+//                        else if(j == sortedList.numNodes() - 1){
+//                            sortedList.add(bg);
+//                        }
+//                    }
+//                }
+//            }
+//            if(obj instanceof Recipe){
+//                Recipe rp = (Recipe) obj;
+//                if(sortedList.numNodes() == 0){
+//                    sortedList.add(rp);
+//                }
+//                else{
+//                    for(int j = 0; j < sortedList.numNodes(); j++){
+//                        Object obj1 = sortedList.get(j);
+//                        Recipe rp1 = (Recipe) obj1;
+//                        if(rp.getKcal() <= rp1.getKcal()){
+//                            sortedList.add(j, rp);
+//                        }
+//                        else if(j == sortedList.numNodes() - 1){
+//                            sortedList.add(rp);
+//                        }
+//                    }
+//                }
+//            }
+            if (obj instanceof Ingredient) {
+                Ingredient ingredient = (Ingredient) list.get(i);
+                if (sortedList.numNodes() == 0) {
+                    sortedList.add(ingredient);
+                } else {
+                    for (int j = 0; j < sortedList.numNodes(); j++) {
+                        Object obj1 = sortedList.get(j);
+                        if (obj1 instanceof Ingredient) {
+                            Ingredient ingredient1 = (Ingredient) obj1;
+                            if (!added) {
+                                if (ingredient1.getKcal() <= ingredient.getKcal()) {
+                                    sortedList.add(j, ingredient);
+                                    added = true;
+                                }
+                            }
+                            if (!added) {
+                                if (j == sortedList.numNodes() - 1) {
+                                    sortedList.add(ingredient);
+                                    added = true;
+                                }
+                            }
+                        } else if (obj1 instanceof Recipe) {
+                            Recipe recipe = (Recipe) obj1;
+                            if (!added) {
+                                if (recipe.getKcal() <= ingredient.getKcal()) {
+                                    sortedList.add(j, ingredient);
+                                    added = true;
+                                }
+                            }
+                            if (!added) {
+                                if (j == sortedList.numNodes() - 1) {
+                                    sortedList.add(ingredient);
+                                    added = true;
+                                }
+                            }
+                        } else if (obj1 instanceof BakedGoods) {
+                            BakedGoods bakedGoods = (BakedGoods) obj1;
+                            if (!added) {
+                                if (bakedGoods.getKcal() <= ingredient.getKcal()) {
+                                    sortedList.add(j, ingredient);
+                                    added = true;
+                                }
+                            }
+                            if (!added) {
+                                if (j == sortedList.numNodes() - 1) {
+                                    sortedList.add(ingredient);
+                                    added = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            searchItems = sortedList;
+        }
     }
 
 

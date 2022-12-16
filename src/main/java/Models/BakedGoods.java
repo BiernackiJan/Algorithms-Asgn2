@@ -36,6 +36,14 @@ public class BakedGoods {
         return URL;
     }
 
+    public int getKcal(){
+        int totalKcal = 0;
+        for(int i = 0; i < recipes.numNodes(); i++){
+            totalKcal +=  ((Recipe) recipes.get(i)).getKcal();
+        }
+        return totalKcal;
+    }
+
     //Setters-------------------------------------------------
     public void setGoodsDes(String goodsDes) {
         this.goodsDes = goodsDes;
