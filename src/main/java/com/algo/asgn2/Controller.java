@@ -1,5 +1,9 @@
 package com.algo.asgn2;
 
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
@@ -17,11 +21,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.io.*;
-import java.util.Locale;
 
 import static java.lang.String.valueOf;
 
@@ -53,11 +54,6 @@ public class Controller {
     private Button btnDrillDown;
     @FXML
     private Button btnSignout;
-
-
-
-    @FXML
-    private Button btnDrillDown1;
     @FXML
     private Pane pnlDrillDown1;
 
@@ -86,6 +82,7 @@ public class Controller {
             ingWasAdded.setVisible(false);
             listAddedIng.setVisible(false);
             pnlDrillDown.setVisible(false);
+            populateAllIngredientList();
             pnlIngredients.setVisible(true);
         }
         if(actionEvent.getSource()== btnBakedGoods) {
@@ -148,18 +145,6 @@ public class Controller {
         }
         if(actionEvent.getSource()== btnSignout){
             Platform.exit();;
-        }
-
-        if(actionEvent.getSource()==btnDrillDown1){
-            pnlDrillDown1.toFront();
-            pnlRecipes.setVisible(false);
-            pnlIngredients.setVisible(false);
-            pnlOverview.setVisible(false);
-            pnlBakedGoods.setVisible(false);
-            pnlEdit.setVisible(false);
-            pnlSearch.setVisible(false);
-            pnlDrillDown.setVisible(false);
-            pnlDrillDown1.setVisible(true);
         }
 
     }
@@ -228,11 +213,19 @@ public class Controller {
         perMeasurement.clear();
 
 
-        listAllIng.getItems().add(ing);
+        populateAllIngredientList();
 
         listAddedIng.getItems().clear();
         listAddedIng.getItems().add(ing);
     } //button to add an ingredient to the system
+
+    public void populateAllIngredientList(){
+        listAllIng.getItems().clear();
+        for(int i = 0; i < items.numNodes(); i++){
+            Ingredient ing = (Ingredient) items.get(i);
+            listAllIng.getItems().add(ing);
+        }
+    }
 
 
 
@@ -301,11 +294,6 @@ public class Controller {
         imageUrl.clear();
     } //displays the youHaveAdded label bellow the add button
 
-    //Text fields: goodsName, originCt , ImageUrl , goodsDesc
-    //at the bottom under the button is a image view to show the image from good added called goodsImage
-    //there is also a list view to show the good that was just added called listAddedGood
-
-
 
 
 
@@ -357,25 +345,26 @@ public class Controller {
     }
 
     private Ingredient selectedIng;
+
     public void selectedIngredient(MouseEvent event){
         selectedIng = ingredientsList.getSelectionModel().getSelectedItem();
-        System.out.println("Selected" + selectedIng);
     }
 
     public void addToRec(ActionEvent action) {
         Recipe r = chooseRecipeToAddTo.getSelectionModel().getSelectedItem();
         float amnt = Float.parseFloat(ingredientGrams.getText());
-        float kcals = amnt*selectedIng.getKcal();
-        System.out.println(amnt);
-        System.out.printf(String.valueOf(kcals));
-        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), kcals);
-        rIng.setAmount(amnt);
-        System.out.println(rIng.toString1());
-        float f = r.getKcal() + kcals;
+        float cals = amnt*selectedIng.getKcal();
+
+
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), amnt);
+
+        rIng.setKcal(rIng.calculateKcal(amnt));
+        rIng.setCalories(cals);
+
+        float f = r.getKcal() + cals;
         r.setKcal(f);
 
         ingredientGrams.clear();
-        System.out.println(rIng.getKcal());
 
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
@@ -437,8 +426,7 @@ public class Controller {
     @FXML
     private Button btnStartEdit;
     @FXML
-    private Button btnStartDelete;//TODO: Make the button show the question message when an item is selected from ListView and button is pressed
-
+    private Button btnStartDelete;
 
     public void populateChosenIngredientList(){
         editChosenIngredient.getItems().clear();
@@ -464,6 +452,15 @@ public class Controller {
                 Recipe rp = (Recipe) bg.recipes.get(j);
                 editChosenRecipe.getItems().add(rp);
             }
+        }
+    }
+
+    public void populateRecipeIngredientList(){
+        chosenRecipeIngredients.getItems().clear();
+        Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
+        for(int i = 0 ; i < rp.recipeIngredients.numNodes(); i++){
+            Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
+            chosenRecipeIngredients.getItems().add(ing);
         }
     }
 
@@ -640,6 +637,7 @@ public class Controller {
                 editChosenRecipeIngredient.setVisible(false);
                 ingFromRecipe.setVisible(false);
                 editChosenRecipeUpdate.setVisible(false);
+                editChosenRecipeIngredient.setVisible(false);
                 confirmDelete.setVisible(true);
 
                 chosenItemToDelete.getItems().clear();
@@ -675,7 +673,7 @@ public class Controller {
             confirmDelete.setVisible(false);
         }
 
-        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null && chosenRecipeIngredients.getSelectionModel().getSelectedItem() == null){
             for(int i = 0; i  < list.numNodes(); i++){
                 BakedGoods bg = (BakedGoods) list.get(i);
                 Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
@@ -685,6 +683,7 @@ public class Controller {
                         bg.recipes.deleteNode(j);
                         populateChosenRecipeList();
                         confirmDelete.setVisible(false);
+                        ingFromRecipe.setVisible(false);
                     }
                 }
             }
@@ -737,6 +736,7 @@ public class Controller {
         }
 
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && editChosenRecipe.getSelectionModel().getSelectedItem() != null){
+
             Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
             String name = chosenRecipeNameUpdate.getText();
 
@@ -746,6 +746,20 @@ public class Controller {
 
             recipeToUpdateName.setText(rp.getName());
             chosenRecipeNameUpdate.setText(rp.getName());
+            editChosenRecipeUpdate.setVisible(false);
+        }
+
+        if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 2 && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
+            Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
+
+            float amnt = Float.parseFloat(chosenIngMlUpdate.getText());
+
+            ing.setCalories(amnt);
+            ing.setAmount(amnt);
+
+            editChosenRecipeIngredient.setVisible(false);
+
+            populateRecipeIngredients();
         }
     }//when this is pressed all the fields that were edited should be changed and applied to the object
 
@@ -754,26 +768,30 @@ public class Controller {
     public void recipeItemControl(ActionEvent action){
         if(action.getSource()==btnEditSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){//Edit button to edit a selected Ingredient from the chosen Recipe
             editChosenRecipeUpdate.setVisible(false);
+            confirmDelete.setVisible(false);
             editChosenRecipeIngredient.setVisible(true);
 
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
             String str = String.valueOf(ing.getAmount());
             chosenIngMlUpdate.setText(str);
         } //Selecting the Ingredient from the list in a recipe and pressing the button should start the edit of said ingredient
-        if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null){
+        if(action.getSource()==btnDelSelectedIngredient && chosenRecipeIngredients.getSelectionModel().getSelectedItem() != null) {
             editChosenRecipeIngredient.setVisible(false);
+            editChosenRecipeUpdate.setVisible(false);
+            confirmDelete.setVisible(true);
+
             chosenItemToDelete.getItems().clear();
             Ingredient ing = chosenRecipeIngredients.getSelectionModel().getSelectedItem();
             chosenItemToDelete.getItems().add(ing);
-            confirmDelete.setVisible(true);
+
         }//Selecting an Ingredient from the list of Ingredients in a Recipe and pressing the delete button should pop up a question if you confirm
     }//control to delete or edit an ingredient from a recipe after pressing one of the two buttons
 
 
 
-    //TODO Ingredient inside recipe edit doesnt update ingredient measurement value
-    //TODO Delete ingredient inside a recipe doesnt work (Deletes Chosen Recipe)
-    //TODO ingredient chosen from recipe must hide the text field of measurement when other button pressed
+
+    //TODO Make the total kcal of a recipe change when an Ing in a recipe is edited or deleted
+
 
 
 
@@ -807,15 +825,18 @@ public class Controller {
     @FXML
     private ListView<String> listIngInOtherRecipe;
     @FXML
+    private ListView<Object> listAllSearchItems;//TODO might not work after merge check
+    @FXML
     private TextField searchOption1;
 
     @FXML
     private TextField searchOption2;
 
 
-
-
+    public static LinkedList<Object> searchItems = new LinkedList<>();
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
+        listAllSearchItems.getItems().clear();
+        searchItems.delAll();
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
@@ -918,25 +939,131 @@ public class Controller {
     public void sortButton(ActionEvent event){
         if(event.getSource()==alphabetical){
             System.out.println("Sorting Alphabetical");
-            for (int i=0; i < list.numNodes(); i++){
-                int j = 1;
-                j++;
+
+            alphabeticalSort(searchItems);
+            listAllSearchItems.getItems().clear();
+            int i = 0;
+            while(i < searchItems.numNodes()) {
                 System.out.println(i);
-                String temp = ((BakedGoods) (list.get(i))).getGoodsName();
-                String temp1 = ((BakedGoods) (list.get(j))).getGoodsName();
-
-                String str = temp.toUpperCase();
-                String str1 = temp1.toUpperCase();
-
-                System.out.println(str + " 1");
-                System.out.println(str1 + " 2");
-
-
-                //if (str.contains())
+                listAllSearchItems.getItems().add(searchItems.get(i));
+                i++;
             }
         }
         if(event.getSource()==byKcal){
+            kcalSort(searchItems);
+            listAllSearchItems.getItems().clear();
+            int i = 0;
+            while(i < searchItems.numNodes()) {
+                listAllSearchItems.getItems().add(searchItems.get(i));
+                i++;
+            }
             System.out.println("Sorting by Kcal");
+
+        }
+    }
+
+    //Make an alphabetical sort class that will take in a Linked List and sort it alphabetically
+    public void alphabeticalSort(LinkedList<Object> list) {
+        boolean added;
+        LinkedList<Object> sortedList = new LinkedList<>();
+        for (int j = 0; j < list.numNodes(); j++) {
+            added = false;
+            Object obj = list.get(j);
+            String str = obj.toString().toLowerCase();
+            String str1 = str.substring(2, 4);
+            System.out.println(obj);
+            int hash = str1.hashCode();
+            if (sortedList.numNodes() == 0) {
+                sortedList.add(obj);
+                System.out.println("No items in list");
+            } else {
+                for (int i = 0; i < sortedList.numNodes(); i++) {
+                    if (!added) {
+                        Object obj1 = sortedList.get(i);
+                        String str2 = obj1.toString().toLowerCase();
+                        String str3 = str2.substring(2, 4);
+                        int hash1 = str3.hashCode();
+                        if (!added) {
+                            if (hash <= hash1) {
+                                sortedList.add(i, obj);
+                                System.out.println("Added to list");
+                                added = true;
+                            }
+                        }
+                        else if (i == sortedList.numNodes() - 1) {
+                                sortedList.add(obj);
+                                System.out.println("Added to end of list");
+                                added = true;
+                        }
+                    }
+                }
+            }
+        }
+        searchItems = sortedList;
+    }
+
+    public void kcalSort(LinkedList<Object> list) {
+        //TODO make a linked list that will sort the items by Kcal in a insertion sort fashion
+        LinkedList<Object> sortedList = new LinkedList<>();
+        boolean added;
+        for (int i = 0; i < list.numNodes(); i++) {
+            added = false;
+            Object obj = list.get(i);
+            System.out.println(i);
+            if (obj instanceof Ingredient) {
+                Ingredient ingredient = (Ingredient) list.get(i);
+                if (sortedList.numNodes() == 0) {
+                    sortedList.add(ingredient);
+                } else {
+                    for (int j = 0; j < sortedList.numNodes(); j++) {
+                        Object obj1 = sortedList.get(j);
+                        if (obj1 instanceof Ingredient) {
+                            Ingredient ingredient1 = (Ingredient) obj1;
+                            if (!added) {
+                                if (ingredient1.getKcal() <= ingredient.getKcal()) {
+                                    sortedList.add(j, ingredient);
+                                    added = true;
+                                }
+                            }
+                            if (!added) {
+                                if (j == sortedList.numNodes() - 1) {
+                                    sortedList.add(ingredient);
+                                    added = true;
+                                }
+                            }
+                        } else if (obj1 instanceof Recipe) {
+                            Recipe recipe = (Recipe) obj1;
+                            if (!added) {
+                                if (recipe.getKcal() <= ingredient.getKcal()) {
+                                    sortedList.add(j, ingredient);
+                                    added = true;
+                                }
+                            }
+                            if (!added) {
+                                if (j == sortedList.numNodes() - 1) {
+                                    sortedList.add(ingredient);
+                                    added = true;
+                                }
+                            }
+                        } else if (obj1 instanceof BakedGoods) {
+                            BakedGoods bakedGoods = (BakedGoods) obj1;
+                            if (!added) {
+                                if (bakedGoods.getKcal() <= ingredient.getKcal()) {
+                                    sortedList.add(j, ingredient);
+                                    added = true;
+                                }
+                            }
+                            if (!added) {
+                                if (j == sortedList.numNodes() - 1) {
+                                    sortedList.add(ingredient);
+                                    added = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            searchItems = sortedList;
         }
     }
 

@@ -1,0 +1,50 @@
+<object-stream>
+  <Resources.LinkedList>
+    <head>
+      <next>
+        <next>
+          <next>
+            <next>
+              <data class="Models.Ingredient">
+                <ingName>Lemon</ingName>
+                <ingDes>Sour Citrus</ingDes>
+                <calories>60.0</calories>
+                <amount>10.0</amount>
+                <kcal>6.0</kcal>
+              </data>
+            </next>
+            <data class="Models.Ingredient">
+              <ingName>Apple</ingName>
+              <ingDes>Sweet Fruit</ingDes>
+              <calories>40.0</calories>
+              <amount>20.0</amount>
+              <kcal>2.0</kcal>
+            </data>
+          </next>
+          <data class="Models.Ingredient">
+            <ingName>Baking Powder</ingName>
+            <ingDes>Growth </ingDes>
+            <calories>75.0</calories>
+            <amount>25.0</amount>
+            <kcal>3.0</kcal>
+          </data>
+        </next>
+        <data class="Models.Ingredient">
+          <ingName>Flour</ingName>
+          <ingDes>Binding Powder</ingDes>
+          <calories>50.0</calories>
+          <amount>5.0</amount>
+          <kcal>10.0</kcal>
+        </data>
+      </next>
+      <data class="Models.Ingredient">
+        <ingName>Sugar</ingName>
+        <ingDes>White Powder</ingDes>
+        <calories>100.0</calories>
+        <amount>10.0</amount>
+        <kcal>10.0</kcal>
+      </data>
+    </head>
+    <nodes>5</nodes>
+  </Resources.LinkedList>
+</object-stream>
