@@ -993,42 +993,6 @@ public class Controller {
             added = false;
             Object obj = list.get(i);
             System.out.println(i);
-//            if(obj instanceof BakedGoods){
-//                BakedGoods bg = (BakedGoods) obj;
-//                if(sortedList.numNodes() == 0){
-//                    sortedList.add(bg);
-//                }
-//                else{
-//                    for(int j = 0; j < sortedList.numNodes(); j++){
-//                        Object obj1 = sortedList.get(j);
-//                        BakedGoods bg1 = (BakedGoods) obj1;
-//                        if(bg.getKcal() <= bg1.getKcal()){
-//                            sortedList.add(j, bg);
-//                        }
-//                        else if(j == sortedList.numNodes() - 1){
-//                            sortedList.add(bg);
-//                        }
-//                    }
-//                }
-//            }
-//            if(obj instanceof Recipe){
-//                Recipe rp = (Recipe) obj;
-//                if(sortedList.numNodes() == 0){
-//                    sortedList.add(rp);
-//                }
-//                else{
-//                    for(int j = 0; j < sortedList.numNodes(); j++){
-//                        Object obj1 = sortedList.get(j);
-//                        Recipe rp1 = (Recipe) obj1;
-//                        if(rp.getKcal() <= rp1.getKcal()){
-//                            sortedList.add(j, rp);
-//                        }
-//                        else if(j == sortedList.numNodes() - 1){
-//                            sortedList.add(rp);
-//                        }
-//                    }
-//                }
-//            }
             if (obj instanceof Ingredient) {
                 Ingredient ingredient = (Ingredient) list.get(i);
                 if (sortedList.numNodes() == 0) {
