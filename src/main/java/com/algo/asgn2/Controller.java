@@ -843,6 +843,10 @@ public class Controller {
         listSearchItems.getItems().clear();
         String s1 = searchOption1.getText();
         String s2 = searchOption2.getText();
+        String ingStr = "ingredient";
+        String bgStr = "baked goods";
+        String rpStr = "recipes";
+
         if (!searchOption2.getText().isBlank() && !searchOption1.getText().isBlank()){
             //loops through everything in order to find all the items with name
             for (int i=0; i < list.numNodes(); i++){
@@ -851,8 +855,9 @@ public class Controller {
                 for (int j = 0; j < b.recipes.numNodes(); j++) {
                         Recipe r = (Recipe) b.recipes.get(j);
                             if (b.toString().toLowerCase().contains(s1.toLowerCase()) && r.toString().toLowerCase().contains(s2.toLowerCase())){
-                                //String str2 = list.get(j) + "" + r;
-                                listSearchItems.getItems().add(b + "  " + r);
+                                Object o = b + "  " + r;
+                                listSearchItems.getItems().add(o);
+                                searchItems.add(o);
                             } else System.out.println("ERROR");
                         }
                 }
@@ -861,10 +866,38 @@ public class Controller {
         //returns the baked good and recipe that the search word is found in
         if (!searchOption1.getText().isBlank() && searchOption2.getText().isBlank()){
             //loops through everything in order to find all the items with name
+            if(ingStr.contains(s2)){
+                for(int i = 0; i < items.numNodes(); i++){
+                    Ingredient ing = (Ingredient) items.get(i);
+                    searchItems.add(ing);
+                    listSearchItems.getItems().add(ing);
+                }
+            }
+
+            if(bgStr.contains(s2)){
+                for(int i = 0; i < list.numNodes(); i ++){
+                    BakedGoods bg = (BakedGoods)  list.get(i);
+                    listSearchItems.getItems().add(bg);
+                    searchItems.add(bg);
+                }
+            }
+
+            if(rpStr.contains(s2)){
+                for(int i = 0; i < list.numNodes(); i++){
+                    BakedGoods bg = (BakedGoods) list.get(i);
+                    for(int j = 0; j < bg.recipes.numNodes(); j++){
+                        Recipe rp = (Recipe) bg.recipes.get(j);
+                        listSearchItems.getItems().add(rp);
+                        searchItems.add(bg);
+                    }
+                }
+            }
+
             for (int i=0; i < list.numNodes(); i++){
                 BakedGoods b = ((BakedGoods) list.get(i));
                 if (b.toString().toLowerCase().contains(s1.toLowerCase())){
-                    String str2 = ((BakedGoods) list.get(i)).fullString();
+                    String str2 = list.get(i) + "";
+                    searchItems.add(b);
                     listSearchItems.getItems().add(str2);
                 }
                 if (!b.toString().contains(s1)) {
@@ -872,6 +905,7 @@ public class Controller {
                         Recipe r = (Recipe) b.recipes.get(j);
                         if (r.toString().toLowerCase().contains(s1.toLowerCase())) {
                             //String temp = r.toString();
+                            searchItems.add(r);
                             listSearchItems.getItems().add(r);
                         }
                     }
@@ -885,6 +919,7 @@ public class Controller {
                 BakedGoods b = ((BakedGoods) list.get(i));
                 if (b.toString().toLowerCase().contains(s2.toLowerCase())){
                     String str1 = b.toString();
+                    searchItems.add(b);
                     listSearchItems.getItems().add(str1);
                 }
                 if (!b.toString().contains(s2)) {
@@ -892,6 +927,7 @@ public class Controller {
                         Ingredient r = (Ingredient) items.get(j);
                         //String temp = r.toString();
                         if (r.toString().toLowerCase().contains(s2.toLowerCase())) {
+                            searchItems.add(r);
                             listSearchItems.getItems().addAll(r);
                         }
                     }
