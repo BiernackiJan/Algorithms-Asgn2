@@ -835,7 +835,7 @@ public class Controller {
 
     public static LinkedList<Object> searchItems = new LinkedList<>();
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
-        listAllSearchItems.getItems().clear();
+        listAllSearchItems.setVisible(false);
         searchItems.delAll();
         System.out.println("Searching");
         searchIcon.setVisible(false);
@@ -852,7 +852,7 @@ public class Controller {
                         Recipe r = (Recipe) b.recipes.get(j);
                             if (b.toString().toLowerCase().contains(s1.toLowerCase()) && r.toString().toLowerCase().contains(s2.toLowerCase())){
                                 //String str2 = list.get(j) + "" + r;
-                                listSearchItems.getItems().add(b + "" + r);
+                                listSearchItems.getItems().add(b + "  " + r);
                             } else System.out.println("ERROR");
                         }
                 }
