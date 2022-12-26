@@ -2,20 +2,24 @@ package com.algo.asgn2;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class ItemController {
     @FXML
-    private Label recipeBakedGoodName;
+    private static Label recipeBakedGoodName;
     @FXML
-    private Label recipeBakedGoodCountry;
+    private static Label recipeBakedGoodCountry;
     @FXML
-    private Label recipeBakedGoodDesc;
-    //@FXML
-    //private Label recipeBakedGood
+    private static Label recipeBakedGoodKcal;
+    @FXML
+    private static HBox itemC;
 
-
-
-    public void getBakedGoodItems(){
+    public static HBox getBakedGoodItems(String name, String country, String kcal) {
+        recipeBakedGoodName.setText(name);
+        recipeBakedGoodCountry.setText(country);
+        recipeBakedGoodKcal.setText(kcal);
+        return itemC;
     }
-    public void inspectBakedGood(){}
+    public void inspectBakedGood(MouseEvent event){}
 }

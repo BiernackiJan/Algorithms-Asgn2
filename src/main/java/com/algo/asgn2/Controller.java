@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
+import com.algo.asgn2.ItemController;
 import Resources.LinkedList;
 import Resources.MyHashSC;
 import javafx.application.Platform;
@@ -24,6 +25,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.*;
 
+import static com.algo.asgn2.ItemController.getBakedGoodItems;
 import static java.lang.String.valueOf;
 
 public class Controller {
@@ -54,8 +56,6 @@ public class Controller {
     private Button btnDrillDown;
     @FXML
     private Button btnSignout;
-    @FXML
-    private Pane pnlDrillDown1;
 
 
     @FXML
@@ -1288,6 +1288,52 @@ public class Controller {
         searchItems = sortedList;
     }
 
+
+
+
+
+
+
+
+
+    //Drill Down
+    @FXML
+    private Pane pnlDrillDown;
+    @FXML
+    private VBox pnItems = null;
+
+
+
+
+    public void initialize() {
+
+
+        Node[] nodes = new Node[1];
+        for (int i = 0; i < nodes.length; i++) {
+            BakedGoods bg = (BakedGoods) list.get(i);
+            nodes[i] = getBakedGoodItems(bg.getGoodsName(), bg.getOriginCountry(), String.valueOf(bg.getKcal()));
+            pnItems.getChildren().add(nodes[i]);
+//            try {
+////                final int j = i;
+////                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
+////                nodes[i].
+////                //give the items some effect
+////
+////                nodes[i].setOnMouseEntered(event -> {
+////                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
+////                });
+////                nodes[i].setOnMouseExited(event -> {
+////                    nodes[j].setStyle("-fx-background-color : #02030A");
+////                });
+////                pnItems.getChildren().add(nodes[i]);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+        }
+
+    }//TODO make the items initialize when the drill down button is clicked.
+
+
     @FXML
     void save(MouseEvent event) throws Exception {
         XStream xstream = new XStream(new DomDriver());
@@ -1302,7 +1348,7 @@ public class Controller {
     @FXML
     void load(MouseEvent event) throws Exception {
         Class<?>[] classes = new Class[]{BakedGoods.class, Recipe.class, Ingredient.class,
-               LinkedList.class, Node.class};
+                LinkedList.class, Node.class};
 
         //setting up the xstream object with default security and the above classes
         XStream xstream = new XStream(new DomDriver());
@@ -1331,48 +1377,6 @@ public class Controller {
         listSearchItems.getItems().clear();
         listIngInOtherRecipe.getItems().clear();
 
-
-    }
-
-
-
-
-
-
-
-
-
-    //Drill Down
-    @FXML
-    private Pane pnlDrillDown;
-    @FXML
-    private VBox pnItems = null;
-
-
-
-    public void initialize() {
-
-
-        Node[] nodes = new Node[10];
-        for (int i = 0; i < nodes.length; i++) {
-            try {
-
-                final int j = i;
-                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
-
-                //give the items some effect
-
-                nodes[i].setOnMouseEntered(event -> {
-                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
-                });
-                nodes[i].setOnMouseExited(event -> {
-                    nodes[j].setStyle("-fx-background-color : #02030A");
-                });
-                pnItems.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
