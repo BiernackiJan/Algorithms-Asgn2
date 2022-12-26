@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import com.thoughtworks.xstream.XStream;
@@ -293,6 +294,7 @@ public class Controller {
         System.out.println(bg.hashCode());
         //System.out.printf(String.valueOf(hashedGood));
         System.out.printf(String.valueOf(bg));
+        recipeBakedGoodCountry.textProperty().bind(goodsName.textProperty());
 
 
         goodsName.clear();
@@ -776,21 +778,6 @@ public class Controller {
     //TODO ingredient chosen from recipe must hide the text field of measurement when other button pressed
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Search
     @FXML
     private Pane pnlSearch;
@@ -805,7 +792,7 @@ public class Controller {
     @FXML
     private ListView<Object> listSearchItems;
     @FXML
-    private ListView<String> listIngInOtherRecipe;
+    private ListView<Recipe> listIngInOtherRecipe;
     @FXML
     private TextField searchOption1;
 
@@ -999,6 +986,22 @@ public class Controller {
     private Pane pnlDrillDown;
     @FXML
     private VBox pnItems = null;
+    @FXML
+    private HBox itemC;
+
+    @FXML
+    private Label recipeBakedGoodCountry;
+
+    @FXML
+    private Label recipeBakedGoodDesc;
+
+    @FXML
+    private Label recipeBakedGoodName;
+
+    @FXML
+    void inspectBakedGood(MouseEvent event) {
+
+    }
 
 
 
