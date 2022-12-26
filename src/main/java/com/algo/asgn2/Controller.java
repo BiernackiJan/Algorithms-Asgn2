@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.*;
 
-import static com.algo.asgn2.ItemController.getBakedGoodItems;
+import static com.algo.asgn2.ItemController.nodes;
 import static java.lang.String.valueOf;
 
 public class Controller {
@@ -59,7 +59,7 @@ public class Controller {
 
 
     @FXML
-    public void handleClicks(ActionEvent actionEvent) {//side panel with buttons each button corresponds to displaying a panel
+    public void handleClicks(ActionEvent actionEvent) throws IOException {//side panel with buttons each button corresponds to displaying a panel
         if (actionEvent.getSource() == btnOverview) {
             pnlOverview.setStyle("-fx-background-color : #02030A");
             pnlOverview.toFront();
@@ -142,6 +142,7 @@ public class Controller {
             pnlEdit.setVisible(false);
             pnlSearch.setVisible(false);
             pnlDrillDown.setVisible(true);
+            initial();
         }
         if(actionEvent.getSource()== btnSignout){
             Platform.exit();;
@@ -1305,33 +1306,41 @@ public class Controller {
 
 
 
-    public void initialize() {
 
 
-        Node[] nodes = new Node[1];
+    public void initial() throws IOException {
+        ItemController itemController = new ItemController();
+        itemController.getBakedGoodItems(list);
         for (int i = 0; i < nodes.length; i++) {
-            BakedGoods bg = (BakedGoods) list.get(i);
-            nodes[i] = getBakedGoodItems(bg.getGoodsName(), bg.getOriginCountry(), String.valueOf(bg.getKcal()));
             pnItems.getChildren().add(nodes[i]);
+            int j = i;
+
+        }
+    }
+
+    public static void itemButton(){
+        System.out.println("test");
+    }
+
 //            try {
-////                final int j = i;
-////                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
-////                nodes[i].
-////                //give the items some effect
-////
-////                nodes[i].setOnMouseEntered(event -> {
-////                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
-////                });
-////                nodes[i].setOnMouseExited(event -> {
-////                    nodes[j].setStyle("-fx-background-color : #02030A");
-////                });
-////                pnItems.getChildren().add(nodes[i]);
+//                final int j = i;
+//                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
+//                nodes[i].
+//                //give the items some effect
+//
+//                nodes[i].setOnMouseEntered(event -> {
+//                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
+//                });
+//                nodes[i].setOnMouseExited(event -> {
+//                    nodes[j].setStyle("-fx-background-color : #02030A");
+//                });
+//                pnItems.getChildren().add(nodes[i]);
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-        }
 
-    }//TODO make the items initialize when the drill down button is clicked.
+
+    //TODO make the items initialize when the drill down button is clicked.
 
 
     @FXML
