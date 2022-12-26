@@ -29,9 +29,9 @@ public class Recipe {
     }
 
     public String stringCheck(){
-        return  " Recipe For: " + Name +
+        return  "Recipe For: " + Name +
                 ", " + Kcal + "\n" +
-                " Ingredients: " + recipeIngredients.listAll();
+                "  Ingredients: " + "\n" + recipeIngredients.listAll();
     }
     @Override
     public String toString() {

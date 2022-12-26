@@ -357,9 +357,9 @@ public class Controller {
         float cals = amnt*selectedIng.getKcal();
 
 
-        Ingredient rIng = new Ingredient(selectedIng.getIngName(), selectedIng.getIngDes(), amnt);
+        Ingredient rIng = selectedIng;
 
-        rIng.setKcal(rIng.calculateKcal(amnt));
+        rIng.setAmount(amnt);
         rIng.setCalories(cals);
 
         float f = r.getKcal() + cals;
@@ -370,7 +370,7 @@ public class Controller {
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().add(rIng.toString1());
+            addedIngredients.getItems().add(rIng.toString());
         }
     } //Button to add an ingredient to a recipe
 
@@ -855,7 +855,7 @@ public class Controller {
         if (!searchOption1.getText().isBlank() && searchOption2.getText().isBlank()){
             System.out.println("option 2 blank");
             //loops through everything in order to find all the items with name
-            if(ingStr.contains(s1)) {
+            if(ingStr.contains(s1.toLowerCase())) {
                 for (int i = 0; i < items.numNodes(); i++) {
                     Ingredient ing = (Ingredient) items.get(i);
                     searchItems.add(ing);
@@ -873,7 +873,7 @@ public class Controller {
                 }
             }
 
-            if(bgStr.contains(s1)){
+            if(bgStr.contains(s1.toLowerCase())){
                 for(int i = 0; i < list.numNodes(); i ++){
                     BakedGoods bg = (BakedGoods)  list.get(i);
                     listSearchItems.getItems().add(bg);
@@ -882,7 +882,7 @@ public class Controller {
                 }
             }
 
-            if(rpStr.contains(s1)){
+            if(rpStr.contains(s1.toLowerCase())){
                 for(int i = 0; i < list.numNodes(); i++){
                     BakedGoods bg = (BakedGoods) list.get(i);
                     for(int j = 0; j < bg.recipes.numNodes(); j++){
@@ -982,34 +982,57 @@ public class Controller {
         }
     }
 
+//    @FXML
+//    void displayRecipes(MouseEvent event) {
+//        listIngInOtherRecipe.getItems().clear();
+//        Object s = listSearchItems.getSelectionModel().getSelectedItem();
+//            if (s != null){
+//                //loops through all the backed goods
+//                for (int i = 0; i < list.numNodes(); i++){
+//                    BakedGoods b = (BakedGoods) list.get(i);
+//                    //loops through all the recipes
+//                    for (int j = 0; j < b.recipes.numNodes(); j++){
+//                        Recipe r = (Recipe) b.recipes.get(j);
+//                        //System.out.println(r);
+//                        for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
+//                            Ingredient ing = (Ingredient) r.recipeIngredients.get(k);
+//                            String temp = ing.toString();
+//
+//                            System.out.println("s " + s);
+//                            System.out.println("temp " + temp);
+//                        }
+//                    }
+//                }
+//            }
+//    }
     @FXML
     void displayRecipes(MouseEvent event) {
         listIngInOtherRecipe.getItems().clear();
         Object s = listSearchItems.getSelectionModel().getSelectedItem();
-            if (s != null){
-                //loops through all the backed goods
-                for (int i = 0; i < list.numNodes(); i++){
-                    BakedGoods b = (BakedGoods) list.get(i);
-                    //loops through all the recipes
-                    for (int j = 0; j < b.recipes.numNodes(); j++){
-                        Recipe r = (Recipe) b.recipes.get(j);
-                        //System.out.println(r);
-                        for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
-                            Ingredient ing = (Ingredient) r.recipeIngredients.get(k);
-                            //System.out.println(ing);
-                            //listIngInOtherRecipe.getItems().add(r + " HELLO");
-                            String temp = ing.toString1();
+        if (s != null){
+            //loops through all the backed goods
+            for (int i = 0; i < list.numNodes(); i++){
+                BakedGoods b = (BakedGoods) list.get(i);
+                //loops through all the recipes
+                for (int j = 0; j < b.recipes.numNodes(); j++){
+                    Recipe r = (Recipe) b.recipes.get(j);
+//                        if (str.contains(r.getName())){
+//                            System.out.println(r);
+//                        }
+                    //System.out.println(r);
+                    for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
+                        Ingredient ing = (Ingredient) r.recipeIngredients.get(k);
 
-                            System.out.println("s " + s);
-                            System.out.println("temp " + temp);
-//                                if (ing.contains(s)){
-//                                    System.out.println(temp + " Hello");
-//                                    listIngInOtherRecipe.getItems().add(ing.toString());
-//                                }
+//                        System.out.println(ing.getIngName() + " 1");
+//                        System.out.println(s + " 2");
+                        if (s.toString().contains(ing.getIngName())){
+                            listIngInOtherRecipe.getItems().add(r.stringCheck());
+                            System.out.println(r.stringCheck());
                         }
                     }
                 }
             }
+        }
     }
 
 
