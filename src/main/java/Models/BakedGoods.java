@@ -36,8 +36,8 @@ public class BakedGoods {
         return URL;
     }
 
-    public int getKcal(){
-        int totalKcal = 0;
+    public float getKcal(){
+        float totalKcal = 0;
         for(int i = 0; i < recipes.numNodes(); i++){
             totalKcal +=  ((Recipe) recipes.get(i)).getKcal();
         }

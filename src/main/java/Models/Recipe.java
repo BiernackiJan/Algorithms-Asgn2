@@ -29,7 +29,7 @@ public class Recipe {
     }
 
     public String stringCheck(){
-        return  "Recipe For: " + Name +
+        return  "  " + Name +
                 ", " + Kcal + "\n" +
                 "  Ingredients: " + "\n" + recipeIngredients.listAll();
     }

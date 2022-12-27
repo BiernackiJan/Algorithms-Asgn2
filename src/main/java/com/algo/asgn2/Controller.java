@@ -869,21 +869,30 @@ public class Controller {
         //returns all instances of the word
         if (!searchOption2.getText().isBlank() && searchOption1.getText().isBlank()){
             //loops through all the Baked Goods
-            for (int i = 0; i < list.numNodes(); i++){
-                BakedGoods b = ((BakedGoods) list.get(i));
-                //loops through all the recipes
-                for (int j = 0; j < b.recipes.numNodes(); j++) {
-                    Recipe r = (Recipe) b.recipes.get(j);
-                    //loops through all the ingredients and if any match searchOption2 it will print to list view
-                    for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
-                        Ingredient ing = (Ingredient) items.get(k);
-                        //String temp = r.toString();
-                        if (ing.toString().toLowerCase().contains(s2.toLowerCase())) {
-                            listSearchItems.getItems().add(ing);
-                            searchItems.add(ing);
-                            allSearchItems.add(ing.toString());
-                        }
-                    }
+//            for (int i = 0; i < list.numNodes(); i++){
+//                BakedGoods b = ((BakedGoods) list.get(i));
+//                //loops through all the recipes
+//                for (int j = 0; j < b.recipes.numNodes(); j++) {
+//                    Recipe r = (Recipe) b.recipes.get(j);
+//                    //loops through all the ingredients and if any match searchOption2 it will print to list view
+//                    for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
+//                        Ingredient ing = (Ingredient) items.get(k);
+//                        //String temp = r.toString();
+//                        if (ing.toString().toLowerCase().contains(s2.toLowerCase())) {
+//                            System.out.println(ing);
+//                            listSearchItems.getItems().add(ing);
+//                            searchItems.add(ing);
+//                            allSearchItems.add(ing.toString());
+//                        }
+//                    }
+//                }
+//            }
+            for (int i = 0; i < items.numNodes(); i++){
+                Ingredient ing = (Ingredient) items.get(i);
+                if (ing.toString().toLowerCase().contains(s2.toLowerCase())){
+                    listSearchItems.getItems().add(ing);
+                    searchItems.add(ing);
+                    allSearchItems.add(ing.toString());
                 }
             }
         }
@@ -905,29 +914,7 @@ public class Controller {
         }
     }
 
-//    @FXML
-//    void displayRecipes(MouseEvent event) {
-//        listIngInOtherRecipe.getItems().clear();
-//        Object s = listSearchItems.getSelectionModel().getSelectedItem();
-//            if (s != null){
-//                //loops through all the backed goods
-//                for (int i = 0; i < list.numNodes(); i++){
-//                    BakedGoods b = (BakedGoods) list.get(i);
-//                    //loops through all the recipes
-//                    for (int j = 0; j < b.recipes.numNodes(); j++){
-//                        Recipe r = (Recipe) b.recipes.get(j);
-//                        //System.out.println(r);
-//                        for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
-//                            Ingredient ing = (Ingredient) r.recipeIngredients.get(k);
-//                            String temp = ing.toString();
-//
-//                            System.out.println("s " + s);
-//                            System.out.println("temp " + temp);
-//                        }
-//                    }
-//                }
-//            }
-//    }
+
     @FXML
     void displayRecipes(MouseEvent event) {
         listIngInOtherRecipe.getItems().clear();
@@ -939,15 +926,8 @@ public class Controller {
                 //loops through all the recipes
                 for (int j = 0; j < b.recipes.numNodes(); j++){
                     Recipe r = (Recipe) b.recipes.get(j);
-//                        if (str.contains(r.getName())){
-//                            System.out.println(r);
-//                        }
-                    //System.out.println(r);
                     for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
                         Ingredient ing = (Ingredient) r.recipeIngredients.get(k);
-
-//                        System.out.println(ing.getIngName() + " 1");
-//                        System.out.println(s + " 2");
                         if (s.toString().contains(ing.getIngName())){
                             listIngInOtherRecipe.getItems().add(r.stringCheck());
                         }
@@ -971,11 +951,11 @@ public class Controller {
 
             for(int i = 0; i < searchItems.numNodes(); i++) {
                 String o = searchItems.get(i).toString();
-                String s1 = o.substring(0, 10);
+                String s1 = o.substring(0, 8);
                 for (int j = 0; j < allSearchItems.numNodes(); j++) {
                     String o1 = allSearchItems.get(j).toString();
                     String s2 = o1.substring(0, 10);
-                    if (s1.contains(s2)) {
+                    if (s2.contains(s1)) {
                         temporary.add(o1);
                     }
                 }
@@ -985,14 +965,14 @@ public class Controller {
         if(event.getSource()==byKcal){
             temporary.delAll();
             kcalSort(searchItems);
+
             for(int i = 0; i < searchItems.numNodes(); i++) {
-                boolean added = false;
                 String o = searchItems.get(i).toString();
-                String s1 = o.substring(0, 10);
+                String s1 = o.substring(0, 8);
                 for (int j = 0; j < allSearchItems.numNodes(); j++) {
                     String o1 = allSearchItems.get(j).toString();
                     String s2 = o1.substring(0, 10);
-                    if (s1.equals(s2)) {
+                    if (s2.contains(s1)) {
                         temporary.add(o1);
                     }
                 }
@@ -1001,6 +981,7 @@ public class Controller {
             System.out.println("Sorting by Kcal");
         }
         listSearchItems.getItems().clear();
+        System.out.println(temporary.listAll());
         allSearchItems = temporary;
         int i = 0;
         while(i < allSearchItems.numNodes()) {
@@ -1013,13 +994,14 @@ public class Controller {
     public void alphabeticalSort(LinkedList<Object> list) {
         boolean added;
         LinkedList<Object> sortedList = new LinkedList<>();
+        sortedList.delAll();
         for (int j = 0; j < list.numNodes(); j++) {
             added = false;
             Object obj = list.get(j);
             String str = obj.toString().toLowerCase();
             String str1 = str.substring(2, 4);
             int hash = str1.hashCode();
-            for (int i = 0; i < searchItems.numNodes(); i++) {
+            for (int i = 0; i < list.numNodes(); i++) {
                 if (!added) {
                     if (sortedList.numNodes() == 0) {
                         sortedList.add(obj);
@@ -1043,190 +1025,58 @@ public class Controller {
             }
         }
         searchItems = sortedList;
-
     }
 
     public void kcalSort(LinkedList<Object> list) {
         //TODO make a linked list that will sort the items by Kcal in a insertion sort fashion
         LinkedList<Object> sortedList = new LinkedList<>();
+        sortedList.delAll();
         boolean added;
-        for (int i = 0; i < searchItems.numNodes(); i++) {
+        for (int i = 0; i < list.numNodes(); i++) {
             added = false;
-            Object obj = searchItems.get(i);
-            if (obj instanceof Ingredient) {
-                if (sortedList.numNodes() == 0) {
-                    sortedList.add(obj);
-                    added = true;
-                }
+            Object obj = list.get(i);
+            float objKcal = 0;
+            if(obj instanceof Ingredient){
+                objKcal = ((Ingredient) obj).getKcal();
             }
-            if (obj instanceof BakedGoods) {
-                if (sortedList.numNodes() == 0) {
-                    sortedList.add(obj);
-                    added = true;
-                }
+            if(obj instanceof Recipe){
+                objKcal = ((Recipe) obj).getKcal();
             }
-            if (obj instanceof Recipe) {
-                if (sortedList.numNodes() == 0) {
-                    sortedList.add(obj);
-                    added = true;
-                }
+            if(obj instanceof BakedGoods){
+                objKcal = ((BakedGoods) obj).getKcal();
+            }
+            if (sortedList.numNodes() == 0) {
+                sortedList.add(obj);
+                added = true;
             }
             for (int j = 0; j < sortedList.numNodes(); j++) {
                 Object obj1 = sortedList.get(j);
-                if (obj instanceof Ingredient) {
-                    Ingredient ingredient = (Ingredient) searchItems.get(i);
-                    if (obj1 instanceof Ingredient) {
-                        Ingredient ingredient1 = (Ingredient) obj1;
-                        if (!added) {
-                            if (ingredient1.getKcal() <= ingredient.getKcal()) {
-                                sortedList.add(j, ingredient);
-                                added = true;
-                            }
+                if (!added) {
+                    if(obj1 instanceof Ingredient){
+                        if (objKcal <= ((Ingredient) obj1).getKcal()) {
+                            sortedList.add(j, obj);
+                            added = true;
+                        }else if (!added && j == sortedList.numNodes() - 1) {
+                            sortedList.add(obj);
+                            added = true;
                         }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(ingredient);
-                                added = true;
-                            }
+                    }
+                    if(obj1 instanceof Recipe){
+                        if (objKcal <= ((Recipe) obj1).getKcal()) {
+                            sortedList.add(j, obj);
+                            added = true;
+                        }else if (!added && j == sortedList.numNodes() - 1) {
+                            sortedList.add(obj);
+                            added = true;
                         }
                     }
                     if(obj1 instanceof BakedGoods){
-                        BakedGoods bakedGoods = (BakedGoods) obj1;
-                        if(!added){
-                            if(bakedGoods.getKcal() <= ingredient.getKcal()){
-                                sortedList.add(j, ingredient);
-                                added = true;
-                            }
-                        }
-                        if(!added){
-                            if(j == sortedList.numNodes() - 1){
-                                sortedList.add(ingredient);
-                                added = true;
-                            }
-                        }
-                    }
-                    if(obj1 instanceof Recipe){
-                        Recipe recipe = (Recipe) obj1;
-                        if(!added){
-                            if(recipe.getKcal() <= ingredient.getKcal()){
-                                sortedList.add(j, ingredient);
-                                added = true;
-                            }
-                        }
-                        if(!added){
-                            if(j == sortedList.numNodes() - 1){
-                                sortedList.add(ingredient);
-                                added = true;
-                            }
-                        }
-                    }
-                } else if (obj instanceof Recipe) {
-                    Recipe recipe = (Recipe) searchItems.get(i);
-
-                    if(obj1 instanceof Recipe){
-                        Recipe recipe1 = (Recipe) obj1;
-                        if (!added) {
-                            if (recipe1.getKcal() <= recipe.getKcal()) {
-                                sortedList.add(j, recipe);
-                                added = true;
-                            }
-                        }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(recipe);
-                                added = true;
-                            }
-                        }
-                    }
-                    else if(obj1 instanceof Ingredient){
-                        Ingredient ingredient = (Ingredient) obj1;
-                        if (!added) {
-                            if (ingredient.getKcal() <= recipe.getKcal()) {
-                                sortedList.add(j, recipe);
-                                added = true;
-                            }
-                        }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(recipe);
-                                added = true;
-                            }
-                        }
-                    }
-                    else if(obj1 instanceof BakedGoods){
-                        BakedGoods bakedGoods = (BakedGoods) obj1;
-                        if (!added) {
-                            if (bakedGoods.getKcal() <= recipe.getKcal()) {
-                                sortedList.add(j, recipe);
-                                added = true;
-                            }
-                        }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(recipe);
-                                added = true;
-                            }
-                        }
-                    }
-//                    Recipe recipe1 = (Recipe) obj1;
-//                    if (!added) {
-//                        if (recipe.getKcal() <= recipe1.getKcal()) {
-//                            sortedList.add(j, recipe1);
-//                            added = true;
-//                        }
-//                    }
-//                    if (!added) {
-//                        if (j == sortedList.numNodes() - 1) {
-//                            sortedList.add(recipe1);
-//                            added = true;
-//                        }
-//                    }
-                } else if (obj instanceof BakedGoods) {
-                    BakedGoods bg = (BakedGoods) searchItems.get(i);
-
-                    if (obj1 instanceof BakedGoods) {
-                        BakedGoods bakedGoods = (BakedGoods) obj1;
-                        if (!added) {
-                            if (bakedGoods.getKcal() <= bg.getKcal()) {
-                                sortedList.add(j, bg);
-                                added = true;
-                            }
-                        }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(bg);
-                                added = true;
-                            }
-                        }
-                    }
-                    else if (obj1 instanceof Recipe) {
-                        Recipe recip = (Recipe) obj1;
-                        if (!added) {
-                            if (recip.getKcal() <= bg.getKcal()) {
-                                sortedList.add(j, bg);
-                                added = true;
-                            }
-                        }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(bg);
-                                added = true;
-                            }
-                        }
-                    }
-                    else if (obj1 instanceof Ingredient) {
-                        Ingredient ing = (Ingredient) obj1;
-                        if (!added) {
-                            if (ing.getKcal() <= bg.getKcal()) {
-                                sortedList.add(j, bg);
-                                added = true;
-                            }
-                        }
-                        if (!added) {
-                            if (j == sortedList.numNodes() - 1) {
-                                sortedList.add(bg);
-                                added = true;
-                            }
+                        if (objKcal <= ((BakedGoods) obj1).getKcal()) {
+                            sortedList.add(j, obj);
+                            added = true;
+                        }else if (!added && j == sortedList.numNodes() - 1) {
+                            sortedList.add(obj);
+                            added = true;
                         }
                     }
                 }

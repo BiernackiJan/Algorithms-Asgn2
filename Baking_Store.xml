@@ -4,6 +4,24 @@
       <data class="Models.BakedGoods">
         <recipes>
           <head>
+            <next>
+              <data class="Models.Recipe">
+                <recipeIngredients>
+                  <head>
+                    <data class="Models.Ingredient">
+                      <ingName>Brown Sugar</ingName>
+                      <ingDes>dsa</ingDes>
+                      <calories>3000.0</calories>
+                      <amount>30.0</amount>
+                      <kcal>10.0</kcal>
+                    </data>
+                  </head>
+                  <nodes>1</nodes>
+                </recipeIngredients>
+                <Name>Apple Pie</Name>
+                <Kcal>300.0</Kcal>
+              </data>
+            </next>
             <data class="Models.Recipe">
               <recipeIngredients>
                 <head>
@@ -39,7 +57,7 @@
               <Kcal>900.0</Kcal>
             </data>
           </head>
-          <nodes>1</nodes>
+          <nodes>2</nodes>
         </recipes>
         <recipeHashTable>
           <hashTable>
@@ -86,8 +104,8 @@
       <data class="Models.Ingredient">
         <ingName>Brown Sugar</ingName>
         <ingDes>dsa</ingDes>
-        <calories>500.0</calories>
-        <amount>5.0</amount>
+        <calories>3000.0</calories>
+        <amount>30.0</amount>
         <kcal>10.0</kcal>
       </data>
     </head>
