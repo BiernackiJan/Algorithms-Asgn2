@@ -11,7 +11,8 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
-import static com.algo.asgn2.Controller.itemButton;
+import static com.algo.asgn2.Controller.list;
+
 
 public class ItemController {
     @FXML
@@ -44,7 +45,15 @@ public class ItemController {
         }
         return nodes;
     }
-    public void inspectBakedGood(MouseEvent event){
-        itemButton();
+    public void inspectBakedGood(MouseEvent event) {
+        int index = 0;
+        Controller controller = new Controller();
+        String name = recipeBakedGoodName.getText();
+        for (int i = 0; i < nodes.length; i++) {
+            if (name.equals(((Label) ((HBox) nodes[i]).getChildren().get(0)).getText())) {
+                index = i;
+            }
+        }
+        controller.itemButton(index);
     }
 }

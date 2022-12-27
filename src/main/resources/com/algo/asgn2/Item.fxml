@@ -19,7 +19,7 @@
             <Insets />
          </HBox.margin>
       </Label>
-      <Button mnemonicParsing="false" onMouseClicked="#inspectBakedGood" prefHeight="28.0" prefWidth="135.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20;" stylesheets="@style.css" text="inspect">
+      <Button mnemonicParsing="false" onMouseClicked="#inspectBakedGood" prefHeight="28.0" prefWidth="135.0" style="-fx-border-color: #2A73FF; -fx-border-radius: 20;" stylesheets="@style.css" text="select">
          <HBox.margin>
             <Insets />
          </HBox.margin>

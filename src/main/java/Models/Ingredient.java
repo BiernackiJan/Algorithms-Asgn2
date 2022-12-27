@@ -15,11 +15,6 @@ public class Ingredient {
         this.kcal = calculateKcal(1);
     }
 
-    public Ingredient(String n,String d,float amnt){
-        this.ingName = n;
-        this.ingDes = d;
-        this.amount = amnt;
-    }
     //Getters-----------------------------------------------------
     public String getIngName() {
         return ingName;

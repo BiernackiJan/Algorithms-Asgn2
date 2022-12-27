@@ -7,13 +7,11 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
-import com.algo.asgn2.ItemController;
 import Resources.LinkedList;
 import Resources.MyHashSC;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -837,146 +835,71 @@ public class Controller {
     public static LinkedList<Object> searchItems = new LinkedList<>();
     public static LinkedList<String> allSearchItems = new LinkedList<>();
     public void searchForItems(MouseEvent event){//Press on Search Icon to search for Items
-        listAllSearchItems.setVisible(false);
-        searchItems.delAll();
         System.out.println("Searching");
         searchIcon.setVisible(false);
         searchIcon1.setVisible(true);
         listSearchItems.getItems().clear();
+        searchItems.delAll();
+        allSearchItems.delAll();
         String s1 = searchOption1.getText();
         String s2 = searchOption2.getText();
-        String ingStr = "ingredient";
-        String bgStr = "baked goods";
-        String rpStr = "recipes";
-        boolean added = false;
 
 
         //returns the baked good and recipe that the search word is found in
         if (!searchOption1.getText().isBlank() && searchOption2.getText().isBlank()){
-            System.out.println("option 2 blank");
             //loops through everything in order to find all the items with name
-            if(ingStr.contains(s1.toLowerCase())) {
-                for (int i = 0; i < items.numNodes(); i++) {
-                    Ingredient ing = (Ingredient) items.get(i);
-                    searchItems.add(ing);
-                    listSearchItems.getItems().add(ing);
-                    allSearchItems.add(ing + "");
-                }
-            }
-
-            for(int i = 0; i < items.numNodes(); i++){
-                Ingredient ing = (Ingredient) items.get(i);
-                if(ing.toString().toLowerCase().contains(s1.toLowerCase())){
-                    searchItems.add(ing);
-                    listSearchItems.getItems().add(ing);
-                    allSearchItems.add(ing + "");
-                }
-            }
-
-            if(bgStr.contains(s1.toLowerCase())){
-                for(int i = 0; i < list.numNodes(); i ++){
-                    BakedGoods bg = (BakedGoods)  list.get(i);
-                    listSearchItems.getItems().add(bg);
-                    searchItems.add(bg);
-                    allSearchItems.add(bg + "");
-                }
-            }
-
-            if(rpStr.contains(s1.toLowerCase())){
-                for(int i = 0; i < list.numNodes(); i++){
-                    BakedGoods bg = (BakedGoods) list.get(i);
-                    for(int j = 0; j < bg.recipes.numNodes(); j++){
-                        Recipe rp = (Recipe) bg.recipes.get(j);
-                        listSearchItems.getItems().add(rp);
-                        searchItems.add(bg);
-                        allSearchItems.add(rp + "");
-                    }
-                }
-            }
-
-            for (int i=0; i < list.numNodes(); i++) {
+            for (int i=0; i < list.numNodes(); i++){
                 BakedGoods b = ((BakedGoods) list.get(i));
-                String s = "";
-                if (b.toString().toLowerCase().contains(s1.toLowerCase())) {
-                    s = b + "  ";
-                    System.out.println("added baked good 1");
-                    for (int j = 0; j < b.recipes.numNodes(); j++) {
-                        Recipe r = (Recipe) b.recipes.get(j);
-                        if (r.toString().toLowerCase().contains(s1.toLowerCase())) {
-                            s += r + "  ";
-
-                            System.out.println("added" + r);
-                        }
-                    }
-                    searchItems.add(b);
-                    listSearchItems.getItems().add(s);
-                    allSearchItems.add(s);
-                    if (!b.toString().contains(s1)) {
-                        for (int j = 0; j < b.recipes.numNodes(); j++) {
-                            Recipe r = (Recipe) b.recipes.get(j);
-                            if (r.toString().toLowerCase().contains(s1.toLowerCase())) {
-                                //String temp = r.toString();
-                                searchItems.add(r);
-                                listSearchItems.getItems().add(r);
-                                allSearchItems.add(r + "");
-                            }
-                        }
+                if (b.toString().toLowerCase().contains(s1.toLowerCase())){
+                    String str1 = ((BakedGoods) list.get(i)).fullString();
+                    listSearchItems.getItems().add(str1);
+                    searchItems.add(list.get(i));
+                    allSearchItems.add(str1);
+                } for (int j = 0; j < b.recipes.numNodes(); j++){
+                    Recipe r = (Recipe) b.recipes.get(j);
+                    String str2 = r.stringCheck();
+                    if (str2.toLowerCase().contains(s1.toLowerCase())){
+                        listSearchItems.getItems().add(str2);
+                        searchItems.add(r);
+                        allSearchItems.add(str2);
                     }
                 }
             }
-            added = true;
         }
         //returns all instances of the word
         if (!searchOption2.getText().isBlank() && searchOption1.getText().isBlank()){
-            if(!added) {
-                //loops through all the Baked Goods to see if the searchOption2 is there
-                for (int i = 0; i < list.numNodes(); i++) {
-                    BakedGoods b = ((BakedGoods) list.get(i));
-                    if (b.toString().toLowerCase().contains(s2.toLowerCase())) {
-                        String str = b.toString();
-                        searchItems.add(b);
-                        listSearchItems.getItems().add(str);
-                        allSearchItems.add(str);
-                    }
-                    if (!b.toString().contains(s2)) {
-                        for (int j = 0; j < b.recipes.numNodes(); j++) {
-                            Ingredient r = (Ingredient) items.get(j);
-                            //String temp = r.toString();
-                            if (r.toString().toLowerCase().contains(s2.toLowerCase())) {
-                                searchItems.add(r);
-                                listSearchItems.getItems().addAll(r);
-                                allSearchItems.add(r + "");
-                            }
+            //loops through all the Baked Goods
+            for (int i = 0; i < list.numNodes(); i++){
+                BakedGoods b = ((BakedGoods) list.get(i));
+                //loops through all the recipes
+                for (int j = 0; j < b.recipes.numNodes(); j++) {
+                    Recipe r = (Recipe) b.recipes.get(j);
+                    //loops through all the ingredients and if any match searchOption2 it will print to list view
+                    for (int k = 0; k < r.recipeIngredients.numNodes(); k++){
+                        Ingredient ing = (Ingredient) items.get(k);
+                        //String temp = r.toString();
+                        if (ing.toString().toLowerCase().contains(s2.toLowerCase())) {
+                            listSearchItems.getItems().add(ing);
+                            searchItems.add(ing);
+                            allSearchItems.add(ing.toString());
                         }
                     }
                 }
-                added = true;
             }
         }
-        if (!searchOption2.getText().isBlank() && !searchOption1.getText().isBlank()) {
-            if (!added) {
-                System.out.println("neither empty");
-                //loops through everything in order to find all the items with name
-                for (int i = 0; i < list.numNodes(); i++) {
-                    BakedGoods b = ((BakedGoods) list.get(i));
 
-                    for (int j = 0; j < b.recipes.numNodes(); j++) {
-                        Recipe r = (Recipe) b.recipes.get(j);
-                        if (b.toString().toLowerCase().contains(s1.toLowerCase()) && r.toString().toLowerCase().contains(s2.toLowerCase())) {
-                            Object o = b + "    " + r;
-                            listSearchItems.getItems().add(o);
-                            searchItems.add(o);
-                            allSearchItems.add(o + "");
-                        } else System.out.println("ERROR");
-                    }
-                }
-            }
-            for (int i = 0; i < items.numNodes(); i++) {
-                Ingredient ing = (Ingredient) items.get(i);
-                if (ing.toString().toLowerCase().contains(s1.toLowerCase())) {
-                    listSearchItems.getItems().add(ing);
-                    searchItems.add(ing);
-                    allSearchItems.add(ing + "");
+        if (!searchOption2.getText().isBlank() && !searchOption1.getText().isBlank()){
+            //loops through everything in order to find all the items with name
+            for (int i=0; i < list.numNodes(); i++){
+                BakedGoods b = ((BakedGoods) list.get(i));
+
+                for (int j = 0; j < b.recipes.numNodes(); j++) {
+                    Recipe r = (Recipe) b.recipes.get(j);
+                    if (b.toString().toLowerCase().contains(s1.toLowerCase()) && r.stringCheck().toLowerCase().contains(s2.toLowerCase())){
+                        listSearchItems.getItems().add(r + "  In: " + b);
+                        searchItems.add(r);
+                        allSearchItems.add(r + "  In: " + b);
+                    } else System.out.println("ERROR");
                 }
             }
         }
@@ -1027,7 +950,6 @@ public class Controller {
 //                        System.out.println(s + " 2");
                         if (s.toString().contains(ing.getIngName())){
                             listIngInOtherRecipe.getItems().add(r.stringCheck());
-                            System.out.println(r.stringCheck());
                         }
                     }
                 }
@@ -1053,7 +975,7 @@ public class Controller {
                 for (int j = 0; j < allSearchItems.numNodes(); j++) {
                     String o1 = allSearchItems.get(j).toString();
                     String s2 = o1.substring(0, 10);
-                    if (s1.equals(s2)) {
+                    if (s1.contains(s2)) {
                         temporary.add(o1);
                     }
                 }
@@ -1097,30 +1019,31 @@ public class Controller {
             String str = obj.toString().toLowerCase();
             String str1 = str.substring(2, 4);
             int hash = str1.hashCode();
-            if (sortedList.numNodes() == 0) {
-                sortedList.add(obj);
-            } else {
-                for (int i = 0; i < sortedList.numNodes(); i++) {
+            for (int i = 0; i < searchItems.numNodes(); i++) {
+                if (!added) {
+                    if (sortedList.numNodes() == 0) {
+                        sortedList.add(obj);
+                        added = true;
+                    }
+                    Object obj1 = sortedList.get(i);
+                    String str2 = obj1.toString().toLowerCase();
+                    String str3 = str2.substring(2, 4);
+                    int hash1 = str3.hashCode();
                     if (!added) {
-                        Object obj1 = sortedList.get(i);
-                        String str2 = obj1.toString().toLowerCase();
-                        String str3 = str2.substring(2, 4);
-                        int hash1 = str3.hashCode();
-                        if (!added) {
-                            if (hash <= hash1) {
-                                sortedList.add(i, obj);
-                                added = true;
-                            }
+                        if (hash <= hash1) {
+                            sortedList.add(i, obj);
+                            added = true;
                         }
-                        else if (i == sortedList.numNodes() - 1) {
-                                sortedList.add(obj);
-                                added = true;
-                        }
+                    }
+                    if (!added && i == sortedList.numNodes() - 1) {
+                        sortedList.add(obj);
+                        added = true;
                     }
                 }
             }
         }
         searchItems = sortedList;
+
     }
 
     public void kcalSort(LinkedList<Object> list) {
@@ -1325,15 +1248,15 @@ public class Controller {
     private Pane pnlDrillDown;
     @FXML
     private VBox pnItems = null;
-
-
-
-
-
+    @FXML
+    public ListView<String> inspectedGoodName;
+    @FXML
+    public ListView inspectedGoodRecipes;
 
     public void initial() throws IOException {
         ItemController itemController = new ItemController();
         itemController.getBakedGoodItems(list);
+        pnItems.getChildren().clear();
         for (int i = 0; i < nodes.length; i++) {
             pnItems.getChildren().add(nodes[i]);
             int j = i;
@@ -1341,29 +1264,40 @@ public class Controller {
         }
     }
 
-    public static void itemButton(){
-        System.out.println("test");
+    private int index = 0;
+    public void itemButton(int index){
+        this.index = index;
+        System.out.println(this.index);
+        //inspectedGoodRecipes.getItems().clear();
     }
 
-//            try {
-//                final int j = i;
-//                nodes[i] = FXMLLoader.load(getClass().getResource("Item.fxml"));
-//                nodes[i].
-//                //give the items some effect
-//
-//                nodes[i].setOnMouseEntered(event -> {
-//                    nodes[j].setStyle("-fx-background-color : #0A0E3F");
-//                });
-//                nodes[i].setOnMouseExited(event -> {
-//                    nodes[j].setStyle("-fx-background-color : #02030A");
-//                });
-//                pnItems.getChildren().add(nodes[i]);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+    public void inspected(ActionEvent action){
+        inspectedGoodName.getItems().clear();
+        inspectedGoodRecipes.getItems().clear();
+        BakedGoods bg = (BakedGoods) list.get(index);
+        inspectedGoodName.getItems().add(bg.toString());
+
+        String str = "";
+        for(int i = 0; i < bg.recipes.numNodes(); i++){
+            Recipe r = (Recipe) bg.recipes.get(i);
+            str += r.toString() + "   Ingredients: " + "\n";
+            for(int j = 0; j < r.recipeIngredients.numNodes(); j++){
+                Ingredient ing = (Ingredient) r.recipeIngredients.get(j);
+                System.out.println(ing.getKcal() + ing.getAmount());
+                str += "     " + ing;
+            }
+            str += "" + "\n";
+        }
+
+        inspectedGoodRecipes.getItems().add(str);
+    }
+
+    public void Button() {
+        String str = list.get(index).toString();
+
+    }
 
 
-    //TODO make the items initialize when the drill down button is clicked.
 
 
     @FXML
