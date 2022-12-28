@@ -1,6 +1,7 @@
 package com.algo.asgn2;
 
 
+import Resources.HashTable;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -8,7 +9,6 @@ import Models.BakedGoods;
 import Models.Ingredient;
 import Models.Recipe;
 import Resources.LinkedList;
-import Resources.MyHashSC;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
     public static LinkedList<Ingredient> items = new LinkedList<>();
 
-    public static MyHashSC<Ingredient> ingredientHashTable = new MyHashSC<>(30);
+    public static HashTable ingredientHashTable = new HashTable(20);
 
 
 
@@ -141,6 +141,7 @@ public class Controller {
             pnlSearch.setVisible(false);
             pnlDrillDown.setVisible(true);
             initial();
+            hashIngredient();
         }
         if(actionEvent.getSource()== btnSignout){
             Platform.exit();;
@@ -191,8 +192,7 @@ public class Controller {
     private ListView<Ingredient> listAllIng;
     @FXML
     private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
-//    @FXML
-//    private ListView<Ingredient> ingredientList;
+
     @FXML
     private void addIngredient(ActionEvent event){
         ingWasAdded.setVisible(true);
@@ -356,15 +356,9 @@ public class Controller {
         float amnt = Float.parseFloat(ingredientGrams.getText());
         float cals = amnt*selectedIng.getKcal();
 
-
         Ingredient rIng = selectedIng;
 
-        //ingredientHashTable.add()
-        System.out.println(ingredientHashTable.hashFunction(Math.abs(rIng.hashCode())));
-
-
-        rIng.setAmount(amnt);
-        rIng.setCalories(cals);
+        int ing = ingredientsList.getSelectionModel().getSelectedIndex();
 
         float f = r.getKcal() + cals;
         r.setKcal(f);
@@ -373,8 +367,15 @@ public class Controller {
 
 
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
+            int i = r.recipeIngredients.numNodes();
             r.recipeIngredients.add(rIng);
+            ((Ingredient)r.recipeIngredients.get(i)).setAmount(amnt);
+            ((Ingredient)r.recipeIngredients.get(i)).setCalories(cals);
             addedIngredients.getItems().add(rIng.toString());
+
+            r.recipeIngredientsTable.add(rIng.hashCode() ,r.recipeIngredients.get(i).hashCode());
+            System.out.println(r.recipeIngredientsTable.get(r.recipeIngredients.get(i).hashCode()));//TODO input value in to recipe hash table from the hashed ingredient in recipe. (That gives location) Input location of ingredient in main hash table.
+            //r.recipeIngredientsTable.displayHashTable();
         }
     } //Button to add an ingredient to a recipe
 
@@ -1147,6 +1148,14 @@ public class Controller {
         }
 
         inspectedGoodRecipes.getItems().add(str);
+    }
+
+    public void hashIngredient(){
+        for(int i = 0; i < items.numNodes(); i++){
+            ingredientHashTable.add(i, items.get(i).hashCode());
+            System.out.println(items.get(i).hashCode());
+        }
+        ingredientHashTable.displayHashTable();
     }
 
 

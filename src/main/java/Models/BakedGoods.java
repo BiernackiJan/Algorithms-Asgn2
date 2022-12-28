@@ -1,7 +1,6 @@
 package Models;
 
 import Resources.LinkedList;
-import Resources.MyHashSC;
 
 public class BakedGoods {
     public LinkedList<Recipe> recipes = new LinkedList<>();
