@@ -195,7 +195,7 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #02030A;">
          <children>
-            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <Pane fx:id="pnlOverview" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <Label layoutX="263.0" layoutY="62.0" prefHeight="39.0" prefWidth="267.0" text="WELCOME TO THE" textFill="WHITE">
                      <font>
@@ -390,7 +390,7 @@
                   </Group>
                </children>
             </Pane>
-            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0">
+            <Pane fx:id="pnlSearch" prefHeight="554.0" prefWidth="793.0" visible="false">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="28.0" prefHeight="53.0" prefWidth="214.0" text="Search for Items" textFill="#e7e5e5">
                      <font>
@@ -448,9 +448,15 @@
                         </VBox>
                      </content>
                   </ScrollPane>
-                  <ListView fx:id="inspectedGoodRecipes" layoutX="484.0" layoutY="146.0" prefHeight="406.0" prefWidth="301.0" stylesheets="@style.css" />
+                  <ListView fx:id="inspectedGoodRecipes" layoutX="484.0" layoutY="146.0" prefHeight="251.0" prefWidth="301.0" stylesheets="@style.css" />
                   <ListView fx:id="inspectedGoodName" layoutX="484.0" layoutY="104.0" prefHeight="42.0" prefWidth="301.0" stylesheets="@style.css" />
                   <Button layoutX="609.0" layoutY="70.0" mnemonicParsing="false" onAction="#inspected" stylesheets="@style.css" text="Inspect" />
+                  <ListView fx:id="originalIngredients" layoutX="484.0" layoutY="446.0" prefHeight="106.0" prefWidth="301.0" stylesheets="@style.css" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="540.0" layoutY="408.0" prefHeight="26.0" prefWidth="192.0" text="Original Ingredients" textFill="#e7e5e5">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="pnlDrillDown1" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" visible="false">

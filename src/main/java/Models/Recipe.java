@@ -1,10 +1,11 @@
 package Models;
 
 import Resources.LinkedList;
+import Resources.MyHashSC;
 
 public class Recipe {
     public LinkedList<Ingredient> recipeIngredients = new LinkedList<>();
-
+    public MyHashSC<Ingredient> recipeHashTable = new MyHashSC<>(30);
     private String Name;
     private float Kcal = 0;
 

@@ -30,7 +30,7 @@ public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
     public static LinkedList<Ingredient> items = new LinkedList<>();
 
-    public static MyHashSC<BakedGoods> hashList = new MyHashSC<>(10);
+    public static MyHashSC<Ingredient> ingredientHashTable = new MyHashSC<>(30);
 
 
 
@@ -279,12 +279,14 @@ public class Controller {
         Image image = new Image(bU);
         goodsImage.setImage(image);
 
-        hashList.add(bg,bg.hashCode());
 
-        hashList.displayHashTable();
-        System.out.println(bg.hashCode());
-        //System.out.printf(String.valueOf(hashedGood));
-        System.out.printf(String.valueOf(bg));
+
+//        hashList.add(bg,bg.hashCode());
+//
+//        hashList.displayHashTable();
+//        System.out.println(bg.hashCode());
+//        //System.out.printf(String.valueOf(hashedGood));
+//        System.out.printf(String.valueOf(bg));
 
 
         goodsName.clear();
@@ -356,6 +358,10 @@ public class Controller {
 
 
         Ingredient rIng = selectedIng;
+
+        //ingredientHashTable.add()
+        System.out.println(ingredientHashTable.hashFunction(Math.abs(rIng.hashCode())));
+
 
         rIng.setAmount(amnt);
         rIng.setCalories(cals);
@@ -1099,9 +1105,11 @@ public class Controller {
     @FXML
     private VBox pnItems = null;
     @FXML
-    public ListView<String> inspectedGoodName;
+    private ListView<String> inspectedGoodName;
     @FXML
-    public ListView inspectedGoodRecipes;
+    private ListView inspectedGoodRecipes;
+    @FXML
+    private ListView originalIngredients;
 
     public void initial() throws IOException {
         ItemController itemController = new ItemController();
@@ -1117,7 +1125,6 @@ public class Controller {
     private int index = 0;
     public void itemButton(int index){
         this.index = index;
-        System.out.println(this.index);
         //inspectedGoodRecipes.getItems().clear();
     }
 
@@ -1142,10 +1149,7 @@ public class Controller {
         inspectedGoodRecipes.getItems().add(str);
     }
 
-    public void Button() {
-        String str = list.get(index).toString();
 
-    }
 
 
 

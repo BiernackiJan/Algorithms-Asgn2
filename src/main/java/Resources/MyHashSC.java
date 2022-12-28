@@ -11,8 +11,8 @@ public class MyHashSC<E> {
     public MyHashSC(int size){
         hashTable= (List<E>[]) new List [size];
 
-        for(int i=0;i<hashTable.length;i++)
-            hashTable[i]=new LinkedList<>();
+//        for(int i=0;i<hashTable.length;i++)
+//            hashTable[i]=new LinkedList<>();
     }
 
     public void displayHashTable() {
@@ -21,7 +21,6 @@ public class MyHashSC<E> {
             System.out.println("\nChain "+i+"\n------------");
             for(E e : hashTable[i])
                 System.out.println(e);
-
         }
     }
 
@@ -30,14 +29,12 @@ public class MyHashSC<E> {
     }
 
     public int add(E item, int key) {
-        int home = hashFunction(key);
-        hashTable[home].add(item);
-        return home;
+        hashTable[key].add(item);
+        return key;
     }
 
     public int add(E item) {
         int home = hashFunction(Math.abs(item.hashCode()));
-        System.out.println(home);
         hashTable[home].add(item);
         return home;
     }
