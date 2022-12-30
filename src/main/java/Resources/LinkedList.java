@@ -30,10 +30,12 @@ public class LinkedList<E> {
 
     public Object get(int index) {
         // index must be 1 or higher
-        if (index == 0)
+        if (index == 0) {
             return head.getData();
-        Node current = null;
-        if (head != null) {
+        }
+
+        else if (head != null) {
+            Node current;
             current = head.getNext();
             for (int i = 1; i < index; i++) {
                 if (current.getNext() == null)

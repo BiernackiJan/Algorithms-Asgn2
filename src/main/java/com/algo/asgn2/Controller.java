@@ -28,9 +28,9 @@ import static java.lang.String.valueOf;
 
 public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
-    public static LinkedList<Ingredient> items = new LinkedList<>();
+    public  LinkedList<Ingredient> items = new LinkedList<>();
 
-    public static HashTable ingredientHashTable = new HashTable(20);
+    public static HashTable ingredientHashTable = new HashTable(30);
 
 
 
@@ -141,7 +141,6 @@ public class Controller {
             pnlSearch.setVisible(false);
             pnlDrillDown.setVisible(true);
             initial();
-            hashIngredient();
         }
         if(actionEvent.getSource()== btnSignout){
             Platform.exit();;
@@ -197,6 +196,7 @@ public class Controller {
     private void addIngredient(ActionEvent event){
         ingWasAdded.setVisible(true);
         listAddedIng.setVisible(true);
+        int i = items.numNodes();
 
         String iN = ingredientName.getText();
         String iD = ingredientDesc.getText();
@@ -205,6 +205,7 @@ public class Controller {
 
         Ingredient ing = new Ingredient(iN,iD, iK,iM);
         items.add(ing);
+        ingredientHashTable.add(i ,ing.hashCode());
 
         ingredientName.clear();
         ingredientDesc.clear();
@@ -274,19 +275,12 @@ public class Controller {
         list.add(bg);
         listAddedGood.getItems().add(bg);
 
-        //Sample Apple image
-        //https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w=
+
         Image image = new Image(bU);
         goodsImage.setImage(image);
 
 
 
-//        hashList.add(bg,bg.hashCode());
-//
-//        hashList.displayHashTable();
-//        System.out.println(bg.hashCode());
-//        //System.out.printf(String.valueOf(hashedGood));
-//        System.out.printf(String.valueOf(bg));
 
 
         goodsName.clear();
@@ -356,9 +350,7 @@ public class Controller {
         float amnt = Float.parseFloat(ingredientGrams.getText());
         float cals = amnt*selectedIng.getKcal();
 
-        Ingredient rIng = selectedIng;
-
-        int ing = ingredientsList.getSelectionModel().getSelectedIndex();
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(),selectedIng.getIngDes(),cals,amnt);
 
         float f = r.getKcal() + cals;
         r.setKcal(f);
@@ -369,18 +361,20 @@ public class Controller {
         if (selectedIng != null && ingredientGrams.getCharacters() != "") {
             int i = r.recipeIngredients.numNodes();
             r.recipeIngredients.add(rIng);
-            ((Ingredient)r.recipeIngredients.get(i)).setAmount(amnt);
-            ((Ingredient)r.recipeIngredients.get(i)).setCalories(cals);
-            addedIngredients.getItems().add(rIng.toString());
+            addedIngredients.getItems().clear();
 
-            r.recipeIngredientsTable.add(rIng.hashCode() ,r.recipeIngredients.get(i).hashCode());
-            System.out.println(r.recipeIngredientsTable.get(r.recipeIngredients.get(i).hashCode()));//TODO input value in to recipe hash table from the hashed ingredient in recipe. (That gives location) Input location of ingredient in main hash table.
-            //r.recipeIngredientsTable.displayHashTable();
+            for(int j = 0; j < r.recipeIngredients.numNodes(); j++){
+                Ingredient ing = (Ingredient) r.recipeIngredients.get(j);
+                addedIngredients.getItems().add(ing.toString());
+            }
+            r.recipeIngredientsTable.add(selectedIng.hashCode() ,r.recipeIngredients.get(i).hashCode());//TODO input value in to recipe hash table from the hashed ingredient in recipe. (That gives location) Input location of ingredient in main hash table.
+
         }
     } //Button to add an ingredient to a recipe
 
     public void choseBakedGood(){
         chooseRecipeToAddTo.getItems().clear();
+
         BakedGoods bg = chooseGood.getSelectionModel().getSelectedItem();
         if(bg != null) {
             for (int i = 0; i < bg.recipes.numNodes(); i++) {
@@ -796,11 +790,6 @@ public class Controller {
 
 
 
-    //TODO Make the total kcal of a recipe change when an Ing in a recipe is edited or deleted
-
-
-
-
 
 
 
@@ -831,7 +820,7 @@ public class Controller {
     @FXML
     private ListView<String> listIngInOtherRecipe;
     @FXML
-    private ListView<Object> listAllSearchItems;//TODO might not work after merge check
+    private ListView<Object> listAllSearchItems;//TODO delete this
     @FXML
     private TextField searchOption1;
 
@@ -1134,6 +1123,7 @@ public class Controller {
         inspectedGoodRecipes.getItems().clear();
         BakedGoods bg = (BakedGoods) list.get(index);
         inspectedGoodName.getItems().add(bg.toString());
+        originalIngredients.getItems().clear();
 
         String str = "";
         for(int i = 0; i < bg.recipes.numNodes(); i++){
@@ -1141,21 +1131,17 @@ public class Controller {
             str += r.toString() + "   Ingredients: " + "\n";
             for(int j = 0; j < r.recipeIngredients.numNodes(); j++){
                 Ingredient ing = (Ingredient) r.recipeIngredients.get(j);
-                System.out.println(ing.getKcal() + ing.getAmount());
                 str += "     " + ing;
+            }
+            for(int j = 0; j < r.recipeIngredients.numNodes(); j++){
+                int k = r.recipeIngredients.get(j).hashCode();
+                int l = ingredientHashTable.get(k);
+                originalIngredients.getItems().add(items.get(l));
             }
             str += "" + "\n";
         }
 
         inspectedGoodRecipes.getItems().add(str);
-    }
-
-    public void hashIngredient(){
-        for(int i = 0; i < items.numNodes(); i++){
-            ingredientHashTable.add(i, items.get(i).hashCode());
-            System.out.println(items.get(i).hashCode());
-        }
-        ingredientHashTable.displayHashTable();
     }
 
 

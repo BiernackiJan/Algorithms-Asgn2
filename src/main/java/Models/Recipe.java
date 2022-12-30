@@ -5,7 +5,7 @@ import Resources.LinkedList;
 
 public class Recipe {
     public LinkedList<Ingredient> recipeIngredients = new LinkedList<>();
-    public HashTable recipeIngredientsTable = new HashTable(20);
+    public HashTable recipeIngredientsTable = new HashTable(30);
     private String Name;
     private float Kcal = 0;
 
