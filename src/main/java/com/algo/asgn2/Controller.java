@@ -145,7 +145,7 @@ public class Controller {
             Platform.exit();;
         }
 
-    }
+    }//handles all the buttons on the left side of the screen
 
 
 
@@ -160,7 +160,7 @@ public class Controller {
 
     //Home
     @FXML
-    private Pane pnlOverview;//Nothing needed here for now Maybe a save and load button + reset facility if needed
+    private Pane pnlOverview;
 
 
 
@@ -192,30 +192,31 @@ public class Controller {
     private Label ingWasAdded;//label to show above list view when add ingredient button is pressed
 
     @FXML
-    private void addIngredient(ActionEvent event){
+    private void addIngredient(ActionEvent event){//button to add an ingredient to the system
         ingWasAdded.setVisible(true);
         listAddedIng.setVisible(true);
-        int i = items.numNodes();
 
         String iN = ingredientName.getText();
         String iD = ingredientDesc.getText();
         float iK = Float.parseFloat(ingredientKcal.getText());
         float iM = Float.parseFloat(perMeasurement.getText());
 
-        Ingredient ing = new Ingredient(iN,iD, iK,iM);
-        items.add(ing);
+        Ingredient ing = new Ingredient(iN,iD, iK,iM);//create a new ingredient with the values from the text fields
+        items.add(ing);//add the ingredient to the linked list
 
+
+        //clear the text fields
         ingredientName.clear();
         ingredientDesc.clear();
         ingredientKcal.clear();
         perMeasurement.clear();
 
-
+        //Shows all added ingredients in the list view
         populateAllIngredientList();
 
         listAddedIng.getItems().clear();
-        listAddedIng.getItems().add(ing);
-    } //button to add an ingredient to the system
+        listAddedIng.getItems().add(ing);//shows the most recent added ingredient in the list view
+    }
 
     public void populateAllIngredientList(){
         listAllIng.getItems().clear();
@@ -268,19 +269,19 @@ public class Controller {
         String bD = goodsDesc.getText();
         String bU = imageUrl.getText();
 
-        BakedGoods bg = new BakedGoods(bN, bD, bC, bU);
+        BakedGoods bg = new BakedGoods(bN, bD, bC, bU);//new BakedGoods object with the values from the text fields
 
+        //add the BakedGood to the linked list
         list.add(bg);
-        listAddedGood.getItems().add(bg);
+        listAddedGood.getItems().add(bg);//add the BakedGood to the list view
 
 
+        //baked goods image
         Image image = new Image(bU);
         goodsImage.setImage(image);
 
 
-
-
-
+        //clear the text fields
         goodsName.clear();
         originCt.clear();
         goodsDesc.clear();
@@ -322,10 +323,10 @@ public class Controller {
         chooseGood.getItems().clear();
         ingredientsList.getItems().clear();
         for(int i = 0; i < list.numNodes(); i++){
-            chooseGood.getItems().add((BakedGoods) list.get(i));
+            chooseGood.getItems().add((BakedGoods) list.get(i));//adds all the baked goods to the combo box
         }
         for(int i = 0; i < items.numNodes(); i++){
-            ingredientsList.getItems().add((Ingredient) items.get(i));
+            ingredientsList.getItems().add((Ingredient) items.get(i));//adds all the ingredients to the list view
         }
     }
 
@@ -333,7 +334,7 @@ public class Controller {
         String str = recipeName.getText();
         Recipe R = new Recipe(str);
         BakedGoods bg = chooseGood.getSelectionModel().getSelectedItem();
-        bg.recipes.add(R);
+        bg.recipes.add(R);//creating a recipe in the selected baked good
         choseBakedGood();
     }
 
@@ -348,24 +349,24 @@ public class Controller {
         float amnt = Float.parseFloat(ingredientGrams.getText());
         float cals = amnt*selectedIng.getKcal();
 
-        Ingredient rIng = new Ingredient(selectedIng.getIngName(),selectedIng.getIngDes(),cals,amnt);
+        Ingredient rIng = new Ingredient(selectedIng.getIngName(),selectedIng.getIngDes(),cals,amnt);//create a new ingredient with the values from the text fields in the chosen recipe
 
         float f = r.getKcal() + cals;
-        r.setKcal(f);
+        r.setKcal(f);//set the kcal of the recipe to the sum of the kcal of the ingredients
 
         ingredientGrams.clear();
 
 
-        if (selectedIng != null && ingredientGrams.getCharacters() != "") {
+        if (selectedIng != null && ingredientGrams.getCharacters() != "") {//if the grams text field is not empty
             int i = r.recipeIngredients.numNodes();
-            r.recipeIngredients.add(rIng);
-            addedIngredients.getItems().clear();
+            r.recipeIngredients.add(rIng);//add the ingredient to the recipe
+            addedIngredients.getItems().clear();//clear the list view
 
-            for(int j = 0; j < r.recipeIngredients.numNodes(); j++){
+            for(int j = 0; j < r.recipeIngredients.numNodes(); j++){//cycle through the linked list of ingredients in the recipe
                 Ingredient ing = (Ingredient) r.recipeIngredients.get(j);
-                addedIngredients.getItems().add(ing.toString());
+                addedIngredients.getItems().add(ing.toString());//add the ingredient to the list view
             }
-            r.recipeIngredientsTable.add(ingredientsList.getSelectionModel().getSelectedIndex() ,r.recipeIngredients.get(i).hashCode());//TODO input value in to recipe hash table from the hashed ingredient in recipe. (That gives location) Input location of ingredient in main hash table.
+            r.recipeIngredientsTable.add(ingredientsList.getSelectionModel().getSelectedIndex() ,r.recipeIngredients.get(i).hashCode());//adds the index of the original ingredient to the recipe hash table
 
         }
     } //Button to add an ingredient to a recipe
@@ -432,7 +433,7 @@ public class Controller {
             Ingredient ing = (Ingredient) items.get(i);
             editChosenIngredient.getItems().add(ing);
         }
-    }
+    }//populates the list view with all the ingredients when that option is chosen in the combo box
 
     public void populateChosenGoodList(){
         editChosenGood.getItems().clear();
@@ -440,7 +441,7 @@ public class Controller {
             BakedGoods bg = (BakedGoods) list.get(i);
             editChosenGood.getItems().add(bg);
         }
-    }
+    }//populates the list view with all the baked goods when that option is chosen in the combo box
 
     public void populateChosenRecipeList(){
         editChosenRecipe.getItems().clear();
@@ -451,16 +452,7 @@ public class Controller {
                 editChosenRecipe.getItems().add(rp);
             }
         }
-    }
-
-    public void populateRecipeIngredientList(){
-        chosenRecipeIngredients.getItems().clear();
-        Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
-        for(int i = 0 ; i < rp.recipeIngredients.numNodes(); i++){
-            Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
-            chosenRecipeIngredients.getItems().add(ing);
-        }
-    }
+    }//populates the list view with all the recipes when that option is chosen in the combo box
 
     @FXML
     private void chooseItemToList(ActionEvent event){
@@ -652,7 +644,7 @@ public class Controller {
         Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
         for(int i = 0; i < rp.recipeIngredients.numNodes(); i++) {
             Ingredient ing = (Ingredient) rp.recipeIngredients.get(i);
-            chosenRecipeIngredients.getItems().add(ing);//TODO: NEED TO CHANGE INGREDIENTS TOSTRING SO THAT IT IS GENERIC AND THAT LIST VIEWS THAT NEED TO BE ADDED TO THAT ARE NOT OBJECT TYPE ONLY RETURN toSting1
+            chosenRecipeIngredients.getItems().add(ing);
         }
     }
 
