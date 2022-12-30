@@ -15,11 +15,11 @@ public class HashTable {
     }
 
     public int hashFunction(int key) {
-        return key%hashTable.length;
+        return key%(hashTable.length-3);
     }
 
     public int get(int key){
-        int index = hashFunction(key);
+        int index = Math.abs(hashFunction(key));
         return hashTable[index];
     }
 

@@ -30,7 +30,6 @@ public class Controller {
     public static LinkedList<BakedGoods> list = new LinkedList<>();
     public  LinkedList<Ingredient> items = new LinkedList<>();
 
-    public static HashTable ingredientHashTable = new HashTable(30);
 
 
 
@@ -205,7 +204,6 @@ public class Controller {
 
         Ingredient ing = new Ingredient(iN,iD, iK,iM);
         items.add(ing);
-        ingredientHashTable.add(i ,ing.hashCode());
 
         ingredientName.clear();
         ingredientDesc.clear();
@@ -367,7 +365,7 @@ public class Controller {
                 Ingredient ing = (Ingredient) r.recipeIngredients.get(j);
                 addedIngredients.getItems().add(ing.toString());
             }
-            r.recipeIngredientsTable.add(selectedIng.hashCode() ,r.recipeIngredients.get(i).hashCode());//TODO input value in to recipe hash table from the hashed ingredient in recipe. (That gives location) Input location of ingredient in main hash table.
+            r.recipeIngredientsTable.add(ingredientsList.getSelectionModel().getSelectedIndex() ,r.recipeIngredients.get(i).hashCode());//TODO input value in to recipe hash table from the hashed ingredient in recipe. (That gives location) Input location of ingredient in main hash table.
 
         }
     } //Button to add an ingredient to a recipe
@@ -1115,7 +1113,6 @@ public class Controller {
     private int index = 0;
     public void itemButton(int index){
         this.index = index;
-        //inspectedGoodRecipes.getItems().clear();
     }
 
     public void inspected(ActionEvent action){
@@ -1135,7 +1132,7 @@ public class Controller {
             }
             for(int j = 0; j < r.recipeIngredients.numNodes(); j++){
                 int k = r.recipeIngredients.get(j).hashCode();
-                int l = ingredientHashTable.get(k);
+                int l = r.recipeIngredientsTable.get(k);
                 originalIngredients.getItems().add(items.get(l));
             }
             str += "" + "\n";
