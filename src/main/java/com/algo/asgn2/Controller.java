@@ -639,7 +639,7 @@ public class Controller {
     }
 
 
-    public void populateRecipeIngredients(){
+    public void populateRecipeIngredients(){//Populate the ListView with the Ingredients in the Recipe
         chosenRecipeIngredients.getItems().clear();
         Recipe rp = editChosenRecipe.getSelectionModel().getSelectedItem();
         for(int i = 0; i < rp.recipeIngredients.numNodes(); i++) {
@@ -686,7 +686,7 @@ public class Controller {
             populateRecipeIngredients();
             confirmDelete.setVisible(false);
         }
-    }//when this button is pressed the chosen Ingredient/BakedGood/Recipe should be deleted
+    }//when this button is pressed the chosen Ingredient/BakedGood/Recipe is deleted
 
     public void confirmEdit(ActionEvent event){
         if(chooseTypeToEdit.getSelectionModel().getSelectedIndex() == 0 && editChosenIngredient.getSelectionModel().getSelectedItem() != null){
@@ -751,7 +751,7 @@ public class Controller {
 
             populateRecipeIngredients();
         }
-    }//when this is pressed all the fields that were edited should be changed and applied to the object
+    }//when this is pressed all the fields that were edited are changed and applied to the object
 
 
     @FXML
