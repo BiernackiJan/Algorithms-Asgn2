@@ -30,12 +30,10 @@ public class LinkedList<E> {
 
     public Object get(int index) {
         // index must be 1 or higher
-        if (index == 0) {
+        if (index == 0)
             return head.getData();
-        }
-
-        else if (head != null) {
-            Node current;
+        Node current = null;
+        if (head != null) {
             current = head.getNext();
             for (int i = 1; i < index; i++) {
                 if (current.getNext() == null)
@@ -79,6 +77,7 @@ public class LinkedList<E> {
     public void delAll() {
         if (head != null) {
             head = null;
+            nodes = 0;
         }
     }
 
@@ -144,6 +143,10 @@ public class LinkedList<E> {
 
     public void setHead(Node head) {
         this.head = head;
+    }
+
+    public boolean isEmpty(){
+        return numNodes() == 0;
     }
 
     public void set(int index, E data) {
