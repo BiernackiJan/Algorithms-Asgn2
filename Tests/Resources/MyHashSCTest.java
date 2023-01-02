@@ -8,32 +8,29 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyHashSCTest {
-    private LinkedList<BakedGoods> list;
+    private HashTable<BakedGoods> table = new HashTable<>(3);
+    private BakedGoods goodOnBoundary = new BakedGoods("Apple-pie","cook for 20 mins","Poland", "www.google.com");
+    private BakedGoods goodOnBoundary1 = new BakedGoods("Banana", "Slow bake", "Ireland", "www.gmail.com");
+    private BakedGoods goodOnBoundary2 = new BakedGoods("orange","medium","Germany","www.youtube.com");
 
-    private BakedGoods goodOnBoundary,goodOnBoundary1, goodOnBoundary2;
+
 
     @BeforeEach
     void setUp() {
-        list = new LinkedList<>();
-
-        goodOnBoundary = new BakedGoods("Apple-pie","cook for 20 mins","Poland", "www.google.com");
-        goodOnBoundary1 = new BakedGoods("Banana", "Slow bake", "Ireland", "www.gmail.com");
-        goodOnBoundary2 = new BakedGoods("orange","medium","Germany","www.youtube.com");
+        table.add(goodOnBoundary);
     }
 
     @AfterEach
     void tearDown() {
         goodOnBoundary = goodOnBoundary1 = goodOnBoundary2 = null;
-        list = new LinkedList<>();
+        table = new HashTable<>(3);
     }
 
     @Test
     void add() {
-        HashTable table = new HashTable(3);
-        table.add(goodOnBoundary);
-        table.add(goodOnBoundary1);
-        table.add(goodOnBoundary2, 3);
 
+        table.add(goodOnBoundary1);
+        table.add(goodOnBoundary2.hashCode(), 3);
         table.displayHashTable();
 
     }
@@ -44,12 +41,10 @@ class MyHashSCTest {
 
     @Test
     void get() {
-        MyHashSC<BakedGoods> table = new MyHashSC<>(3);
-        table.add(goodOnBoundary);
         table.add(goodOnBoundary1);
-        table.add(goodOnBoundary2, 3);
+        table.add(goodOnBoundary2.hashCode(), 3);
 
-        assertTrue(table.contains(goodOnBoundary));
+        assertTrue(table.get(2).contains(goodOnBoundary));
         table.displayHashTable();
         //System.out.println(goodOnBoundary);
 
