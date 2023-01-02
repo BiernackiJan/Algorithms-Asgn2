@@ -29,7 +29,7 @@ class MyHashSCTest {
 
     @Test
     void add() {
-        MyHashSC<BakedGoods> table = new MyHashSC<>(3);
+        HashTable table = new HashTable(3);
         table.add(goodOnBoundary);
         table.add(goodOnBoundary1);
         table.add(goodOnBoundary2, 3);
