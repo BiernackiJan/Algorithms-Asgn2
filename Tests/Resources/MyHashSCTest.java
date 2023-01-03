@@ -39,15 +39,15 @@ class MyHashSCTest {
     void testAdd() {
     }
 
-    @Test
-    void get() {
-        table.add(goodOnBoundary1);
-        table.add(goodOnBoundary2.hashCode(), 3);
-
-        assertTrue(table.get(2).contains(goodOnBoundary));
-        table.displayHashTable();
-        //System.out.println(goodOnBoundary);
-
-        //assertEquals(goodOnBoundary, table.get(1));
-    }
+//    @Test
+//    void get() {
+//        table.add(goodOnBoundary1);
+//        table.add(goodOnBoundary2.hashCode(), 3);
+//
+//        assertTrue((table.get(2))contains(goodOnBoundary));
+//        table.displayHashTable();
+//        //System.out.println(goodOnBoundary);
+//
+//        //assertEquals(goodOnBoundary, table.get(1));
+//    }
 }

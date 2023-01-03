@@ -13,15 +13,8 @@ public class HashTable<E> {
     }
 
     public int get(int key) {
-
         int index = Math.abs(hashFunction(key));
-        return hashTable[key];
-    }
-
-    public int add(E item) {
-        int home = hashFunction(Math.abs(item.hashCode()));
-        hashTable[home] = item.hashCode();
-        return home;
+        return hashTable[index];
     }
 
     public int add(int item, int location) { //add item to hash table at selected location
