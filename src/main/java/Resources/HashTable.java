@@ -9,7 +9,7 @@ public class HashTable<E> {
     }
 
     public int hashFunction(int key) {
-        return key % (hashTable.length);
+        return key % (hashTable.length-3);
     }
 
     public int get(int key) {

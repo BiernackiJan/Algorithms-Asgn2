@@ -810,8 +810,6 @@ public class Controller {
     @FXML
     private ListView<String> listIngInOtherRecipe;
     @FXML
-    private ListView<Object> listAllSearchItems;//TODO delete this
-    @FXML
     private TextField searchOption1;
 
     @FXML
@@ -1181,6 +1179,18 @@ public class Controller {
         listSearchItems.getItems().clear();
         listIngInOtherRecipe.getItems().clear();
 
+        inspectedGoodRecipes.getItems().clear();
+        inspectedGoodName.getItems().clear();
+        originalIngredients.getItems().clear();
+
+        searchOption1.clear();
+        searchOption2.clear();
+
+        goodsImage.setImage(null);
+
+        editChosenIngredient.getItems().clear();
+        editChosenRecipe.getItems().clear();
+        editChosenGood.getItems().clear();
 
     }
 
