@@ -39,9 +39,7 @@ public class HashTable<E> {
         System.out.println("Hash Table (using Separate Chaining)\n======================");
         for (int i = 0; i < hashTable.length; i++) {
             System.out.println("\nChain " + i + "\n------------");
-            for (int k : hashTable) {
-                System.out.println(k);
-            }
+            System.out.println(hashTable[i]);
         }
     }
 }
