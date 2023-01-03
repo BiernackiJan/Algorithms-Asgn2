@@ -1012,7 +1012,6 @@ public class Controller {
     }
 
     public void kcalSort(LinkedList<Object> list) {
-        //TODO make a linked list that will sort the items by Kcal in a insertion sort fashion
         LinkedList<Object> sortedList = new LinkedList<>();
         sortedList.delAll();
         boolean added;

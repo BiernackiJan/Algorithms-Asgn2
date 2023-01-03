@@ -108,7 +108,7 @@ public class LinkedList<E> {
 
     public void add(int index, E data) {
         if (head != null) {
-            if (index == 0) {//TODO add to front
+            if (index == 0) {
                 Node temp = new Node(data);
                 temp.setNext(head);
                 head = temp;
